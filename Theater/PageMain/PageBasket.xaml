@@ -1,0 +1,51 @@
+﻿<Page x:Class="theater.PageMain.PageBasket"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:theater.PageMain"
+      mc:Ignorable="d" 
+      d:DesignHeight="800" d:DesignWidth="1200"
+      Title="PageBasket">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="33"/>
+            <RowDefinition Height="667"/>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="50"/>
+        </Grid.RowDefinitions>
+        <ListView x:Name="listBasket" Grid.Row="1">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="100"/>
+                            <ColumnDefinition Width="400"/>
+                            <ColumnDefinition Width="100"/>
+                            <ColumnDefinition Width="100"/>
+                        </Grid.ColumnDefinitions>
+                        <Image Source="{Binding CurrentPhoto}" Grid.Column="0"/>
+                        <StackPanel Grid.Column="1" Width="auto" Orientation="Vertical" HorizontalAlignment="Left">
+                            <TextBlock Width="auto" TextWrapping="Wrap" Height="auto">
+                               <Run Text="Название: "/>
+                               <Run Text="{Binding title}"/>
+                            </TextBlock>
+                            <TextBlock Width="auto" TextWrapping="Wrap" Height="auto">
+                               <Run Text="Дата: "/>
+                               <Run Text="{Binding date}"/>
+                            </TextBlock>
+                        </StackPanel>
+                        <Button x:Name="btnPlus" Grid.Column="2">плюс</Button>
+                        <Button x:Name="btnDeleteFromBasket" Grid.Column="3">Удалить</Button>
+                    </Grid>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+        <StackPanel Orientation="Horizontal" Grid.Row="2">
+            <Button x:Name="btnBack" Click="btnBack_Click">Вернуться</Button>
+            <Button x:Name="btnPay">Оплатить заказ</Button>
+        </StackPanel>
+        <TextBlock x:Name="tbCounter" Text="Не найдено" Grid.Row="3" Width="95" HorizontalAlignment="Left" Height="22" Margin="695,0,0,0"/>
+    </Grid>
+</Page>

@@ -1,0 +1,1130 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="Хранилище TheaterModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="actors">
+          <Key>
+            <PropertyRef Name="id_actor" />
+          </Key>
+          <Property Name="id_actor" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="fio" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="age" Type="int" Nullable="false" />
+          <Property Name="sex" Type="nvarchar" MaxLength="1" Nullable="false" />
+          <Property Name="height" Type="int" Nullable="false" />
+          <Property Name="weight" Type="int" Nullable="false" />
+          <Property Name="contact_details" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="id_user" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="actors_role">
+          <Key>
+            <PropertyRef Name="id_ar" />
+          </Key>
+          <Property Name="id_ar" Type="int" Nullable="false" />
+          <Property Name="id_actor" Type="int" Nullable="false" />
+          <Property Name="id_role" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="basket">
+          <Key>
+            <PropertyRef Name="id_basket" />
+          </Key>
+          <Property Name="id_basket" Type="int" Nullable="false" />
+          <Property Name="id_performance" Type="int" Nullable="false" />
+          <Property Name="id_viewer" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="inventory">
+          <Key>
+            <PropertyRef Name="id_inventory" />
+          </Key>
+          <Property Name="id_inventory" Type="int" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="id_theater_building" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="performance">
+          <Key>
+            <PropertyRef Name="id_performans" />
+          </Key>
+          <Property Name="id_performans" Type="int" Nullable="false" />
+          <Property Name="title" Type="nvarchar" MaxLength="250" Nullable="false" />
+          <Property Name="genre" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="year_created" Type="int" Nullable="false" />
+          <Property Name="author" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="duration" Type="time" Precision="7" Nullable="false" />
+          <Property Name="id_photo" Type="int" />
+        </EntityType>
+        <EntityType Name="photo">
+          <Key>
+            <PropertyRef Name="id_photo" />
+          </Key>
+          <Property Name="id_photo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="description" Type="text" Nullable="false" />
+          <Property Name="photo1" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="review">
+          <Key>
+            <PropertyRef Name="id_review" />
+          </Key>
+          <Property Name="id_review" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="critic_name" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="review" Type="text" Nullable="false" />
+          <Property Name="rating" Type="float" Nullable="false" />
+          <Property Name="id_showtime" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="role">
+          <Key>
+            <PropertyRef Name="id_role" />
+          </Key>
+          <Property Name="id_role" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="id_performance" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="showtime">
+          <Key>
+            <PropertyRef Name="id_showtime" />
+          </Key>
+          <Property Name="id_showtime" Type="int" Nullable="false" />
+          <Property Name="id_performanse" Type="int" Nullable="false" />
+          <Property Name="id_photo" Type="int" Nullable="false" />
+          <Property Name="date" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="sponsor">
+          <Key>
+            <PropertyRef Name="id_sponsor" />
+          </Key>
+          <Property Name="id_sponsor" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="company_name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="contact_info" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="sponsorship_amount" Type="float" Nullable="false" />
+          <Property Name="id_theater_building" Type="int" Nullable="false" />
+          <Property Name="id_user" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="theater">
+          <Key>
+            <PropertyRef Name="id_theater_building" />
+          </Key>
+          <Property Name="id_theater_building" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="address" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="area" Type="float" Nullable="false" />
+          <Property Name="seats_number" Type="int" Nullable="false" />
+          <Property Name="year_built" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tickets">
+          <Key>
+            <PropertyRef Name="id_ticket" />
+          </Key>
+          <Property Name="id_ticket" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="id_showtime" Type="int" Nullable="false" />
+          <Property Name="seat_row" Type="int" Nullable="false" />
+          <Property Name="seat_number" Type="int" Nullable="false" />
+          <Property Name="price" Type="float" Nullable="false" />
+          <Property Name="date_sold" Type="date" Nullable="false" />
+          <Property Name="id_viewer" Type="int" Nullable="false" />
+          <Property Name="id_theater_building" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="user_role">
+          <Key>
+            <PropertyRef Name="id_user_role" />
+          </Key>
+          <Property Name="id_user_role" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="users">
+          <Key>
+            <PropertyRef Name="id_user" />
+          </Key>
+          <Property Name="id_user" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="login" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="pass" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="id_user_role" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="viewer">
+          <Key>
+            <PropertyRef Name="id_viewer" />
+          </Key>
+          <Property Name="id_viewer" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="fio" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="contact_details" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="id_user" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_actors_role_actors">
+          <End Role="actors" Type="Self.actors" Multiplicity="1" />
+          <End Role="actors_role" Type="Self.actors_role" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="actors">
+              <PropertyRef Name="id_actor" />
+            </Principal>
+            <Dependent Role="actors_role">
+              <PropertyRef Name="id_actor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_actors_role_role">
+          <End Role="role" Type="Self.role" Multiplicity="1" />
+          <End Role="actors_role" Type="Self.actors_role" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="role">
+              <PropertyRef Name="id_role" />
+            </Principal>
+            <Dependent Role="actors_role">
+              <PropertyRef Name="id_role" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_actors_Users">
+          <End Role="users" Type="Self.users" Multiplicity="1" />
+          <End Role="actors" Type="Self.actors" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="users">
+              <PropertyRef Name="id_user" />
+            </Principal>
+            <Dependent Role="actors">
+              <PropertyRef Name="id_user" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_basket_performance">
+          <End Role="performance" Type="Self.performance" Multiplicity="1" />
+          <End Role="basket" Type="Self.basket" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="performance">
+              <PropertyRef Name="id_performans" />
+            </Principal>
+            <Dependent Role="basket">
+              <PropertyRef Name="id_performance" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_basket_viewer">
+          <End Role="viewer" Type="Self.viewer" Multiplicity="1" />
+          <End Role="basket" Type="Self.basket" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="viewer">
+              <PropertyRef Name="id_viewer" />
+            </Principal>
+            <Dependent Role="basket">
+              <PropertyRef Name="id_viewer" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_inventory_theater">
+          <End Role="theater" Type="Self.theater" Multiplicity="1" />
+          <End Role="inventory" Type="Self.inventory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="theater">
+              <PropertyRef Name="id_theater_building" />
+            </Principal>
+            <Dependent Role="inventory">
+              <PropertyRef Name="id_theater_building" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_performance_photo">
+          <End Role="photo" Type="Self.photo" Multiplicity="0..1" />
+          <End Role="performance" Type="Self.performance" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="photo">
+              <PropertyRef Name="id_photo" />
+            </Principal>
+            <Dependent Role="performance">
+              <PropertyRef Name="id_photo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_review_showtime">
+          <End Role="showtime" Type="Self.showtime" Multiplicity="1" />
+          <End Role="review" Type="Self.review" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="showtime">
+              <PropertyRef Name="id_showtime" />
+            </Principal>
+            <Dependent Role="review">
+              <PropertyRef Name="id_showtime" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_role_performance">
+          <End Role="performance" Type="Self.performance" Multiplicity="1" />
+          <End Role="role" Type="Self.role" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="performance">
+              <PropertyRef Name="id_performans" />
+            </Principal>
+            <Dependent Role="role">
+              <PropertyRef Name="id_performance" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_showtime_performance">
+          <End Role="performance" Type="Self.performance" Multiplicity="1" />
+          <End Role="showtime" Type="Self.showtime" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="performance">
+              <PropertyRef Name="id_performans" />
+            </Principal>
+            <Dependent Role="showtime">
+              <PropertyRef Name="id_performanse" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_showtime_photo">
+          <End Role="photo" Type="Self.photo" Multiplicity="1" />
+          <End Role="showtime" Type="Self.showtime" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="photo">
+              <PropertyRef Name="id_photo" />
+            </Principal>
+            <Dependent Role="showtime">
+              <PropertyRef Name="id_photo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_sponsor_theater">
+          <End Role="theater" Type="Self.theater" Multiplicity="1" />
+          <End Role="sponsor" Type="Self.sponsor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="theater">
+              <PropertyRef Name="id_theater_building" />
+            </Principal>
+            <Dependent Role="sponsor">
+              <PropertyRef Name="id_theater_building" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tickets_showtime">
+          <End Role="showtime" Type="Self.showtime" Multiplicity="1" />
+          <End Role="tickets" Type="Self.tickets" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="showtime">
+              <PropertyRef Name="id_showtime" />
+            </Principal>
+            <Dependent Role="tickets">
+              <PropertyRef Name="id_showtime" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tickets_theater">
+          <End Role="theater" Type="Self.theater" Multiplicity="1" />
+          <End Role="tickets" Type="Self.tickets" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="theater">
+              <PropertyRef Name="id_theater_building" />
+            </Principal>
+            <Dependent Role="tickets">
+              <PropertyRef Name="id_theater_building" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tickets_viewer">
+          <End Role="viewer" Type="Self.viewer" Multiplicity="1" />
+          <End Role="tickets" Type="Self.tickets" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="viewer">
+              <PropertyRef Name="id_viewer" />
+            </Principal>
+            <Dependent Role="tickets">
+              <PropertyRef Name="id_viewer" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Users_user_role">
+          <End Role="user_role" Type="Self.user_role" Multiplicity="1" />
+          <End Role="users" Type="Self.users" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user_role">
+              <PropertyRef Name="id_user_role" />
+            </Principal>
+            <Dependent Role="users">
+              <PropertyRef Name="id_user_role" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_viewer_Users">
+          <End Role="users" Type="Self.users" Multiplicity="1" />
+          <End Role="viewer" Type="Self.viewer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="users">
+              <PropertyRef Name="id_user" />
+            </Principal>
+            <Dependent Role="viewer">
+              <PropertyRef Name="id_user" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Хранилище TheaterModelContainer">
+          <EntitySet Name="actors" EntityType="Self.actors" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="actors_role" EntityType="Self.actors_role" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="basket" EntityType="Self.basket" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="inventory" EntityType="Self.inventory" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="performance" EntityType="Self.performance" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="photo" EntityType="Self.photo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="review" EntityType="Self.review" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="role" EntityType="Self.role" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="showtime" EntityType="Self.showtime" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sponsor" EntityType="Self.sponsor" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="theater" EntityType="Self.theater" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tickets" EntityType="Self.tickets" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="user_role" EntityType="Self.user_role" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="users" EntityType="Self.users" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="viewer" EntityType="Self.viewer" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_actors_role_actors" Association="Self.FK_actors_role_actors">
+            <End Role="actors" EntitySet="actors" />
+            <End Role="actors_role" EntitySet="actors_role" />
+          </AssociationSet>
+          <AssociationSet Name="FK_actors_role_role" Association="Self.FK_actors_role_role">
+            <End Role="role" EntitySet="role" />
+            <End Role="actors_role" EntitySet="actors_role" />
+          </AssociationSet>
+          <AssociationSet Name="FK_actors_Users" Association="Self.FK_actors_Users">
+            <End Role="users" EntitySet="users" />
+            <End Role="actors" EntitySet="actors" />
+          </AssociationSet>
+          <AssociationSet Name="FK_basket_performance" Association="Self.FK_basket_performance">
+            <End Role="performance" EntitySet="performance" />
+            <End Role="basket" EntitySet="basket" />
+          </AssociationSet>
+          <AssociationSet Name="FK_basket_viewer" Association="Self.FK_basket_viewer">
+            <End Role="viewer" EntitySet="viewer" />
+            <End Role="basket" EntitySet="basket" />
+          </AssociationSet>
+          <AssociationSet Name="FK_inventory_theater" Association="Self.FK_inventory_theater">
+            <End Role="theater" EntitySet="theater" />
+            <End Role="inventory" EntitySet="inventory" />
+          </AssociationSet>
+          <AssociationSet Name="FK_performance_photo" Association="Self.FK_performance_photo">
+            <End Role="photo" EntitySet="photo" />
+            <End Role="performance" EntitySet="performance" />
+          </AssociationSet>
+          <AssociationSet Name="FK_review_showtime" Association="Self.FK_review_showtime">
+            <End Role="showtime" EntitySet="showtime" />
+            <End Role="review" EntitySet="review" />
+          </AssociationSet>
+          <AssociationSet Name="FK_role_performance" Association="Self.FK_role_performance">
+            <End Role="performance" EntitySet="performance" />
+            <End Role="role" EntitySet="role" />
+          </AssociationSet>
+          <AssociationSet Name="FK_showtime_performance" Association="Self.FK_showtime_performance">
+            <End Role="performance" EntitySet="performance" />
+            <End Role="showtime" EntitySet="showtime" />
+          </AssociationSet>
+          <AssociationSet Name="FK_showtime_photo" Association="Self.FK_showtime_photo">
+            <End Role="photo" EntitySet="photo" />
+            <End Role="showtime" EntitySet="showtime" />
+          </AssociationSet>
+          <AssociationSet Name="FK_sponsor_theater" Association="Self.FK_sponsor_theater">
+            <End Role="theater" EntitySet="theater" />
+            <End Role="sponsor" EntitySet="sponsor" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tickets_showtime" Association="Self.FK_tickets_showtime">
+            <End Role="showtime" EntitySet="showtime" />
+            <End Role="tickets" EntitySet="tickets" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tickets_theater" Association="Self.FK_tickets_theater">
+            <End Role="theater" EntitySet="theater" />
+            <End Role="tickets" EntitySet="tickets" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tickets_viewer" Association="Self.FK_tickets_viewer">
+            <End Role="viewer" EntitySet="viewer" />
+            <End Role="tickets" EntitySet="tickets" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Users_user_role" Association="Self.FK_Users_user_role">
+            <End Role="user_role" EntitySet="user_role" />
+            <End Role="users" EntitySet="users" />
+          </AssociationSet>
+          <AssociationSet Name="FK_viewer_Users" Association="Self.FK_viewer_Users">
+            <End Role="users" EntitySet="users" />
+            <End Role="viewer" EntitySet="viewer" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="TheaterModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="actors">
+          <Key>
+            <PropertyRef Name="id_actor" />
+          </Key>
+          <Property Name="id_actor" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="fio" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="age" Type="Int32" Nullable="false" />
+          <Property Name="sex" Type="String" MaxLength="1" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="height" Type="Int32" Nullable="false" />
+          <Property Name="weight" Type="Int32" Nullable="false" />
+          <Property Name="contact_details" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="id_user" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="actors_role" Relationship="Self.FK_actors_role_actors" FromRole="actors" ToRole="actors_role" />
+          <NavigationProperty Name="users" Relationship="Self.FK_actors_Users" FromRole="actors" ToRole="users" />
+        </EntityType>
+        <EntityType Name="actors_role">
+          <Key>
+            <PropertyRef Name="id_ar" />
+          </Key>
+          <Property Name="id_ar" Type="Int32" Nullable="false" />
+          <Property Name="id_actor" Type="Int32" Nullable="false" />
+          <Property Name="id_role" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="actors" Relationship="Self.FK_actors_role_actors" FromRole="actors_role" ToRole="actors" />
+          <NavigationProperty Name="role" Relationship="Self.FK_actors_role_role" FromRole="actors_role" ToRole="role" />
+        </EntityType>
+        <EntityType Name="inventory">
+          <Key>
+            <PropertyRef Name="id_inventory" />
+          </Key>
+          <Property Name="id_inventory" Type="Int32" Nullable="false" />
+          <Property Name="name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="id_theater_building" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="theater" Relationship="Self.FK_inventory_theater" FromRole="inventory" ToRole="theater" />
+        </EntityType>
+        <EntityType Name="performance">
+          <Key>
+            <PropertyRef Name="id_performans" />
+          </Key>
+          <Property Name="id_performans" Type="Int32" Nullable="false" />
+          <Property Name="title" Type="String" MaxLength="250" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="genre" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="year_created" Type="Int32" Nullable="false" />
+          <Property Name="author" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="duration" Type="Time" Nullable="false" Precision="7" />
+          <Property Name="id_photo" Type="Int32" />
+          <NavigationProperty Name="photo" Relationship="Self.FK_performance_photo" FromRole="performance" ToRole="photo" />
+          <NavigationProperty Name="role" Relationship="Self.FK_role_performance" FromRole="performance" ToRole="role" />
+          <NavigationProperty Name="showtime" Relationship="Self.FK_showtime_performance" FromRole="performance" ToRole="showtime" />
+          <NavigationProperty Name="basket" Relationship="TheaterModel.FK_basket_performance" FromRole="performance" ToRole="basket" />
+        </EntityType>
+        <EntityType Name="photo">
+          <Key>
+            <PropertyRef Name="id_photo" />
+          </Key>
+          <Property Name="id_photo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="photo1" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="performance" Relationship="Self.FK_performance_photo" FromRole="photo" ToRole="performance" />
+          <NavigationProperty Name="showtime" Relationship="Self.FK_showtime_photo" FromRole="photo" ToRole="showtime" />
+        </EntityType>
+        <EntityType Name="review">
+          <Key>
+            <PropertyRef Name="id_review" />
+          </Key>
+          <Property Name="id_review" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="critic_name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="review1" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="rating" Type="Double" Nullable="false" />
+          <Property Name="id_showtime" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="showtime" Relationship="Self.FK_review_showtime" FromRole="review" ToRole="showtime" />
+        </EntityType>
+        <EntityType Name="role">
+          <Key>
+            <PropertyRef Name="id_role" />
+          </Key>
+          <Property Name="id_role" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="id_performance" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="actors_role" Relationship="Self.FK_actors_role_role" FromRole="role" ToRole="actors_role" />
+          <NavigationProperty Name="performance" Relationship="Self.FK_role_performance" FromRole="role" ToRole="performance" />
+        </EntityType>
+        <EntityType Name="showtime">
+          <Key>
+            <PropertyRef Name="id_showtime" />
+          </Key>
+          <Property Name="id_showtime" Type="Int32" Nullable="false" />
+          <Property Name="id_performanse" Type="Int32" Nullable="false" />
+          <Property Name="id_photo" Type="Int32" Nullable="false" />
+          <Property Name="date" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="performance" Relationship="Self.FK_showtime_performance" FromRole="showtime" ToRole="performance" />
+          <NavigationProperty Name="photo" Relationship="Self.FK_showtime_photo" FromRole="showtime" ToRole="photo" />
+          <NavigationProperty Name="review" Relationship="Self.FK_review_showtime" FromRole="showtime" ToRole="review" />
+          <NavigationProperty Name="tickets" Relationship="Self.FK_tickets_showtime" FromRole="showtime" ToRole="tickets" />
+        </EntityType>
+        <EntityType Name="sponsor">
+          <Key>
+            <PropertyRef Name="id_sponsor" />
+          </Key>
+          <Property Name="id_sponsor" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="company_name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="contact_info" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="sponsorship_amount" Type="Double" Nullable="false" />
+          <Property Name="id_theater_building" Type="Int32" Nullable="false" />
+          <Property Name="id_user" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="theater" Relationship="Self.FK_sponsor_theater" FromRole="sponsor" ToRole="theater" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="theater">
+          <Key>
+            <PropertyRef Name="id_theater_building" />
+          </Key>
+          <Property Name="id_theater_building" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="address" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="area" Type="Double" Nullable="false" />
+          <Property Name="seats_number" Type="Int32" Nullable="false" />
+          <Property Name="year_built" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="inventory" Relationship="Self.FK_inventory_theater" FromRole="theater" ToRole="inventory" />
+          <NavigationProperty Name="sponsor" Relationship="Self.FK_sponsor_theater" FromRole="theater" ToRole="sponsor" />
+          <NavigationProperty Name="tickets" Relationship="Self.FK_tickets_theater" FromRole="theater" ToRole="tickets" />
+        </EntityType>
+        <EntityType Name="tickets">
+          <Key>
+            <PropertyRef Name="id_ticket" />
+          </Key>
+          <Property Name="id_ticket" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_showtime" Type="Int32" Nullable="false" />
+          <Property Name="seat_row" Type="Int32" Nullable="false" />
+          <Property Name="seat_number" Type="Int32" Nullable="false" />
+          <Property Name="price" Type="Double" Nullable="false" />
+          <Property Name="date_sold" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="id_viewer" Type="Int32" Nullable="false" />
+          <Property Name="id_theater_building" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="showtime" Relationship="Self.FK_tickets_showtime" FromRole="tickets" ToRole="showtime" />
+          <NavigationProperty Name="theater" Relationship="Self.FK_tickets_theater" FromRole="tickets" ToRole="theater" />
+          <NavigationProperty Name="viewer" Relationship="Self.FK_tickets_viewer" FromRole="tickets" ToRole="viewer" />
+        </EntityType>
+        <EntityType Name="user_role">
+          <Key>
+            <PropertyRef Name="id_user_role" />
+          </Key>
+          <Property Name="id_user_role" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="users" Relationship="Self.FK_Users_user_role" FromRole="user_role" ToRole="users" />
+        </EntityType>
+        <EntityType Name="users">
+          <Key>
+            <PropertyRef Name="id_user" />
+          </Key>
+          <Property Name="id_user" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="login" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="pass" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="id_user_role" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="actors" Relationship="Self.FK_actors_Users" FromRole="users" ToRole="actors" />
+          <NavigationProperty Name="user_role" Relationship="Self.FK_Users_user_role" FromRole="users" ToRole="user_role" />
+          <NavigationProperty Name="viewer" Relationship="Self.FK_viewer_Users" FromRole="users" ToRole="viewer" />
+        </EntityType>
+        <EntityType Name="viewer">
+          <Key>
+            <PropertyRef Name="id_viewer" />
+          </Key>
+          <Property Name="id_viewer" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="fio" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="contact_details" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="id_user" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="tickets" Relationship="Self.FK_tickets_viewer" FromRole="viewer" ToRole="tickets" />
+          <NavigationProperty Name="users" Relationship="Self.FK_viewer_Users" FromRole="viewer" ToRole="users" />
+          <NavigationProperty Name="basket" Relationship="TheaterModel.FK_basket_viewer" FromRole="viewer" ToRole="basket" />
+        </EntityType>
+        <Association Name="FK_actors_role_actors">
+          <End Role="actors" Type="Self.actors" Multiplicity="1" />
+          <End Role="actors_role" Type="Self.actors_role" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="actors">
+              <PropertyRef Name="id_actor" />
+            </Principal>
+            <Dependent Role="actors_role">
+              <PropertyRef Name="id_actor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_actors_Users">
+          <End Role="users" Type="Self.users" Multiplicity="1" />
+          <End Role="actors" Type="Self.actors" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="users">
+              <PropertyRef Name="id_user" />
+            </Principal>
+            <Dependent Role="actors">
+              <PropertyRef Name="id_user" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_actors_role_role">
+          <End Role="role" Type="Self.role" Multiplicity="1" />
+          <End Role="actors_role" Type="Self.actors_role" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="role">
+              <PropertyRef Name="id_role" />
+            </Principal>
+            <Dependent Role="actors_role">
+              <PropertyRef Name="id_role" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_inventory_theater">
+          <End Role="theater" Type="Self.theater" Multiplicity="1" />
+          <End Role="inventory" Type="Self.inventory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="theater">
+              <PropertyRef Name="id_theater_building" />
+            </Principal>
+            <Dependent Role="inventory">
+              <PropertyRef Name="id_theater_building" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_performance_photo">
+          <End Role="photo" Type="Self.photo" Multiplicity="0..1" />
+          <End Role="performance" Type="Self.performance" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="photo">
+              <PropertyRef Name="id_photo" />
+            </Principal>
+            <Dependent Role="performance">
+              <PropertyRef Name="id_photo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_role_performance">
+          <End Role="performance" Type="Self.performance" Multiplicity="1" />
+          <End Role="role" Type="Self.role" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="performance">
+              <PropertyRef Name="id_performans" />
+            </Principal>
+            <Dependent Role="role">
+              <PropertyRef Name="id_performance" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_showtime_performance">
+          <End Role="performance" Type="Self.performance" Multiplicity="1" />
+          <End Role="showtime" Type="Self.showtime" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="performance">
+              <PropertyRef Name="id_performans" />
+            </Principal>
+            <Dependent Role="showtime">
+              <PropertyRef Name="id_performanse" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_showtime_photo">
+          <End Role="photo" Type="Self.photo" Multiplicity="1" />
+          <End Role="showtime" Type="Self.showtime" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="photo">
+              <PropertyRef Name="id_photo" />
+            </Principal>
+            <Dependent Role="showtime">
+              <PropertyRef Name="id_photo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_review_showtime">
+          <End Role="showtime" Type="Self.showtime" Multiplicity="1" />
+          <End Role="review" Type="Self.review" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="showtime">
+              <PropertyRef Name="id_showtime" />
+            </Principal>
+            <Dependent Role="review">
+              <PropertyRef Name="id_showtime" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tickets_showtime">
+          <End Role="showtime" Type="Self.showtime" Multiplicity="1" />
+          <End Role="tickets" Type="Self.tickets" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="showtime">
+              <PropertyRef Name="id_showtime" />
+            </Principal>
+            <Dependent Role="tickets">
+              <PropertyRef Name="id_showtime" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_sponsor_theater">
+          <End Role="theater" Type="Self.theater" Multiplicity="1" />
+          <End Role="sponsor" Type="Self.sponsor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="theater">
+              <PropertyRef Name="id_theater_building" />
+            </Principal>
+            <Dependent Role="sponsor">
+              <PropertyRef Name="id_theater_building" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tickets_theater">
+          <End Role="theater" Type="Self.theater" Multiplicity="1" />
+          <End Role="tickets" Type="Self.tickets" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="theater">
+              <PropertyRef Name="id_theater_building" />
+            </Principal>
+            <Dependent Role="tickets">
+              <PropertyRef Name="id_theater_building" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tickets_viewer">
+          <End Role="viewer" Type="Self.viewer" Multiplicity="1" />
+          <End Role="tickets" Type="Self.tickets" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="viewer">
+              <PropertyRef Name="id_viewer" />
+            </Principal>
+            <Dependent Role="tickets">
+              <PropertyRef Name="id_viewer" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Users_user_role">
+          <End Role="user_role" Type="Self.user_role" Multiplicity="1" />
+          <End Role="users" Type="Self.users" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user_role">
+              <PropertyRef Name="id_user_role" />
+            </Principal>
+            <Dependent Role="users">
+              <PropertyRef Name="id_user_role" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_viewer_Users">
+          <End Role="users" Type="Self.users" Multiplicity="1" />
+          <End Role="viewer" Type="Self.viewer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="users">
+              <PropertyRef Name="id_user" />
+            </Principal>
+            <Dependent Role="viewer">
+              <PropertyRef Name="id_user" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="TheaterEntities1" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="actors" EntityType="Self.actors" />
+          <EntitySet Name="actors_role" EntityType="Self.actors_role" />
+          <EntitySet Name="inventory" EntityType="Self.inventory" />
+          <EntitySet Name="performance" EntityType="Self.performance" />
+          <EntitySet Name="photo" EntityType="Self.photo" />
+          <EntitySet Name="review" EntityType="Self.review" />
+          <EntitySet Name="role" EntityType="Self.role" />
+          <EntitySet Name="showtime" EntityType="Self.showtime" />
+          <EntitySet Name="sponsor" EntityType="Self.sponsor" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+          <EntitySet Name="theater" EntityType="Self.theater" />
+          <EntitySet Name="tickets" EntityType="Self.tickets" />
+          <EntitySet Name="user_role" EntityType="Self.user_role" />
+          <EntitySet Name="users" EntityType="Self.users" />
+          <EntitySet Name="viewer" EntityType="Self.viewer" />
+          <AssociationSet Name="FK_actors_role_actors" Association="Self.FK_actors_role_actors">
+            <End Role="actors" EntitySet="actors" />
+            <End Role="actors_role" EntitySet="actors_role" />
+          </AssociationSet>
+          <AssociationSet Name="FK_actors_Users" Association="Self.FK_actors_Users">
+            <End Role="users" EntitySet="users" />
+            <End Role="actors" EntitySet="actors" />
+          </AssociationSet>
+          <AssociationSet Name="FK_actors_role_role" Association="Self.FK_actors_role_role">
+            <End Role="role" EntitySet="role" />
+            <End Role="actors_role" EntitySet="actors_role" />
+          </AssociationSet>
+          <AssociationSet Name="FK_inventory_theater" Association="Self.FK_inventory_theater">
+            <End Role="theater" EntitySet="theater" />
+            <End Role="inventory" EntitySet="inventory" />
+          </AssociationSet>
+          <AssociationSet Name="FK_performance_photo" Association="Self.FK_performance_photo">
+            <End Role="photo" EntitySet="photo" />
+            <End Role="performance" EntitySet="performance" />
+          </AssociationSet>
+          <AssociationSet Name="FK_role_performance" Association="Self.FK_role_performance">
+            <End Role="performance" EntitySet="performance" />
+            <End Role="role" EntitySet="role" />
+          </AssociationSet>
+          <AssociationSet Name="FK_showtime_performance" Association="Self.FK_showtime_performance">
+            <End Role="performance" EntitySet="performance" />
+            <End Role="showtime" EntitySet="showtime" />
+          </AssociationSet>
+          <AssociationSet Name="FK_showtime_photo" Association="Self.FK_showtime_photo">
+            <End Role="photo" EntitySet="photo" />
+            <End Role="showtime" EntitySet="showtime" />
+          </AssociationSet>
+          <AssociationSet Name="FK_review_showtime" Association="Self.FK_review_showtime">
+            <End Role="showtime" EntitySet="showtime" />
+            <End Role="review" EntitySet="review" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tickets_showtime" Association="Self.FK_tickets_showtime">
+            <End Role="showtime" EntitySet="showtime" />
+            <End Role="tickets" EntitySet="tickets" />
+          </AssociationSet>
+          <AssociationSet Name="FK_sponsor_theater" Association="Self.FK_sponsor_theater">
+            <End Role="theater" EntitySet="theater" />
+            <End Role="sponsor" EntitySet="sponsor" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tickets_theater" Association="Self.FK_tickets_theater">
+            <End Role="theater" EntitySet="theater" />
+            <End Role="tickets" EntitySet="tickets" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tickets_viewer" Association="Self.FK_tickets_viewer">
+            <End Role="viewer" EntitySet="viewer" />
+            <End Role="tickets" EntitySet="tickets" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Users_user_role" Association="Self.FK_Users_user_role">
+            <End Role="user_role" EntitySet="user_role" />
+            <End Role="users" EntitySet="users" />
+          </AssociationSet>
+          <AssociationSet Name="FK_viewer_Users" Association="Self.FK_viewer_Users">
+            <End Role="users" EntitySet="users" />
+            <End Role="viewer" EntitySet="viewer" />
+          </AssociationSet>
+          <EntitySet Name="basket" EntityType="TheaterModel.basket" />
+          <AssociationSet Name="FK_basket_performance" Association="TheaterModel.FK_basket_performance">
+            <End Role="performance" EntitySet="performance" />
+            <End Role="basket" EntitySet="basket" />
+          </AssociationSet>
+          <AssociationSet Name="FK_basket_viewer" Association="TheaterModel.FK_basket_viewer">
+            <End Role="viewer" EntitySet="viewer" />
+            <End Role="basket" EntitySet="basket" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="basket">
+          <Key>
+            <PropertyRef Name="id_basket" />
+          </Key>
+          <Property Name="id_basket" Type="Int32" Nullable="false" />
+          <Property Name="id_performance" Type="Int32" Nullable="false" />
+          <Property Name="id_viewer" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="performance" Relationship="TheaterModel.FK_basket_performance" FromRole="basket" ToRole="performance" />
+          <NavigationProperty Name="viewer" Relationship="TheaterModel.FK_basket_viewer" FromRole="basket" ToRole="viewer" />
+        </EntityType>
+        <Association Name="FK_basket_performance">
+          <End Type="TheaterModel.performance" Role="performance" Multiplicity="1" />
+          <End Type="TheaterModel.basket" Role="basket" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="performance">
+              <PropertyRef Name="id_performans" />
+            </Principal>
+            <Dependent Role="basket">
+              <PropertyRef Name="id_performance" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_basket_viewer">
+          <End Type="TheaterModel.viewer" Role="viewer" Multiplicity="1" />
+          <End Type="TheaterModel.basket" Role="basket" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="viewer">
+              <PropertyRef Name="id_viewer" />
+            </Principal>
+            <Dependent Role="basket">
+              <PropertyRef Name="id_viewer" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище TheaterModelContainer" CdmEntityContainer="TheaterEntities1">
+          <EntitySetMapping Name="actors">
+            <EntityTypeMapping TypeName="TheaterModel.actors">
+              <MappingFragment StoreEntitySet="actors">
+                <ScalarProperty Name="id_actor" ColumnName="id_actor" />
+                <ScalarProperty Name="fio" ColumnName="fio" />
+                <ScalarProperty Name="age" ColumnName="age" />
+                <ScalarProperty Name="sex" ColumnName="sex" />
+                <ScalarProperty Name="height" ColumnName="height" />
+                <ScalarProperty Name="weight" ColumnName="weight" />
+                <ScalarProperty Name="contact_details" ColumnName="contact_details" />
+                <ScalarProperty Name="id_user" ColumnName="id_user" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="actors_role">
+            <EntityTypeMapping TypeName="TheaterModel.actors_role">
+              <MappingFragment StoreEntitySet="actors_role">
+                <ScalarProperty Name="id_ar" ColumnName="id_ar" />
+                <ScalarProperty Name="id_actor" ColumnName="id_actor" />
+                <ScalarProperty Name="id_role" ColumnName="id_role" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="inventory">
+            <EntityTypeMapping TypeName="TheaterModel.inventory">
+              <MappingFragment StoreEntitySet="inventory">
+                <ScalarProperty Name="id_inventory" ColumnName="id_inventory" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="id_theater_building" ColumnName="id_theater_building" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="performance">
+            <EntityTypeMapping TypeName="TheaterModel.performance">
+              <MappingFragment StoreEntitySet="performance">
+                <ScalarProperty Name="id_performans" ColumnName="id_performans" />
+                <ScalarProperty Name="title" ColumnName="title" />
+                <ScalarProperty Name="genre" ColumnName="genre" />
+                <ScalarProperty Name="year_created" ColumnName="year_created" />
+                <ScalarProperty Name="author" ColumnName="author" />
+                <ScalarProperty Name="duration" ColumnName="duration" />
+                <ScalarProperty Name="id_photo" ColumnName="id_photo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="photo">
+            <EntityTypeMapping TypeName="TheaterModel.photo">
+              <MappingFragment StoreEntitySet="photo">
+                <ScalarProperty Name="id_photo" ColumnName="id_photo" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="photo1" ColumnName="photo1" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="review">
+            <EntityTypeMapping TypeName="TheaterModel.review">
+              <MappingFragment StoreEntitySet="review">
+                <ScalarProperty Name="id_review" ColumnName="id_review" />
+                <ScalarProperty Name="critic_name" ColumnName="critic_name" />
+                <ScalarProperty Name="review1" ColumnName="review" />
+                <ScalarProperty Name="rating" ColumnName="rating" />
+                <ScalarProperty Name="id_showtime" ColumnName="id_showtime" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="role">
+            <EntityTypeMapping TypeName="TheaterModel.role">
+              <MappingFragment StoreEntitySet="role">
+                <ScalarProperty Name="id_role" ColumnName="id_role" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="id_performance" ColumnName="id_performance" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="showtime">
+            <EntityTypeMapping TypeName="TheaterModel.showtime">
+              <MappingFragment StoreEntitySet="showtime">
+                <ScalarProperty Name="id_showtime" ColumnName="id_showtime" />
+                <ScalarProperty Name="id_performanse" ColumnName="id_performanse" />
+                <ScalarProperty Name="id_photo" ColumnName="id_photo" />
+                <ScalarProperty Name="date" ColumnName="date" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sponsor">
+            <EntityTypeMapping TypeName="TheaterModel.sponsor">
+              <MappingFragment StoreEntitySet="sponsor">
+                <ScalarProperty Name="id_sponsor" ColumnName="id_sponsor" />
+                <ScalarProperty Name="company_name" ColumnName="company_name" />
+                <ScalarProperty Name="contact_info" ColumnName="contact_info" />
+                <ScalarProperty Name="sponsorship_amount" ColumnName="sponsorship_amount" />
+                <ScalarProperty Name="id_theater_building" ColumnName="id_theater_building" />
+                <ScalarProperty Name="id_user" ColumnName="id_user" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="TheaterModel.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="theater">
+            <EntityTypeMapping TypeName="TheaterModel.theater">
+              <MappingFragment StoreEntitySet="theater">
+                <ScalarProperty Name="id_theater_building" ColumnName="id_theater_building" />
+                <ScalarProperty Name="address" ColumnName="address" />
+                <ScalarProperty Name="area" ColumnName="area" />
+                <ScalarProperty Name="seats_number" ColumnName="seats_number" />
+                <ScalarProperty Name="year_built" ColumnName="year_built" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tickets">
+            <EntityTypeMapping TypeName="TheaterModel.tickets">
+              <MappingFragment StoreEntitySet="tickets">
+                <ScalarProperty Name="id_ticket" ColumnName="id_ticket" />
+                <ScalarProperty Name="id_showtime" ColumnName="id_showtime" />
+                <ScalarProperty Name="seat_row" ColumnName="seat_row" />
+                <ScalarProperty Name="seat_number" ColumnName="seat_number" />
+                <ScalarProperty Name="price" ColumnName="price" />
+                <ScalarProperty Name="date_sold" ColumnName="date_sold" />
+                <ScalarProperty Name="id_viewer" ColumnName="id_viewer" />
+                <ScalarProperty Name="id_theater_building" ColumnName="id_theater_building" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="user_role">
+            <EntityTypeMapping TypeName="TheaterModel.user_role">
+              <MappingFragment StoreEntitySet="user_role">
+                <ScalarProperty Name="id_user_role" ColumnName="id_user_role" />
+                <ScalarProperty Name="name" ColumnName="name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="users">
+            <EntityTypeMapping TypeName="TheaterModel.users">
+              <MappingFragment StoreEntitySet="users">
+                <ScalarProperty Name="id_user" ColumnName="id_user" />
+                <ScalarProperty Name="login" ColumnName="login" />
+                <ScalarProperty Name="pass" ColumnName="pass" />
+                <ScalarProperty Name="id_user_role" ColumnName="id_user_role" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="viewer">
+            <EntityTypeMapping TypeName="TheaterModel.viewer">
+              <MappingFragment StoreEntitySet="viewer">
+                <ScalarProperty Name="id_viewer" ColumnName="id_viewer" />
+                <ScalarProperty Name="fio" ColumnName="fio" />
+                <ScalarProperty Name="contact_details" ColumnName="contact_details" />
+                <ScalarProperty Name="id_user" ColumnName="id_user" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="basket">
+            <EntityTypeMapping TypeName="TheaterModel.basket">
+              <MappingFragment StoreEntitySet="basket">
+                <ScalarProperty Name="id_viewer" ColumnName="id_viewer" />
+                <ScalarProperty Name="id_performance" ColumnName="id_performance" />
+                <ScalarProperty Name="id_basket" ColumnName="id_basket" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
