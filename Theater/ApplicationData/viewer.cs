@@ -17,8 +17,8 @@ namespace theater.ApplicationData
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public viewer()
         {
-            this.tickets = new HashSet<tickets>();
             this.basket = new HashSet<basket>();
+            this.tickets = new HashSet<tickets>();
         }
     
         public int id_viewer { get; set; }
@@ -27,9 +27,9 @@ namespace theater.ApplicationData
         public int id_user { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<basket> basket { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tickets> tickets { get; set; }
         public virtual users users { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<basket> basket { get; set; }
     }
 }

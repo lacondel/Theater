@@ -25,7 +25,7 @@ namespace theater
         public MainWindow()
         {
             InitializeComponent();
-            AppConnect.model0db = new TheaterEntities1();
+            AppConnect.model0db = new TheaterEntities2();
             AppFrame.frameMain = FrmMain;
 
             FrmMain.Navigate(new PageLogin());

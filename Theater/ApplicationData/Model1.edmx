@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="Хранилище TheaterModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="Хранилище TheaterModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="actors">
           <Key>
             <PropertyRef Name="id_actor" />
@@ -52,7 +52,8 @@
           <Property Name="year_created" Type="int" Nullable="false" />
           <Property Name="author" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="duration" Type="time" Precision="7" Nullable="false" />
-          <Property Name="id_photo" Type="int" />
+          <Property Name="id_photo" Type="int" Nullable="false" />
+          <Property Name="price" Type="decimal" Precision="18" Scale="2" />
         </EntityType>
         <EntityType Name="photo">
           <Key>
@@ -231,7 +232,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_performance_photo">
-          <End Role="photo" Type="Self.photo" Multiplicity="0..1" />
+          <End Role="photo" Type="Self.photo" Multiplicity="1" />
           <End Role="performance" Type="Self.performance" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="photo">
@@ -251,18 +252,6 @@
             </Principal>
             <Dependent Role="review">
               <PropertyRef Name="id_showtime" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_role_performance">
-          <End Role="performance" Type="Self.performance" Multiplicity="1" />
-          <End Role="role" Type="Self.role" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="performance">
-              <PropertyRef Name="id_performans" />
-            </Principal>
-            <Dependent Role="role">
-              <PropertyRef Name="id_performance" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -411,10 +400,6 @@
             <End Role="showtime" EntitySet="showtime" />
             <End Role="review" EntitySet="review" />
           </AssociationSet>
-          <AssociationSet Name="FK_role_performance" Association="Self.FK_role_performance">
-            <End Role="performance" EntitySet="performance" />
-            <End Role="role" EntitySet="role" />
-          </AssociationSet>
           <AssociationSet Name="FK_showtime_performance" Association="Self.FK_showtime_performance">
             <End Role="performance" EntitySet="performance" />
             <End Role="showtime" EntitySet="showtime" />
@@ -448,7 +433,8 @@
             <End Role="viewer" EntitySet="viewer" />
           </AssociationSet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="TheaterModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -477,6 +463,16 @@
           <NavigationProperty Name="actors" Relationship="Self.FK_actors_role_actors" FromRole="actors_role" ToRole="actors" />
           <NavigationProperty Name="role" Relationship="Self.FK_actors_role_role" FromRole="actors_role" ToRole="role" />
         </EntityType>
+        <EntityType Name="basket">
+          <Key>
+            <PropertyRef Name="id_basket" />
+          </Key>
+          <Property Name="id_basket" Type="Int32" Nullable="false" />
+          <Property Name="id_performance" Type="Int32" Nullable="false" />
+          <Property Name="id_viewer" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="performance" Relationship="Self.FK_basket_performance" FromRole="basket" ToRole="performance" />
+          <NavigationProperty Name="viewer" Relationship="Self.FK_basket_viewer" FromRole="basket" ToRole="viewer" />
+        </EntityType>
         <EntityType Name="inventory">
           <Key>
             <PropertyRef Name="id_inventory" />
@@ -496,11 +492,11 @@
           <Property Name="year_created" Type="Int32" Nullable="false" />
           <Property Name="author" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="duration" Type="Time" Nullable="false" Precision="7" />
-          <Property Name="id_photo" Type="Int32" />
+          <Property Name="id_photo" Type="Int32" Nullable="false" />
+          <Property Name="price" Type="Decimal" Precision="18" Scale="2" />
+          <NavigationProperty Name="basket" Relationship="Self.FK_basket_performance" FromRole="performance" ToRole="basket" />
           <NavigationProperty Name="photo" Relationship="Self.FK_performance_photo" FromRole="performance" ToRole="photo" />
-          <NavigationProperty Name="role" Relationship="Self.FK_role_performance" FromRole="performance" ToRole="role" />
           <NavigationProperty Name="showtime" Relationship="Self.FK_showtime_performance" FromRole="performance" ToRole="showtime" />
-          <NavigationProperty Name="basket" Relationship="TheaterModel.FK_basket_performance" FromRole="performance" ToRole="basket" />
         </EntityType>
         <EntityType Name="photo">
           <Key>
@@ -531,7 +527,6 @@
           <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="id_performance" Type="Int32" Nullable="false" />
           <NavigationProperty Name="actors_role" Relationship="Self.FK_actors_role_role" FromRole="role" ToRole="actors_role" />
-          <NavigationProperty Name="performance" Relationship="Self.FK_role_performance" FromRole="role" ToRole="performance" />
         </EntityType>
         <EntityType Name="showtime">
           <Key>
@@ -625,9 +620,9 @@
           <Property Name="fio" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="contact_details" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="id_user" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="basket" Relationship="Self.FK_basket_viewer" FromRole="viewer" ToRole="basket" />
           <NavigationProperty Name="tickets" Relationship="Self.FK_tickets_viewer" FromRole="viewer" ToRole="tickets" />
           <NavigationProperty Name="users" Relationship="Self.FK_viewer_Users" FromRole="viewer" ToRole="users" />
-          <NavigationProperty Name="basket" Relationship="TheaterModel.FK_basket_viewer" FromRole="viewer" ToRole="basket" />
         </EntityType>
         <Association Name="FK_actors_role_actors">
           <End Role="actors" Type="Self.actors" Multiplicity="1" />
@@ -665,6 +660,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_basket_performance">
+          <End Role="performance" Type="Self.performance" Multiplicity="1" />
+          <End Role="basket" Type="Self.basket" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="performance">
+              <PropertyRef Name="id_performans" />
+            </Principal>
+            <Dependent Role="basket">
+              <PropertyRef Name="id_performance" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_basket_viewer">
+          <End Role="viewer" Type="Self.viewer" Multiplicity="1" />
+          <End Role="basket" Type="Self.basket" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="viewer">
+              <PropertyRef Name="id_viewer" />
+            </Principal>
+            <Dependent Role="basket">
+              <PropertyRef Name="id_viewer" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_inventory_theater">
           <End Role="theater" Type="Self.theater" Multiplicity="1" />
           <End Role="inventory" Type="Self.inventory" Multiplicity="*" />
@@ -678,7 +697,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_performance_photo">
-          <End Role="photo" Type="Self.photo" Multiplicity="0..1" />
+          <End Role="photo" Type="Self.photo" Multiplicity="1" />
           <End Role="performance" Type="Self.performance" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="photo">
@@ -686,18 +705,6 @@
             </Principal>
             <Dependent Role="performance">
               <PropertyRef Name="id_photo" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_role_performance">
-          <End Role="performance" Type="Self.performance" Multiplicity="1" />
-          <End Role="role" Type="Self.role" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="performance">
-              <PropertyRef Name="id_performans" />
-            </Principal>
-            <Dependent Role="role">
-              <PropertyRef Name="id_performance" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -809,9 +816,10 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="TheaterEntities1" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="TheaterEntities2" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="actors" EntityType="Self.actors" />
           <EntitySet Name="actors_role" EntityType="Self.actors_role" />
+          <EntitySet Name="basket" EntityType="Self.basket" />
           <EntitySet Name="inventory" EntityType="Self.inventory" />
           <EntitySet Name="performance" EntityType="Self.performance" />
           <EntitySet Name="photo" EntityType="Self.photo" />
@@ -837,6 +845,14 @@
             <End Role="role" EntitySet="role" />
             <End Role="actors_role" EntitySet="actors_role" />
           </AssociationSet>
+          <AssociationSet Name="FK_basket_performance" Association="Self.FK_basket_performance">
+            <End Role="performance" EntitySet="performance" />
+            <End Role="basket" EntitySet="basket" />
+          </AssociationSet>
+          <AssociationSet Name="FK_basket_viewer" Association="Self.FK_basket_viewer">
+            <End Role="viewer" EntitySet="viewer" />
+            <End Role="basket" EntitySet="basket" />
+          </AssociationSet>
           <AssociationSet Name="FK_inventory_theater" Association="Self.FK_inventory_theater">
             <End Role="theater" EntitySet="theater" />
             <End Role="inventory" EntitySet="inventory" />
@@ -844,10 +860,6 @@
           <AssociationSet Name="FK_performance_photo" Association="Self.FK_performance_photo">
             <End Role="photo" EntitySet="photo" />
             <End Role="performance" EntitySet="performance" />
-          </AssociationSet>
-          <AssociationSet Name="FK_role_performance" Association="Self.FK_role_performance">
-            <End Role="performance" EntitySet="performance" />
-            <End Role="role" EntitySet="role" />
           </AssociationSet>
           <AssociationSet Name="FK_showtime_performance" Association="Self.FK_showtime_performance">
             <End Role="performance" EntitySet="performance" />
@@ -885,56 +897,13 @@
             <End Role="users" EntitySet="users" />
             <End Role="viewer" EntitySet="viewer" />
           </AssociationSet>
-          <EntitySet Name="basket" EntityType="TheaterModel.basket" />
-          <AssociationSet Name="FK_basket_performance" Association="TheaterModel.FK_basket_performance">
-            <End Role="performance" EntitySet="performance" />
-            <End Role="basket" EntitySet="basket" />
-          </AssociationSet>
-          <AssociationSet Name="FK_basket_viewer" Association="TheaterModel.FK_basket_viewer">
-            <End Role="viewer" EntitySet="viewer" />
-            <End Role="basket" EntitySet="basket" />
-          </AssociationSet>
         </EntityContainer>
-        <EntityType Name="basket">
-          <Key>
-            <PropertyRef Name="id_basket" />
-          </Key>
-          <Property Name="id_basket" Type="Int32" Nullable="false" />
-          <Property Name="id_performance" Type="Int32" Nullable="false" />
-          <Property Name="id_viewer" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="performance" Relationship="TheaterModel.FK_basket_performance" FromRole="basket" ToRole="performance" />
-          <NavigationProperty Name="viewer" Relationship="TheaterModel.FK_basket_viewer" FromRole="basket" ToRole="viewer" />
-        </EntityType>
-        <Association Name="FK_basket_performance">
-          <End Type="TheaterModel.performance" Role="performance" Multiplicity="1" />
-          <End Type="TheaterModel.basket" Role="basket" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="performance">
-              <PropertyRef Name="id_performans" />
-            </Principal>
-            <Dependent Role="basket">
-              <PropertyRef Name="id_performance" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_basket_viewer">
-          <End Type="TheaterModel.viewer" Role="viewer" Multiplicity="1" />
-          <End Type="TheaterModel.basket" Role="basket" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="viewer">
-              <PropertyRef Name="id_viewer" />
-            </Principal>
-            <Dependent Role="basket">
-              <PropertyRef Name="id_viewer" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="Хранилище TheaterModelContainer" CdmEntityContainer="TheaterEntities1">
+        <EntityContainerMapping StorageEntityContainer="Хранилище TheaterModelContainer" CdmEntityContainer="TheaterEntities2">
           <EntitySetMapping Name="actors">
             <EntityTypeMapping TypeName="TheaterModel.actors">
               <MappingFragment StoreEntitySet="actors">
@@ -958,6 +927,15 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="basket">
+            <EntityTypeMapping TypeName="TheaterModel.basket">
+              <MappingFragment StoreEntitySet="basket">
+                <ScalarProperty Name="id_basket" ColumnName="id_basket" />
+                <ScalarProperty Name="id_performance" ColumnName="id_performance" />
+                <ScalarProperty Name="id_viewer" ColumnName="id_viewer" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="inventory">
             <EntityTypeMapping TypeName="TheaterModel.inventory">
               <MappingFragment StoreEntitySet="inventory">
@@ -977,6 +955,7 @@
                 <ScalarProperty Name="author" ColumnName="author" />
                 <ScalarProperty Name="duration" ColumnName="duration" />
                 <ScalarProperty Name="id_photo" ColumnName="id_photo" />
+                <ScalarProperty Name="price" ColumnName="price" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1092,15 +1071,6 @@
                 <ScalarProperty Name="fio" ColumnName="fio" />
                 <ScalarProperty Name="contact_details" ColumnName="contact_details" />
                 <ScalarProperty Name="id_user" ColumnName="id_user" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="basket">
-            <EntityTypeMapping TypeName="TheaterModel.basket">
-              <MappingFragment StoreEntitySet="basket">
-                <ScalarProperty Name="id_viewer" ColumnName="id_viewer" />
-                <ScalarProperty Name="id_performance" ColumnName="id_performance" />
-                <ScalarProperty Name="id_basket" ColumnName="id_basket" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

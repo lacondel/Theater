@@ -17,9 +17,8 @@ namespace theater.ApplicationData
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public performance()
         {
-            this.role = new HashSet<role>();
-            this.showtime = new HashSet<showtime>();
             this.basket = new HashSet<basket>();
+            this.showtime = new HashSet<showtime>();
         }
     
         public int id_performans { get; set; }
@@ -28,14 +27,28 @@ namespace theater.ApplicationData
         public int year_created { get; set; }
         public string author { get; set; }
         public System.TimeSpan duration { get; set; }
-        public Nullable<int> id_photo { get; set; }
+        public int id_photo { get; set; }
+        public Nullable<decimal> price { get; set; }
     
-        public virtual photo photo { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<role> role { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<showtime> showtime { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<basket> basket { get; set; }
+        public virtual photo photo { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<showtime> showtime { get; set; }
+
+        public string CurrentPhoto
+        {
+            get
+            {
+                if (String.IsNullOrEmpty(photo.photo1) || String.IsNullOrWhiteSpace(photo.photo1))
+                {
+                    return "/Images/picture.png";
+                }
+                else
+                {
+                    return "/Images/" + photo.photo1;
+                }
+            }
+        }
     }
 }

@@ -42,7 +42,7 @@ namespace theater.PageMain
                     switch (filterPerform.SelectedIndex)
                     {
                         case 0:
-                            performances = (List<performance>)performances.Where(x => x.genre == "драма");
+                            performances = performances.Where(x => x.genre == "драма").ToList();
                             break;
                     }
                 }
@@ -110,26 +110,26 @@ namespace theater.PageMain
             {
                 performance selectedPerformance = (performance)listOfPerformances.SelectedItem;
 
-                //try
-                //{
-                //    using (var context = new SportClubEntities1())
-                //    {
-                //        Basket basketItem = new Basket
-                //        {
-                //            idAbon = selectedAbonement.idAbon,
-                //            idClient = PageLogin.currClientId
-                //        };
+                try
+                {
+                    //using (var context = new SportClubEntities1())
+                    //{
+                    //    Basket basketItem = new Basket
+                    //    {
+                    //        idAbon = selectedAbonement.idAbon,
+                    //        idClient = PageLogin.id_viewer
+                    //    };
 
-                //        context.Basket.Add(basketItem);
-                //        context.SaveChanges();
-                //    }
+                    //    context.Basket.Add(basketItem);
+                    //    context.SaveChanges();
+                    //}
 
-                //    MessageBox.Show("Абонемент успешно добавлен в корзину!");
-                //}
-                //catch (Exception ex)
-                //{
-                //    MessageBox.Show($"Ошибка при добавлении абонемента в корзину: {ex.Message}");
-                //}
+                    MessageBox.Show("Абонемент успешно добавлен в корзину!");
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Ошибка при добавлении абонемента в корзину: {ex.Message}");
+                }
             }
             else
             {

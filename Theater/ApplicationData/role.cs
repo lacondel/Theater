@@ -26,6 +26,5 @@ namespace theater.ApplicationData
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<actors_role> actors_role { get; set; }
-        public virtual performance performance { get; set; }
     }
 }
