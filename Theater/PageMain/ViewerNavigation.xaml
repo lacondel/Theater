@@ -9,15 +9,11 @@
       Title="ViewerNavigation">
 
     <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="33"/>
-            <RowDefinition Height="497"/>
-        </Grid.RowDefinitions>
-        <StackPanel Grid.Row="1" Orientation="Horizontal">
-            <Button x:Name="btnShowtimes" Click="btnShowtimes_Click">Показы</Button>
-            <Button x:Name="btnPerformances" Click="btnPerformances_Click">Спектакли</Button>
-            <Button x:Name="btnActors" Click="btnActors_Click">Актёры</Button>
-            <Button x:Name="btnSponsors" Click="btnSponsors_Click">Спонсоры</Button>
+        <StackPanel Orientation="Horizontal">
+            <Button x:Name="btnShowtimes" Style="{StaticResource navButton}" Click="btnShowtimes_Click" Content="Показы"/>
+            <Button x:Name="btnPerformances" Style="{StaticResource navButton}" Click="btnPerformances_Click">Спектакли</Button>
+            <Button x:Name="btnActors" Style="{StaticResource navButton}" Click="btnActors_Click">Актёры</Button>
+            <Button x:Name="btnSponsors" Style="{StaticResource navButton}" Click="btnSponsors_Click">Спонсоры</Button>
         </StackPanel>
     </Grid>
 </Page>

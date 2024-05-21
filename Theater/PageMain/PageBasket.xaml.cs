@@ -64,7 +64,7 @@ namespace theater.PageMain
                 Paragraph paragraph1 = new Paragraph("СПИСОК ТОВАРОВ: " + font1);
                 paragraph1.Alignment = Element.ALIGN_CENTER;
                 doc.Add(paragraph1);
-                decimal sum = 0;
+                decimal? sum = 0;
 
                 foreach (var item in AppConnect.model0db.performance.ToList())
                 {
@@ -75,7 +75,7 @@ namespace theater.PageMain
                         doc.Add(new Paragraph ("Название: " + data.title, font));
                         doc.Add(new Paragraph("Цена: " + data.price, font));
 
-                        //sum += data.price;
+                        sum += data.price;
                     }
                 }
             }
