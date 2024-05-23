@@ -4,9 +4,24 @@
              xmlns:local="clr-namespace:theater"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-        <Style x:Key="navButton" TargetType="Button">
-            <Setter Property="Margin" Value="10"/>
-            <Setter Property="Width" Value="190"/>
+        <Style x:Key="baseButtonStyle" TargetType="Button">
+            <Setter Property="Cursor" Value="Hand"/>
+        </Style>
+        <Style x:Key="navButton" TargetType="Button" BasedOn="{StaticResource baseButtonStyle}">
+            <Setter Property="Background" x:Name="backgroubgGradient">
+                <Setter.Value>
+                    <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                        <GradientStop Color="#fcfe1e" Offset="0"/>
+                        <GradientStop Color="#dd0f3c" Offset="1"/>
+                    </LinearGradientBrush>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="FontSize" Value="30"/>
+            <Setter Property="Margin" Value="15"/>
+            <Setter Property="VerticalAlignment" Value="Stretch"/>
+                
         </Style>
         <Style TargetType="TextBox">
             <Setter Property="Background" Value="LightGray"/>
