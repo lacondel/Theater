@@ -31,6 +31,8 @@ namespace theater.PageMain
 
         performance[] FindPerformance()
         {
+            int sortIndex = sortPerform.SelectedIndex;
+            int filterIndex = sortPerform.SelectedIndex;
             try
             {
                 List<performance> performances = AppConnect.model0db.performance.ToList();
@@ -39,30 +41,36 @@ namespace theater.PageMain
                     performances = performances.Where(x => x.title.ToLower().Contains(search.Text.ToLower())).ToList();
                 }
 
-                if (filterPerform.SelectedIndex > 0)
+                if (filterIndex > 0)
                 {
-                    switch (filterPerform.SelectedIndex)
+                    switch (filterIndex)
                     {
                         case 0:
+                            performances = (List<performance>)performances.ToList();
+                            break;
+                        case 1:
                             performances = (List<performance>)performances.Where(x => x.genre == "драма");
                             break;
                     }
                 }
 
-                if (sortPerform.SelectedIndex >= 0)
+                if (sortIndex > 0)
                 {
-                    switch (sortPerform.SelectedIndex)
+                    switch (sortIndex)
                     {
                         case 0:
-                            performances = performances.OrderBy(x => x.title).ToList();
+                            performances = (List<performance>)performances.ToList();
                             break;
                         case 1:
-                            performances = performances.OrderByDescending(x => x.title).ToList();
+                            performances = performances.OrderBy(x => x.title).ToList();
                             break;
                         case 2:
-                            performances = performances.OrderBy(x => x.year_created).ToList();
+                            performances = performances.OrderByDescending(x => x.title).ToList();
                             break;
                         case 3:
+                            performances = performances.OrderBy(x => x.year_created).ToList();
+                            break;
+                        case 4:
                             performances = performances.OrderByDescending(x => x.year_created).ToList();
                             break;
                     }
@@ -70,7 +78,7 @@ namespace theater.PageMain
 
                 if (performances.Count > 0)
                 {
-                    tbCounter.Text = "Найдено " + performances.Count + " спектаклей.";
+                    //tbCounter.Text = "Найдено " + performances.Count + " спектаклей.";
                 }
                 else
                 {

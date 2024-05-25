@@ -9,26 +9,43 @@
       Title="PageListOfPerformances">
 
     <Grid>
+        
+        <!-- Разметка -->
         <Grid.RowDefinitions>
-            <RowDefinition Height="33"/>
-            <RowDefinition Height="15"/>
-            <RowDefinition Height="497"/>
-            <RowDefinition Height="50"/>
+            <RowDefinition Height="25"/>
+            <RowDefinition Height="400*"/>
+            <RowDefinition Height="25"/>
         </Grid.RowDefinitions>
-        <StackPanel Grid.Row="1" Orientation="Horizontal">
-            <TextBox x:Name="search" TextChanged="searchChanged"/>
-            <ComboBox x:Name="sortPerform" Width="70" SelectionChanged="sortChanged">
-                <TextBlock>По алфавиту</TextBlock>
-                <TextBlock>Против алфавита</TextBlock>
-                <TextBlock>Год создания - возрастание</TextBlock>
-                <TextBlock>Год создания - убывание</TextBlock>
+        
+        
+        <!-- Строка управления -->
+        <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Center">
+            
+            <!-- Поле поиска -->    
+            <TextBox x:Name="search" TextChanged="searchChanged" Height="25" Width="120"/>
+            
+            <!-- Сортировка -->
+            <ComboBox x:Name="sortPerform" Width="120" SelectionChanged="sortChanged">
+                <ComboBoxItem IsSelected="True">-- сортировка --</ComboBoxItem>
+                <ComboBoxItem>По алфавиту</ComboBoxItem>
+                <ComboBoxItem>Против алфавита</ComboBoxItem>
+                <ComboBoxItem>Год создания - возрастание</ComboBoxItem>
+                <ComboBoxItem>Год создания - убывание</ComboBoxItem>
             </ComboBox>
-            <ComboBox x:Name="filterPerform" Width="70" SelectionChanged="filterChanged">
-                <TextBlock>Драма</TextBlock>
+            
+            <!-- Фильтрация -->
+            <ComboBox x:Name="C" Width="120" SelectionChanged="filterChanged">
+                <ComboBoxItem IsSelected="True">-- фильтрация --</ComboBoxItem>
+                <ComboBoxItem>Драма</ComboBoxItem>
             </ComboBox>
+            
+            <!-- Кнопка возвращения на предыдущую страницу -->
             <Button x:Name="btnBack" Click="btnBack_Click">Вернуться</Button>
         </StackPanel>
-        <ListView x:Name="listOfPerformances" Grid.Row="2" ScrollViewer.CanContentScroll="False">
+        
+        
+        <!-- ListView -->
+        <ListView x:Name="listOfPerformances" Grid.Row="1" ScrollViewer.CanContentScroll="False">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <Grid>
@@ -63,7 +80,11 @@
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
-        <TextBlock x:Name="tbCounter" Text="Не найдено" Grid.Row="3" Width="95" HorizontalAlignment="Left" Height="22" Margin="695,0,0,0"/>
+        
+        
+        <!-- Строка информирования -->
+        <TextBlock x:Name="tbCounter" Text="Не найдено" Grid.Row="2" Width="120" HorizontalAlignment="Center" Height="25" Background="#fff"/>
+    
     </Grid>
 </Page>
     
