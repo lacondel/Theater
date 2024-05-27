@@ -13,7 +13,7 @@
         <!-- Разметка -->
         <Grid.RowDefinitions>
             <RowDefinition Height="25"/>
-            <RowDefinition Height="400*"/>
+            <RowDefinition Height="100*"/>
             <RowDefinition Height="25"/>
         </Grid.RowDefinitions>
         
@@ -26,7 +26,6 @@
             
             <!-- Сортировка -->
             <ComboBox x:Name="sortPerform" Width="120" SelectionChanged="sortChanged">
-                <ComboBoxItem IsSelected="True">-- сортировка --</ComboBoxItem>
                 <ComboBoxItem>По алфавиту</ComboBoxItem>
                 <ComboBoxItem>Против алфавита</ComboBoxItem>
                 <ComboBoxItem>Год создания - возрастание</ComboBoxItem>
@@ -34,8 +33,7 @@
             </ComboBox>
             
             <!-- Фильтрация -->
-            <ComboBox x:Name="C" Width="120" SelectionChanged="filterChanged">
-                <ComboBoxItem IsSelected="True">-- фильтрация --</ComboBoxItem>
+            <ComboBox x:Name="filterPerform" Width="120" SelectionChanged="filterChanged">
                 <ComboBoxItem>Драма</ComboBoxItem>
             </ComboBox>
             
@@ -45,15 +43,15 @@
         
         
         <!-- ListView -->
-        <ListView x:Name="listOfPerformances" Grid.Row="1" ScrollViewer.CanContentScroll="False">
+        <ListView x:Name="listOfPerformances" Grid.Row="1" ScrollViewer.CanContentScroll="False" Margin="25">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <Grid>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="300"/>
-                            <ColumnDefinition Width="700"/>
+                            <ColumnDefinition Width="300*"/>
+                            <ColumnDefinition Width="700*"/>
                         </Grid.ColumnDefinitions>
-                        <Image Source="{Binding CurrentPhoto}" Grid.Column="0" HorizontalAlignment="Right"/>
+                        <Image Source="{Binding CurrentPhoto}" Grid.Column="0" HorizontalAlignment="Right" Height="200"/>
                         <StackPanel Grid.Column="1" Width="auto" Orientation="Vertical" HorizontalAlignment="Left">
                             <TextBlock Width="auto" TextWrapping="Wrap" Height="auto">
                                 <Run Text="Название: "/>

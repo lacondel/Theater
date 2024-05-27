@@ -9,15 +9,11 @@
       Title="ViewerNavigation">
     
     <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
-        </Grid.ColumnDefinitions>
-        <Button x:Name="btnShowtimes" Grid.Column="0" Style="{StaticResource navButton}" Click="btnShowtimes_Click" Content="Показы"/>
-        <Button x:Name="btnPerformances" Grid.Column="1" Style="{StaticResource navButton}" Click="btnPerformances_Click" Content="Спектакли"/>
-        <Button x:Name="btnActors" Grid.Column="2" Style="{StaticResource navButton}" Click="btnActors_Click" Content="Актёры"/>
-        <Button x:Name="btnSponsors" Grid.Column="3" Style="{StaticResource navButton}" Click="btnSponsors_Click" Content="Спонсоры"/>
+        <UniformGrid Columns="4">
+            <Button x:Name="btnShowtimes" Grid.Column="0" Style="{StaticResource navButton}" Click="btnShowtimes_Click" Content="Показы"/>
+            <Button x:Name="btnPerformances" Grid.Column="1" Style="{StaticResource navButton}" Click="btnPerformances_Click" Content="Спектакли"/>
+            <Button x:Name="btnActors" Grid.Column="2" Style="{StaticResource navButton}" Click="btnActors_Click" Content="Актёры"/>
+            <Button x:Name="btnSponsors" Grid.Column="3" Style="{StaticResource navButton}" Click="btnSponsors_Click" Content="Спонсоры"/>
+        </UniformGrid>
     </Grid>
 </Page>

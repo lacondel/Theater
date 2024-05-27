@@ -32,7 +32,7 @@ namespace theater.PageMain
         performance[] FindPerformance()
         {
             int sortIndex = sortPerform.SelectedIndex;
-            int filterIndex = sortPerform.SelectedIndex;
+            int filterIndex = filterPerform.SelectedIndex;
             try
             {
                 List<performance> performances = AppConnect.model0db.performance.ToList();
@@ -46,9 +46,6 @@ namespace theater.PageMain
                     switch (filterIndex)
                     {
                         case 0:
-                            performances = (List<performance>)performances.ToList();
-                            break;
-                        case 1:
                             performances = (List<performance>)performances.Where(x => x.genre == "драма");
                             break;
                     }
@@ -59,18 +56,15 @@ namespace theater.PageMain
                     switch (sortIndex)
                     {
                         case 0:
-                            performances = (List<performance>)performances.ToList();
-                            break;
-                        case 1:
                             performances = performances.OrderBy(x => x.title).ToList();
                             break;
-                        case 2:
+                        case 1:
                             performances = performances.OrderByDescending(x => x.title).ToList();
                             break;
-                        case 3:
+                        case 2:
                             performances = performances.OrderBy(x => x.year_created).ToList();
                             break;
-                        case 4:
+                        case 3:
                             performances = performances.OrderByDescending(x => x.year_created).ToList();
                             break;
                     }
@@ -78,7 +72,7 @@ namespace theater.PageMain
 
                 if (performances.Count > 0)
                 {
-                    //tbCounter.Text = "Найдено " + performances.Count + " спектаклей.";
+                    tbCounter.Text = "Найдено " + performances.Count + " спектаклей.";
                 }
                 else
                 {

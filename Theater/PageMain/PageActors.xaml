@@ -10,7 +10,8 @@
 
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="300"/>
+            <RowDefinition Height="300*"/>
+            <RowDefinition Height="50"/>
         </Grid.RowDefinitions>
 
         <ListView x:Name="listOfActors" Grid.Row="0" ScrollViewer.CanContentScroll="False">
@@ -44,5 +45,8 @@
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
+        <StackPanel Orientation="Horizontal" Grid.Row="1" HorizontalAlignment="Center">
+            <Button Content="Вернуться"/>
+        </StackPanel>
     </Grid>
 </Page>
