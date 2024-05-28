@@ -47,10 +47,12 @@
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <Grid>
+                        <!-- Разметка ListView -->
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="300*"/>
                             <ColumnDefinition Width="700*"/>
                         </Grid.ColumnDefinitions>
+                        
                         <Image Source="{Binding CurrentPhoto}" Grid.Column="0" HorizontalAlignment="Right" Height="200"/>
                         <StackPanel Grid.Column="1" Width="auto" Orientation="Vertical" HorizontalAlignment="Left">
                             <TextBlock Width="auto" TextWrapping="Wrap" Height="auto">

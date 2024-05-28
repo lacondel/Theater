@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="Хранилище TheaterModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="Хранилище TheaterModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="actors">
           <Key>
             <PropertyRef Name="id_actor" />
@@ -17,6 +17,7 @@
           <Property Name="weight" Type="int" Nullable="false" />
           <Property Name="contact_details" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="id_user" Type="int" Nullable="false" />
+          <Property Name="id_photo" Type="int" />
         </EntityType>
         <EntityType Name="actors_role">
           <Key>
@@ -433,8 +434,7 @@
             <End Role="viewer" EntitySet="viewer" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="TheaterModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -452,6 +452,7 @@
           <Property Name="id_user" Type="Int32" Nullable="false" />
           <NavigationProperty Name="actors_role" Relationship="Self.FK_actors_role_actors" FromRole="actors" ToRole="actors_role" />
           <NavigationProperty Name="users" Relationship="Self.FK_actors_Users" FromRole="actors" ToRole="users" />
+          <Property Name="id_photo" Type="Int32" />
         </EntityType>
         <EntityType Name="actors_role">
           <Key>
@@ -907,6 +908,7 @@
           <EntitySetMapping Name="actors">
             <EntityTypeMapping TypeName="TheaterModel.actors">
               <MappingFragment StoreEntitySet="actors">
+                <ScalarProperty Name="id_photo" ColumnName="id_photo" />
                 <ScalarProperty Name="id_actor" ColumnName="id_actor" />
                 <ScalarProperty Name="fio" ColumnName="fio" />
                 <ScalarProperty Name="age" ColumnName="age" />

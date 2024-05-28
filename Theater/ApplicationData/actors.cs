@@ -28,9 +28,26 @@ namespace theater.ApplicationData
         public int weight { get; set; }
         public string contact_details { get; set; }
         public int id_user { get; set; }
+        public Nullable<int> id_photo { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<actors_role> actors_role { get; set; }
         public virtual users users { get; set; }
+
+
+        public string CurrentPhoto
+        {
+            get
+            {
+                if (String.IsNullOrEmpty(photo.photo1) || String.IsNullOrWhiteSpace(photo.photo1))
+                {
+                    return "/Images/picture.png";
+                }
+                else
+                {
+                    return "/Images/" + photo.photo1;
+                }
+            }
+        }
     }
 }

@@ -9,38 +9,53 @@
       Title="PageActors">
 
     <Grid>
+        
+        
+        <!-- Разметка -->
         <Grid.RowDefinitions>
             <RowDefinition Height="300*"/>
             <RowDefinition Height="50"/>
         </Grid.RowDefinitions>
 
+        
+        <!-- ListView -->
         <ListView x:Name="listOfActors" Grid.Row="0" ScrollViewer.CanContentScroll="False">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <Grid>
-                        <Grid.RowDefinitions>
-                            <RowDefinition/>
-                        </Grid.RowDefinitions>
+                        
+                        <!-- Разметка ListView -->
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="100"/>
                             <ColumnDefinition Width="3*"/>
                         </Grid.ColumnDefinitions>
+                        
+                        <!-- Подгружаем фото -->
                         <Image Source="{Binding CurrentPhoto}" Grid.Column="0"/>
-                        <StackPanel Grid.Column="1" Width="auto" Orientation="Vertical" HorizontalAlignment="Left">
+                        
+                        <!-- Подгружаем остальную информацию о актёре -->
+                        <StackPanel Grid.Column="1" Orientation="Vertical" HorizontalAlignment="Left" Width="auto" Height="200">
                             <TextBlock Width="auto" TextWrapping="Wrap" Height="auto">
-                        <Run Text="Название: "/>
-                        <Run Text="{Binding title}"/>
+                                <Run Text="ФИО: "/>
+                                <Run Text="{Binding fio}"/>
                             </TextBlock>
                             <TextBlock Width="auto" TextWrapping="Wrap" Height="auto">
-                        <Run Text="Дата: "/>
-                        <Run Text=" {Binding date} "/>
+                                <Run Text="Возраст: "/>
+                                <Run Text="{Binding age}"/>
                             </TextBlock>
                             <TextBlock Width="auto" TextWrapping="Wrap" Height="auto">
-                        <Run Text="Цена: "/>
-                        <Run Text="В работе"/>
+                                <Run Text="Пол: "/>
+                                <Run Text="{Binding sex}"/>
+                            </TextBlock>
+                            <TextBlock Width="auto" TextWrapping="Wrap" Height="auto">
+                                <Run Text="Рост: "/>
+                                <Run Text="{Binding height}"/>
+                            </TextBlock>
+                            <TextBlock Width="auto" TextWrapping="Wrap" Height="auto">
+                                <Run Text="Вес: "/>
+                                <Run Text="{Binding weight}"/>
                             </TextBlock>
                         </StackPanel>
-                        <Button x:Name="btnAddToBasket" Height="30" VerticalAlignment="Center" Grid.Column="2">Добавить в корзину</Button>
                     </Grid>
                 </DataTemplate>
             </ListView.ItemTemplate>

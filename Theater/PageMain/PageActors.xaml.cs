@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using theater.ApplicationData;
 
 namespace theater.PageMain
 {
@@ -23,6 +24,8 @@ namespace theater.PageMain
         public PageActors()
         {
             InitializeComponent();
+            listOfActors.ItemsSource = AppConnect.model0db.actors.ToList();
+            listOfActors.ItemsSource = AppConnect.model0db.photo.ToList();
         }
     }
 }
