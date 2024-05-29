@@ -12,25 +12,18 @@ namespace theater.ApplicationData
     using System;
     using System.Collections.Generic;
     
-    public partial class theater
+    public partial class inventory_item_name
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public theater()
+        public inventory_item_name()
         {
             this.inventory = new HashSet<inventory>();
-            this.tickets = new HashSet<tickets>();
         }
     
-        public int id_theater_building { get; set; }
-        public string address { get; set; }
-        public double area { get; set; }
-        public int seats_number { get; set; }
-        public int year_built { get; set; }
-        public int stage_area { get; set; }
+        public int id_iin { get; set; }
+        public string name { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<inventory> inventory { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<tickets> tickets { get; set; }
     }
 }

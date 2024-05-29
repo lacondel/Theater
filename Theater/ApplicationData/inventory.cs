@@ -15,9 +15,10 @@ namespace theater.ApplicationData
     public partial class inventory
     {
         public int id_inventory { get; set; }
-        public string name { get; set; }
+        public int id_iin { get; set; }
         public int id_theater_building { get; set; }
     
+        public virtual inventory_item_name inventory_item_name { get; set; }
         public virtual theater theater { get; set; }
     }
 }

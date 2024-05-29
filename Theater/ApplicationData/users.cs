@@ -17,7 +17,6 @@ namespace theater.ApplicationData
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public users()
         {
-            this.actors = new HashSet<actors>();
             this.viewer = new HashSet<viewer>();
         }
     
@@ -26,8 +25,6 @@ namespace theater.ApplicationData
         public string pass { get; set; }
         public int id_user_role { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<actors> actors { get; set; }
         public virtual user_role user_role { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<viewer> viewer { get; set; }

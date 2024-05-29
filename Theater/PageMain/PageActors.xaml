@@ -31,10 +31,10 @@
                         </Grid.ColumnDefinitions>
                         
                         <!-- Подгружаем фото -->
-                        <Image Source="{Binding CurrentPhoto}" Grid.Column="0"/>
+                        <Image Source="{Binding CurrentPhoto1}" Grid.Column="0" HorizontalAlignment="Right" Height="200"/>
                         
                         <!-- Подгружаем остальную информацию о актёре -->
-                        <StackPanel Grid.Column="1" Orientation="Vertical" HorizontalAlignment="Left" Width="auto" Height="200">
+                        <StackPanel Grid.Column="1" Orientation="Vertical" HorizontalAlignment="Left">
                             <TextBlock Width="auto" TextWrapping="Wrap" Height="auto">
                                 <Run Text="ФИО: "/>
                                 <Run Text="{Binding fio}"/>
@@ -61,7 +61,7 @@
             </ListView.ItemTemplate>
         </ListView>
         <StackPanel Orientation="Horizontal" Grid.Row="1" HorizontalAlignment="Center">
-            <Button Content="Вернуться"/>
+            <Button x:Name="btnBack" Content="Вернуться" Click="btnBack_Click"/>
         </StackPanel>
     </Grid>
 </Page>

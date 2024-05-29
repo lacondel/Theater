@@ -13,10 +13,10 @@ namespace theater.ApplicationData
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class TheaterEntities2 : DbContext
+    public partial class TheaterEntities3 : DbContext
     {
-        public TheaterEntities2()
-            : base("name=TheaterEntities2")
+        public TheaterEntities3()
+            : base("name=TheaterEntities3")
         {
         }
     
@@ -29,6 +29,7 @@ namespace theater.ApplicationData
         public virtual DbSet<actors_role> actors_role { get; set; }
         public virtual DbSet<basket> basket { get; set; }
         public virtual DbSet<inventory> inventory { get; set; }
+        public virtual DbSet<inventory_item_name> inventory_item_name { get; set; }
         public virtual DbSet<performance> performance { get; set; }
         public virtual DbSet<photo> photo { get; set; }
         public virtual DbSet<review> review { get; set; }

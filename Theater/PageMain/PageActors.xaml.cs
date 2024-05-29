@@ -25,7 +25,11 @@ namespace theater.PageMain
         {
             InitializeComponent();
             listOfActors.ItemsSource = AppConnect.model0db.actors.ToList();
-            listOfActors.ItemsSource = AppConnect.model0db.photo.ToList();
+        }
+
+        private void btnBack_Click(object sender, RoutedEventArgs e)
+        {
+            AppFrame.frameMain.Navigate(new ViewerNavigation());
         }
     }
 }
