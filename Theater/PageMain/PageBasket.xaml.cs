@@ -48,49 +48,49 @@ namespace theater.PageMain
 
         }
 
-        private void CreatePDF()
-        {
-            Document doc = new Document();
+        //private void CreatePDF()
+        //{
+        //    Document doc = new Document();
 
-            try
-            {
-                PdfWriter.GetInstance(doc, new FileStream("*..\\..\\output.pdf", FileMode.Create));
+        //    try
+        //    {
+        //        PdfWriter.GetInstance(doc, new FileStream("*..\\..\\output.pdf", FileMode.Create));
 
-                doc.Open();
+        //        doc.Open();
 
-                BaseFont baseFont = BaseFont.CreateFont("C:\\Windows\\Fonts\\Arial.ttf", BaseFont.IDENTITY_H, BaseFont.NOT_EMBEDDED);
-                Font font = new Font(baseFont, 12);
-                Font font1 = new Font(baseFont, 25, 3, BaseColor.BLUE);
-                Paragraph paragraph1 = new Paragraph("СПИСОК ТОВАРОВ: " + font1);
-                paragraph1.Alignment = Element.ALIGN_CENTER;
-                doc.Add(paragraph1);
-                decimal? sum = 0;
+        //        BaseFont baseFont = BaseFont.CreateFont("C:\\Windows\\Fonts\\Arial.ttf", BaseFont.IDENTITY_H, BaseFont.NOT_EMBEDDED);
+        //        Font font = new Font(baseFont, 12);
+        //        Font font1 = new Font(baseFont, 25, 3, BaseColor.BLUE);
+        //        Paragraph paragraph1 = new Paragraph("СПИСОК ТОВАРОВ: " + font1);
+        //        paragraph1.Alignment = Element.ALIGN_CENTER;
+        //        doc.Add(paragraph1);
+        //        decimal? sum = 0;
 
-                foreach (var item in AppConnect.model0db.performance.ToList())
-                {
-                    if (item is performance)
-                    {
-                        performance data = (performance)item;
+        //        foreach (var item in AppConnect.model0db.performance.ToList())
+        //        {
+        //            if (item is performance)
+        //            {
+        //                performance data = (performance)item;
 
-                        doc.Add(new Paragraph ("Название: " + data.title, font));
-                        doc.Add(new Paragraph("Цена: " + data.price, font));
+        //                doc.Add(new Paragraph ("Название: " + data.title, font));
+        //                doc.Add(new Paragraph("Цена: " + data.price, font));
 
-                        sum += data.price;
-                    }
-                }
-            }
-            catch (DocumentException de)
-            {
-                Console.Error.WriteLine(de.Message);
-            }
-            catch (IOException ioe)
-            {
-                Console.Error.WriteLine(ioe.Message);
-            }
-            finally
-            {
-                doc.Close();
-            }
-        }
+        //                sum += data.price;
+        //            }
+        //        }
+        //    }
+        //    catch (DocumentException de)
+        //    {
+        //        Console.Error.WriteLine(de.Message);
+        //    }
+        //    catch (IOException ioe)
+        //    {
+        //        Console.Error.WriteLine(ioe.Message);
+        //    }
+        //    finally
+        //    {
+        //        doc.Close();
+        //    }
+        //}
     }
 }

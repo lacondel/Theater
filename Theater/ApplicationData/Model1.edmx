@@ -31,8 +31,8 @@
             <PropertyRef Name="id_basket" />
           </Key>
           <Property Name="id_basket" Type="int" Nullable="false" />
-          <Property Name="id_performance" Type="int" Nullable="false" />
           <Property Name="id_viewer" Type="int" Nullable="false" />
+          <Property Name="id_showtime" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="inventory">
           <Key>
@@ -60,7 +60,6 @@
           <Property Name="author" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="duration" Type="time" Precision="7" Nullable="false" />
           <Property Name="id_photo" Type="int" Nullable="false" />
-          <Property Name="price" Type="decimal" Precision="18" Scale="2" />
         </EntityType>
         <EntityType Name="photo">
           <Key>
@@ -96,6 +95,7 @@
           <Property Name="id_performanse" Type="int" Nullable="false" />
           <Property Name="id_photo" Type="int" Nullable="false" />
           <Property Name="date" Type="datetime" Nullable="false" />
+          <Property Name="price" Type="decimal" Precision="18" Scale="2" Nullable="false" />
         </EntityType>
         <EntityType Name="sponsor">
           <Key>
@@ -104,7 +104,7 @@
           <Property Name="id_sponsor" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="company_name" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="contact_info" Type="nvarchar" MaxLength="200" Nullable="false" />
-          <Property Name="sponsorship_amount" Type="float" Nullable="false" />
+          <Property Name="id_photo" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="sysdiagrams">
           <Key>
@@ -201,15 +201,15 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_basket_performance">
-          <End Role="performance" Type="Self.performance" Multiplicity="1" />
+        <Association Name="FK_basket_showtime">
+          <End Role="showtime" Type="Self.showtime" Multiplicity="1" />
           <End Role="basket" Type="Self.basket" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="performance">
-              <PropertyRef Name="id_performans" />
+            <Principal Role="showtime">
+              <PropertyRef Name="id_showtime" />
             </Principal>
             <Dependent Role="basket">
-              <PropertyRef Name="id_performance" />
+              <PropertyRef Name="id_showtime" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -273,6 +273,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_role_performance">
+          <End Role="performance" Type="Self.performance" Multiplicity="1" />
+          <End Role="role" Type="Self.role" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="performance">
+              <PropertyRef Name="id_performans" />
+            </Principal>
+            <Dependent Role="role">
+              <PropertyRef Name="id_performance" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_showtime_performance">
           <End Role="performance" Type="Self.performance" Multiplicity="1" />
           <End Role="showtime" Type="Self.showtime" Multiplicity="*" />
@@ -293,6 +305,18 @@
               <PropertyRef Name="id_photo" />
             </Principal>
             <Dependent Role="showtime">
+              <PropertyRef Name="id_photo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_sponsor_photo">
+          <End Role="photo" Type="Self.photo" Multiplicity="1" />
+          <End Role="sponsor" Type="Self.sponsor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="photo">
+              <PropertyRef Name="id_photo" />
+            </Principal>
+            <Dependent Role="sponsor">
               <PropertyRef Name="id_photo" />
             </Dependent>
           </ReferentialConstraint>
@@ -387,8 +411,8 @@
             <End Role="role" EntitySet="role" />
             <End Role="actors_role" EntitySet="actors_role" />
           </AssociationSet>
-          <AssociationSet Name="FK_basket_performance" Association="Self.FK_basket_performance">
-            <End Role="performance" EntitySet="performance" />
+          <AssociationSet Name="FK_basket_showtime" Association="Self.FK_basket_showtime">
+            <End Role="showtime" EntitySet="showtime" />
             <End Role="basket" EntitySet="basket" />
           </AssociationSet>
           <AssociationSet Name="FK_basket_viewer" Association="Self.FK_basket_viewer">
@@ -411,6 +435,10 @@
             <End Role="showtime" EntitySet="showtime" />
             <End Role="review" EntitySet="review" />
           </AssociationSet>
+          <AssociationSet Name="FK_role_performance" Association="Self.FK_role_performance">
+            <End Role="performance" EntitySet="performance" />
+            <End Role="role" EntitySet="role" />
+          </AssociationSet>
           <AssociationSet Name="FK_showtime_performance" Association="Self.FK_showtime_performance">
             <End Role="performance" EntitySet="performance" />
             <End Role="showtime" EntitySet="showtime" />
@@ -418,6 +446,10 @@
           <AssociationSet Name="FK_showtime_photo" Association="Self.FK_showtime_photo">
             <End Role="photo" EntitySet="photo" />
             <End Role="showtime" EntitySet="showtime" />
+          </AssociationSet>
+          <AssociationSet Name="FK_sponsor_photo" Association="Self.FK_sponsor_photo">
+            <End Role="photo" EntitySet="photo" />
+            <End Role="sponsor" EntitySet="sponsor" />
           </AssociationSet>
           <AssociationSet Name="FK_tickets_showtime" Association="Self.FK_tickets_showtime">
             <End Role="showtime" EntitySet="showtime" />
@@ -475,9 +507,9 @@
             <PropertyRef Name="id_basket" />
           </Key>
           <Property Name="id_basket" Type="Int32" Nullable="false" />
-          <Property Name="id_performance" Type="Int32" Nullable="false" />
           <Property Name="id_viewer" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="performance" Relationship="Self.FK_basket_performance" FromRole="basket" ToRole="performance" />
+          <Property Name="id_showtime" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="showtime" Relationship="Self.FK_basket_showtime" FromRole="basket" ToRole="showtime" />
           <NavigationProperty Name="viewer" Relationship="Self.FK_basket_viewer" FromRole="basket" ToRole="viewer" />
         </EntityType>
         <EntityType Name="inventory">
@@ -509,9 +541,8 @@
           <Property Name="author" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="duration" Type="Time" Nullable="false" Precision="7" />
           <Property Name="id_photo" Type="Int32" Nullable="false" />
-          <Property Name="price" Type="Decimal" Precision="18" Scale="2" />
-          <NavigationProperty Name="basket" Relationship="Self.FK_basket_performance" FromRole="performance" ToRole="basket" />
           <NavigationProperty Name="photo" Relationship="Self.FK_performance_photo" FromRole="performance" ToRole="photo" />
+          <NavigationProperty Name="role" Relationship="Self.FK_role_performance" FromRole="performance" ToRole="role" />
           <NavigationProperty Name="showtime" Relationship="Self.FK_showtime_performance" FromRole="performance" ToRole="showtime" />
         </EntityType>
         <EntityType Name="photo">
@@ -524,6 +555,7 @@
           <NavigationProperty Name="actors" Relationship="Self.FK_actors_photo" FromRole="photo" ToRole="actors" />
           <NavigationProperty Name="performance" Relationship="Self.FK_performance_photo" FromRole="photo" ToRole="performance" />
           <NavigationProperty Name="showtime" Relationship="Self.FK_showtime_photo" FromRole="photo" ToRole="showtime" />
+          <NavigationProperty Name="sponsor" Relationship="Self.FK_sponsor_photo" FromRole="photo" ToRole="sponsor" />
         </EntityType>
         <EntityType Name="review">
           <Key>
@@ -544,6 +576,7 @@
           <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="id_performance" Type="Int32" Nullable="false" />
           <NavigationProperty Name="actors_role" Relationship="Self.FK_actors_role_role" FromRole="role" ToRole="actors_role" />
+          <NavigationProperty Name="performance" Relationship="Self.FK_role_performance" FromRole="role" ToRole="performance" />
         </EntityType>
         <EntityType Name="showtime">
           <Key>
@@ -553,6 +586,8 @@
           <Property Name="id_performanse" Type="Int32" Nullable="false" />
           <Property Name="id_photo" Type="Int32" Nullable="false" />
           <Property Name="date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="price" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
+          <NavigationProperty Name="basket" Relationship="Self.FK_basket_showtime" FromRole="showtime" ToRole="basket" />
           <NavigationProperty Name="performance" Relationship="Self.FK_showtime_performance" FromRole="showtime" ToRole="performance" />
           <NavigationProperty Name="photo" Relationship="Self.FK_showtime_photo" FromRole="showtime" ToRole="photo" />
           <NavigationProperty Name="review" Relationship="Self.FK_review_showtime" FromRole="showtime" ToRole="review" />
@@ -565,7 +600,8 @@
           <Property Name="id_sponsor" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="company_name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="contact_info" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="sponsorship_amount" Type="Double" Nullable="false" />
+          <Property Name="id_photo" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="photo" Relationship="Self.FK_sponsor_photo" FromRole="sponsor" ToRole="photo" />
         </EntityType>
         <EntityType Name="sysdiagrams">
           <Key>
@@ -673,15 +709,15 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_basket_performance">
-          <End Role="performance" Type="Self.performance" Multiplicity="1" />
+        <Association Name="FK_basket_showtime">
+          <End Role="showtime" Type="Self.showtime" Multiplicity="1" />
           <End Role="basket" Type="Self.basket" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="performance">
-              <PropertyRef Name="id_performans" />
+            <Principal Role="showtime">
+              <PropertyRef Name="id_showtime" />
             </Principal>
             <Dependent Role="basket">
-              <PropertyRef Name="id_performance" />
+              <PropertyRef Name="id_showtime" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -733,6 +769,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_role_performance">
+          <End Role="performance" Type="Self.performance" Multiplicity="1" />
+          <End Role="role" Type="Self.role" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="performance">
+              <PropertyRef Name="id_performans" />
+            </Principal>
+            <Dependent Role="role">
+              <PropertyRef Name="id_performance" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_showtime_performance">
           <End Role="performance" Type="Self.performance" Multiplicity="1" />
           <End Role="showtime" Type="Self.showtime" Multiplicity="*" />
@@ -753,6 +801,18 @@
               <PropertyRef Name="id_photo" />
             </Principal>
             <Dependent Role="showtime">
+              <PropertyRef Name="id_photo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_sponsor_photo">
+          <End Role="photo" Type="Self.photo" Multiplicity="1" />
+          <End Role="sponsor" Type="Self.sponsor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="photo">
+              <PropertyRef Name="id_photo" />
+            </Principal>
+            <Dependent Role="sponsor">
               <PropertyRef Name="id_photo" />
             </Dependent>
           </ReferentialConstraint>
@@ -829,7 +889,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="TheaterEntities3" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="TheaterEntities4" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="actors" EntityType="Self.actors" />
           <EntitySet Name="actors_role" EntityType="Self.actors_role" />
           <EntitySet Name="basket" EntityType="Self.basket" />
@@ -859,8 +919,8 @@
             <End Role="role" EntitySet="role" />
             <End Role="actors_role" EntitySet="actors_role" />
           </AssociationSet>
-          <AssociationSet Name="FK_basket_performance" Association="Self.FK_basket_performance">
-            <End Role="performance" EntitySet="performance" />
+          <AssociationSet Name="FK_basket_showtime" Association="Self.FK_basket_showtime">
+            <End Role="showtime" EntitySet="showtime" />
             <End Role="basket" EntitySet="basket" />
           </AssociationSet>
           <AssociationSet Name="FK_basket_viewer" Association="Self.FK_basket_viewer">
@@ -879,6 +939,10 @@
             <End Role="photo" EntitySet="photo" />
             <End Role="performance" EntitySet="performance" />
           </AssociationSet>
+          <AssociationSet Name="FK_role_performance" Association="Self.FK_role_performance">
+            <End Role="performance" EntitySet="performance" />
+            <End Role="role" EntitySet="role" />
+          </AssociationSet>
           <AssociationSet Name="FK_showtime_performance" Association="Self.FK_showtime_performance">
             <End Role="performance" EntitySet="performance" />
             <End Role="showtime" EntitySet="showtime" />
@@ -886,6 +950,10 @@
           <AssociationSet Name="FK_showtime_photo" Association="Self.FK_showtime_photo">
             <End Role="photo" EntitySet="photo" />
             <End Role="showtime" EntitySet="showtime" />
+          </AssociationSet>
+          <AssociationSet Name="FK_sponsor_photo" Association="Self.FK_sponsor_photo">
+            <End Role="photo" EntitySet="photo" />
+            <End Role="sponsor" EntitySet="sponsor" />
           </AssociationSet>
           <AssociationSet Name="FK_review_showtime" Association="Self.FK_review_showtime">
             <End Role="showtime" EntitySet="showtime" />
@@ -917,7 +985,7 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="Хранилище TheaterModelContainer" CdmEntityContainer="TheaterEntities3">
+        <EntityContainerMapping StorageEntityContainer="Хранилище TheaterModelContainer" CdmEntityContainer="TheaterEntities4">
           <EntitySetMapping Name="actors">
             <EntityTypeMapping TypeName="TheaterModel.actors">
               <MappingFragment StoreEntitySet="actors">
@@ -945,8 +1013,8 @@
             <EntityTypeMapping TypeName="TheaterModel.basket">
               <MappingFragment StoreEntitySet="basket">
                 <ScalarProperty Name="id_basket" ColumnName="id_basket" />
-                <ScalarProperty Name="id_performance" ColumnName="id_performance" />
                 <ScalarProperty Name="id_viewer" ColumnName="id_viewer" />
+                <ScalarProperty Name="id_showtime" ColumnName="id_showtime" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -977,7 +1045,6 @@
                 <ScalarProperty Name="author" ColumnName="author" />
                 <ScalarProperty Name="duration" ColumnName="duration" />
                 <ScalarProperty Name="id_photo" ColumnName="id_photo" />
-                <ScalarProperty Name="price" ColumnName="price" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1017,6 +1084,7 @@
                 <ScalarProperty Name="id_performanse" ColumnName="id_performanse" />
                 <ScalarProperty Name="id_photo" ColumnName="id_photo" />
                 <ScalarProperty Name="date" ColumnName="date" />
+                <ScalarProperty Name="price" ColumnName="price" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1026,7 +1094,7 @@
                 <ScalarProperty Name="id_sponsor" ColumnName="id_sponsor" />
                 <ScalarProperty Name="company_name" ColumnName="company_name" />
                 <ScalarProperty Name="contact_info" ColumnName="contact_info" />
-                <ScalarProperty Name="sponsorship_amount" ColumnName="sponsorship_amount" />
+                <ScalarProperty Name="id_photo" ColumnName="id_photo" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

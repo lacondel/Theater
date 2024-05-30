@@ -17,6 +17,8 @@ namespace theater.ApplicationData
         public int id_sponsor { get; set; }
         public string company_name { get; set; }
         public string contact_info { get; set; }
-        public double sponsorship_amount { get; set; }
+        public int id_photo { get; set; }
+    
+        public virtual photo photo { get; set; }
     }
 }

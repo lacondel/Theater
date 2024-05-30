@@ -35,7 +35,7 @@ namespace theater.PageMain
             {
                 var userObj = AppConnect.model0db.users.FirstOrDefault(x => x.login == login.Text && x.pass == password.Password);
                 var viewerObj = AppConnect.model0db.viewer.FirstOrDefault(x => x.id_user == userObj.id_user);
-                var actorsObj = AppConnect.model0db.actors.FirstOrDefault(x => x.id_user == userObj.id_user);
+                //var actorsObj = AppConnect.model0db.actors.FirstOrDefault(x => x.id_user == userObj.id_user);
                 if (userObj == null)
                 {
                     MessageBox.Show("Такого пользователя нет!", "Ошибка при авторизации!", MessageBoxButton.OK, MessageBoxImage.Error);
@@ -53,7 +53,7 @@ namespace theater.PageMain
                             AppFrame.frameMain.Navigate(new ViewerNavigation());
                             break;
                         case 3:
-                            MessageBox.Show("Приветствуем вас, уважаемый " + actorsObj.fio + "!", "Уведомление", MessageBoxButton.OK, MessageBoxImage.Information);
+                            //MessageBox.Show("Приветствуем вас, уважаемый " + actorsObj.fio + "!", "Уведомление", MessageBoxButton.OK, MessageBoxImage.Information);
                             AppFrame.frameMain.Navigate(new ViewerNavigation());
                             break;
                         default:

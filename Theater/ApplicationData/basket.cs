@@ -15,10 +15,10 @@ namespace theater.ApplicationData
     public partial class basket
     {
         public int id_basket { get; set; }
-        public int id_performance { get; set; }
         public int id_viewer { get; set; }
+        public int id_showtime { get; set; }
     
-        public virtual performance performance { get; set; }
+        public virtual showtime showtime { get; set; }
         public virtual viewer viewer { get; set; }
     }
 }

@@ -20,6 +20,7 @@ namespace theater.ApplicationData
             this.actors = new HashSet<actors>();
             this.performance = new HashSet<performance>();
             this.showtime = new HashSet<showtime>();
+            this.sponsor = new HashSet<sponsor>();
         }
     
         public int id_photo { get; set; }
@@ -32,5 +33,7 @@ namespace theater.ApplicationData
         public virtual ICollection<performance> performance { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<showtime> showtime { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<sponsor> sponsor { get; set; }
     }
 }

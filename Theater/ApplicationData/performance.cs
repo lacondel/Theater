@@ -17,7 +17,7 @@ namespace theater.ApplicationData
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public performance()
         {
-            this.basket = new HashSet<basket>();
+            this.role = new HashSet<role>();
             this.showtime = new HashSet<showtime>();
         }
     
@@ -28,26 +28,18 @@ namespace theater.ApplicationData
         public string author { get; set; }
         public System.TimeSpan duration { get; set; }
         public int id_photo { get; set; }
-        public Nullable<decimal> price { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<basket> basket { get; set; }
         public virtual photo photo { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<role> role { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<showtime> showtime { get; set; }
 
-        public string CurrentPhoto
+        public string ActorPhotoPath
         {
             get
             {
-                if (String.IsNullOrEmpty(photo.photo1) || String.IsNullOrWhiteSpace(photo.photo1))
-                {
-                    return "/Images/picture.png";
-                }
-                else
-                {
-                    return "/Images/" + photo.photo1;
-                }
+                return MethodsForDB.PhotoPath(photo.photo1);
             }
         }
     }

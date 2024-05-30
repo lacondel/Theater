@@ -4,34 +4,36 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="9f369e10e54a4e688f2b5f780b2a276b" Name="Diagram1">
-        <EntityTypeShape EntityType="TheaterModel.actors" Width="1.5" PointX="3" PointY="4.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="TheaterModel.actors_role" Width="1.5" PointX="5.25" PointY="4.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="TheaterModel.basket" Width="1.5" PointX="5.25" PointY="8.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="TheaterModel.inventory" Width="1.5" PointX="13.5" PointY="4.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="TheaterModel.inventory_item_name" Width="1.5" PointX="11.25" PointY="1.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="TheaterModel.performance" Width="1.5" PointX="3" PointY="8" IsExpanded="true" />
-        <EntityTypeShape EntityType="TheaterModel.photo" Width="1.5" PointX="0.75" PointY="6.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="TheaterModel.review" Width="1.5" PointX="10.5" PointY="7.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="TheaterModel.role" Width="1.5" PointX="3" PointY="0.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="TheaterModel.showtime" Width="1.5" PointX="8.25" PointY="7.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="TheaterModel.sponsor" Width="1.5" PointX="5.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="TheaterModel.sysdiagrams" Width="1.5" PointX="7.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="TheaterModel.theater" Width="1.5" PointX="11.25" PointY="4" IsExpanded="true" />
-        <EntityTypeShape EntityType="TheaterModel.tickets" Width="1.5" PointX="13.5" PointY="7.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="TheaterModel.user_role" Width="1.5" PointX="6.75" PointY="11.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="TheaterModel.users" Width="1.5" PointX="9" PointY="11.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="TheaterModel.viewer" Width="1.5" PointX="11.25" PointY="11.375" IsExpanded="true" />
+      <Diagram DiagramId="ba2493da95584453837529cb4a2853ee" Name="Diagram1">
+        <EntityTypeShape EntityType="TheaterModel.actors" Width="1.5" PointX="3" PointY="6" IsExpanded="true" />
+        <EntityTypeShape EntityType="TheaterModel.actors_role" Width="1.5" PointX="7.5" PointY="8.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="TheaterModel.basket" Width="1.5" PointX="10.5" PointY="11.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="TheaterModel.inventory" Width="1.5" PointX="13.5" PointY="7.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="TheaterModel.inventory_item_name" Width="1.5" PointX="11.25" PointY="4.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="TheaterModel.performance" Width="1.5" PointX="3" PointY="9.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TheaterModel.photo" Width="1.5" PointX="0.75" PointY="9.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="TheaterModel.review" Width="1.5" PointX="10.5" PointY="14.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TheaterModel.role" Width="1.5" PointX="5.25" PointY="10.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="TheaterModel.showtime" Width="1.5" PointX="8.25" PointY="11.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="TheaterModel.sponsor" Width="1.5" PointX="3" PointY="13.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="TheaterModel.sysdiagrams" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TheaterModel.theater" Width="1.5" PointX="11.25" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TheaterModel.tickets" Width="1.5" PointX="13.5" PointY="11.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="TheaterModel.user_role" Width="1.5" PointX="3.75" PointY="17.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="TheaterModel.users" Width="1.5" PointX="6" PointY="17" IsExpanded="true" />
+        <EntityTypeShape EntityType="TheaterModel.viewer" Width="1.5" PointX="8.25" PointY="16.875" IsExpanded="true" />
         <AssociationConnector Association="TheaterModel.FK_actors_photo" ManuallyRouted="false" />
         <AssociationConnector Association="TheaterModel.FK_actors_role_actors" ManuallyRouted="false" />
         <AssociationConnector Association="TheaterModel.FK_actors_role_role" ManuallyRouted="false" />
-        <AssociationConnector Association="TheaterModel.FK_basket_performance" ManuallyRouted="false" />
+        <AssociationConnector Association="TheaterModel.FK_basket_showtime" ManuallyRouted="false" />
         <AssociationConnector Association="TheaterModel.FK_basket_viewer" ManuallyRouted="false" />
         <AssociationConnector Association="TheaterModel.FK_inventory_inventory_item_name" ManuallyRouted="false" />
         <AssociationConnector Association="TheaterModel.FK_inventory_theater" ManuallyRouted="false" />
         <AssociationConnector Association="TheaterModel.FK_performance_photo" ManuallyRouted="false" />
+        <AssociationConnector Association="TheaterModel.FK_role_performance" ManuallyRouted="false" />
         <AssociationConnector Association="TheaterModel.FK_showtime_performance" ManuallyRouted="false" />
         <AssociationConnector Association="TheaterModel.FK_showtime_photo" ManuallyRouted="false" />
+        <AssociationConnector Association="TheaterModel.FK_sponsor_photo" ManuallyRouted="false" />
         <AssociationConnector Association="TheaterModel.FK_review_showtime" ManuallyRouted="false" />
         <AssociationConnector Association="TheaterModel.FK_tickets_showtime" ManuallyRouted="false" />
         <AssociationConnector Association="TheaterModel.FK_tickets_theater" ManuallyRouted="false" />

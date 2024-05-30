@@ -33,18 +33,10 @@ namespace theater.ApplicationData
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<actors_role> actors_role { get; set; }
 
-        public string CurrentPhoto1
+        public string ActorPhotoPath
         {
-            get
-            {
-                if (String.IsNullOrEmpty(photo.photo1) || String.IsNullOrWhiteSpace(photo.photo1))
-                {
-                    return "/Images/picture.png";
-                }
-                else
-                {
-                    return "/Images/" + photo.photo1;
-                }
+            get {
+                return MethodsForDB.PhotoPath(photo.photo1);
             }
         }
     }
