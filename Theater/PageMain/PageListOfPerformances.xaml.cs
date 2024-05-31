@@ -36,17 +36,18 @@ namespace theater.PageMain
             try
             {
                 List<performance> performances = AppConnect.model0db.performance.ToList();
-                if (search != null)
+
+                if (!string.IsNullOrEmpty(search?.Text))
                 {
-                    performances = performances.Where(x => x.title.ToLower().Contains(search.Text.ToLower())).ToList();
+                    performances = performances.Where(x => x.title.ToLowerInvariant().Contains(search.Text.ToLowerInvariant())).ToList();
                 }
 
                 if (filterIndex > 0)
                 {
                     switch (filterIndex)
                     {
-                        case 0:
-                            performances = (List<performance>)performances.Where(x => x.genre == "драма");
+                        case 1:
+                            performances = performances.Where(x => x.genre == "драма").ToList();
                             break;
                     }
                 }
@@ -55,16 +56,16 @@ namespace theater.PageMain
                 {
                     switch (sortIndex)
                     {
-                        case 0:
+                        case 1:
                             performances = performances.OrderBy(x => x.title).ToList();
                             break;
-                        case 1:
+                        case 2:
                             performances = performances.OrderByDescending(x => x.title).ToList();
                             break;
-                        case 2:
+                        case 3:
                             performances = performances.OrderBy(x => x.year_created).ToList();
                             break;
-                        case 3:
+                        case 4:
                             performances = performances.OrderByDescending(x => x.year_created).ToList();
                             break;
                     }
@@ -81,9 +82,9 @@ namespace theater.PageMain
 
                 return performances.ToArray();
             }
-            catch
+            catch (Exception ex)
             {
-                MessageBox.Show("Что-то пошло не так");
+                MessageBox.Show("Ошибка: " + ex.Message);
                 return null;
             }
         }

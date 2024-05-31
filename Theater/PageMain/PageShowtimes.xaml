@@ -31,7 +31,7 @@
             <Button x:Name="btnGoToBasket" Click="btnGoToBasket_Click">Корзина</Button>
         </StackPanel>
         
-        <ListView x:Name="listOfPerformances" Grid.Row="1" ScrollViewer.CanContentScroll="False">
+        <ListView x:Name="listOfShowtimes" Grid.Row="1" ScrollViewer.CanContentScroll="False">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <Grid>
@@ -43,19 +43,19 @@
                             <ColumnDefinition Width="3*"/>
                             <ColumnDefinition Width="1.5*"/>
                         </Grid.ColumnDefinitions>
-                        <Image Source="{Binding CurrentPhoto}" Grid.Column="0"/>
+                        <Image Source="{Binding ShowtimesPhotoPath}" Grid.Column="0"/>
                         <StackPanel Grid.Column="1" Width="auto" Orientation="Vertical" HorizontalAlignment="Left">
                             <TextBlock Width="auto" TextWrapping="Wrap" Height="auto">
                                 <Run Text="Название: "/>
-                                <Run Text="{Binding title}"/>
+                                <Run Text="{Binding PerformanceTitle, Mode=OneWay}"/>
                             </TextBlock>
                             <TextBlock Width="auto" TextWrapping="Wrap" Height="auto">
                                 <Run Text="Дата: "/>
-                                <Run Text=" {Binding date} "/>
+                                <Run Text="{Binding date, StringFormat={}{0:dd.MM.yyyy HH:mm}}"/>
                             </TextBlock>
                             <TextBlock Width="auto" TextWrapping="Wrap" Height="auto">
                                 <Run Text="Цена: "/>
-                                <Run Text="В работе"/>
+                                <Run Text="{Binding price}"/>
                             </TextBlock>
                         </StackPanel>
                         <Button x:Name="btnAddToBasket" Height="30" VerticalAlignment="Center" Grid.Column="2">Добавить в корзину</Button>

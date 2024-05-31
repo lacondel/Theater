@@ -31,7 +31,7 @@
                         </Grid.ColumnDefinitions>
                         
                         <!-- Подгружаем фото -->
-                        <Image Source="{Binding CurrentPhoto1}" Grid.Column="0" HorizontalAlignment="Right" Height="200"/>
+                        <Image Source="{Binding ActorPhotoPath}" Grid.Column="0" HorizontalAlignment="Right" Height="200"/>
                         
                         <!-- Подгружаем остальную информацию о актёре -->
                         <StackPanel Grid.Column="1" Orientation="Vertical" HorizontalAlignment="Left">

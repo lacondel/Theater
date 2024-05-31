@@ -19,18 +19,23 @@ namespace theater.ApplicationData
             }
             else
             {
-                string imagePath = "/Images/" + str;
-
-                // Проверка существования файла
-                if (File.Exists(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, imagePath.TrimStart('/'))))
-                {
-                    return imagePath;
-                }
-                else
-                {
-                    return "/Images/picture.png";
-                }
+                return "/Images/" + str;
             }
+        }
+
+        public static string Title(int id)
+        {
+            var performance = AppConnect.model0db.performance.FirstOrDefault(p => p.id_performans == id);
+
+            if (performance != null)
+            {
+                return performance.title;
+            }
+            else
+            {
+                return "Спектакль не найден";
+            }
+            
         }
     }
 }

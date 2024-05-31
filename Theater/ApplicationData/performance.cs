@@ -35,8 +35,9 @@ namespace theater.ApplicationData
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<showtime> showtime { get; set; }
 
-        public string ActorPhotoPath
+        public string PerformancePhotoPath
         {
+
             get
             {
                 return MethodsForDB.PhotoPath(photo.photo1);

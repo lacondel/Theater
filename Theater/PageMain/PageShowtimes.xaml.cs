@@ -1,17 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using theater.ApplicationData;
 
 namespace theater.PageMain
@@ -24,79 +15,81 @@ namespace theater.PageMain
         public PageShowtimes()
         {
             InitializeComponent();
-            listOfPerformances.ItemsSource = FindPerformance();
+            listOfShowtimes.ItemsSource = FindShowtime();
         }
 
-        performance[] FindPerformance()
+        public showtime[] FindShowtime()
         {
             try
             {
-                List<performance> performances = AppConnect.model0db.performance.ToList();
-                if (search != null)
+                List<showtime> showtimes = AppConnect.model0db.showtime.Include("performance").ToList();
+
+                if (!string.IsNullOrEmpty(search?.Text))
                 {
-                    performances = performances.Where(x => x.title.ToLower().Contains(search.Text.ToLower())).ToList();
+                    showtimes = showtimes.Where(x => x.performance.title.ToLower().Contains(search.Text.ToLower())).ToList();
                 }
 
                 if (filterPerform.SelectedIndex > 0)
                 {
                     switch (filterPerform.SelectedIndex)
                     {
-                        case 0:
-                            performances = performances.Where(x => x.genre == "драма").ToList();
+                        case 1:
+
+                            showtimes = showtimes.Where(x => x.performance.genre == "драма").ToList();
                             break;
                     }
                 }
 
-                if (sortPerform.SelectedIndex >= 0)
+                if (sortPerform.SelectedIndex > 0)
                 {
                     switch (sortPerform.SelectedIndex)
                     {
-                        case 0:
-                            performances = performances.OrderBy(x => x.title).ToList();
-                            break;
                         case 1:
-                            performances = performances.OrderByDescending(x => x.title).ToList();
+                            showtimes = showtimes.OrderBy(x => x.performance.title).ToList();
                             break;
                         case 2:
-                            performances = performances.OrderBy(x => x.year_created).ToList();
+                            showtimes = showtimes.OrderByDescending(x => x.performance.title).ToList();
                             break;
                         case 3:
-                            performances = performances.OrderByDescending(x => x.year_created).ToList();
+                            showtimes = showtimes.OrderBy(x => x.performance.year_created).ToList();
+                            break;
+                        case 4:
+                            showtimes = showtimes.OrderByDescending(x => x.performance.year_created).ToList();
                             break;
                     }
                 }
 
-                if (performances.Count > 0)
+                if (showtimes.Count > 0)
                 {
-                    tbCounter.Text = "Найдено " + performances.Count + " спектаклей.";
+                    tbCounter.Text = "Найдено " + showtimes.Count + " показов.";
                 }
                 else
                 {
-                    tbCounter.Text = "Спектакли не найдены.";
+                    tbCounter.Text = "Показы не найдены.";
                 }
 
-                return performances.ToArray();
+                return showtimes.ToArray();
             }
-            catch
+            catch (Exception ex) 
             {
-                MessageBox.Show("Что-то пошло не так");
+                MessageBox.Show("Ошибка: " + ex.Message);
                 return null;
             }
         }
 
         private void searchChanged(object sender, TextChangedEventArgs e)
         {
-            listOfPerformances.ItemsSource = FindPerformance();
+            listOfShowtimes.ItemsSource = FindShowtime();
         }
 
         private void sortChanged(object sender, SelectionChangedEventArgs e)
         {
-            listOfPerformances.ItemsSource = FindPerformance();
+            listOfShowtimes.ItemsSource = FindShowtime();
         }
 
         private void filterChanged(object sender, SelectionChangedEventArgs e)
         {
-            listOfPerformances.ItemsSource = FindPerformance();
+            listOfShowtimes.ItemsSource = FindShowtime();
         }
 
         private void btnBack_Click(object sender, RoutedEventArgs e)
@@ -106,9 +99,9 @@ namespace theater.PageMain
 
         private void btnAddToBasket_Click(object sender, RoutedEventArgs e)
         {
-            if (listOfPerformances.SelectedItem != null)
+            if (listOfShowtimes.SelectedItem != null)
             {
-                performance selectedPerformance = (performance)listOfPerformances.SelectedItem;
+                performance selectedPerformance = (performance)listOfShowtimes.SelectedItem;
 
                 try
                 {
@@ -140,6 +133,15 @@ namespace theater.PageMain
         private void btnGoToBasket_Click(object sender, RoutedEventArgs e)
         {
             AppFrame.frameMain.Navigate(new PageBasket());
+        }
+
+
+        public class ShowtimeViewModel
+        {
+            public string Title { get; set; }
+            public DateTime Date { get; set; }
+            public decimal Price { get; set; }
+
         }
     }
 }
