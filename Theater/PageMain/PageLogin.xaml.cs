@@ -29,6 +29,8 @@ namespace theater.PageMain
             //AppConnect.model0db = new TheaterEntities();
         }
 
+        public static int CurrentUserID { get; private set; }
+
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             try

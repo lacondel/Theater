@@ -101,32 +101,33 @@ namespace theater.PageMain
         {
             if (listOfShowtimes.SelectedItem != null)
             {
-                performance selectedPerformance = (performance)listOfShowtimes.SelectedItem;
+                showtime selectedShowtime = (showtime)listOfShowtimes.SelectedItem;
 
                 try
                 {
-                    //using (var context = new SportClubEntities1())
-                    //{
-                    //    Basket basketItem = new Basket
-                    //    {
-                    //        idAbon = selectedAbonement.idAbon,
-                    //        idClient = PageLogin.id_viewer
-                    //    };
+                    using (var context = new TheaterEntities4())
+                    {
+                        basket basketItem = new basket
+                        {
+                            id_viewer = PageLogin.CurrentUserID,
+                            id_showtime = selectedShowtime.id_showtime
+                            
+                        };
 
-                    //    context.Basket.Add(basketItem);
-                    //    context.SaveChanges();
-                    //}
+                        context.basket.Add(basketItem);
+                        context.SaveChanges();
+                    }
 
-                    MessageBox.Show("Абонемент успешно добавлен в корзину!");
+                    MessageBox.Show("Показ успешно добавлен в корзину!");
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show($"Ошибка при добавлении абонемента в корзину: {ex.Message}");
+                    MessageBox.Show($"Ошибка при добавлении показа в корзину: {ex.Message}");
                 }
             }
             else
             {
-                MessageBox.Show("Выберите абонемент для добавления в корзину!");
+                MessageBox.Show("Выберите показ для добавления его в корзину!");
             }
         }
 
@@ -135,14 +136,6 @@ namespace theater.PageMain
             AppFrame.frameMain.Navigate(new PageBasket());
         }
 
-
-        public class ShowtimeViewModel
-        {
-            public string Title { get; set; }
-            public DateTime Date { get; set; }
-            public decimal Price { get; set; }
-
-        }
     }
 }
 
