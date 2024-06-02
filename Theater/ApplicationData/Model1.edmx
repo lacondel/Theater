@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="Хранилище TheaterModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="Хранилище TheaterModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="actors">
           <Key>
             <PropertyRef Name="id_actor" />
@@ -30,7 +30,7 @@
           <Key>
             <PropertyRef Name="id_basket" />
           </Key>
-          <Property Name="id_basket" Type="int" Nullable="false" />
+          <Property Name="id_basket" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="id_viewer" Type="int" Nullable="false" />
           <Property Name="id_showtime" Type="int" Nullable="false" />
         </EntityType>
@@ -51,9 +51,9 @@
         </EntityType>
         <EntityType Name="performance">
           <Key>
-            <PropertyRef Name="id_performans" />
+            <PropertyRef Name="id_performance" />
           </Key>
-          <Property Name="id_performans" Type="int" Nullable="false" />
+          <Property Name="id_performance" Type="int" Nullable="false" />
           <Property Name="title" Type="nvarchar" MaxLength="250" Nullable="false" />
           <Property Name="genre" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="year_created" Type="int" Nullable="false" />
@@ -92,7 +92,7 @@
             <PropertyRef Name="id_showtime" />
           </Key>
           <Property Name="id_showtime" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="id_performanse" Type="int" Nullable="false" />
+          <Property Name="id_performanсe" Type="int" Nullable="false" />
           <Property Name="id_photo" Type="int" Nullable="false" />
           <Property Name="date" Type="datetime2" Precision="7" Nullable="false" />
           <Property Name="price" Type="decimal" Precision="18" Scale="2" Nullable="false" />
@@ -278,7 +278,7 @@
           <End Role="role" Type="Self.role" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="performance">
-              <PropertyRef Name="id_performans" />
+              <PropertyRef Name="id_performance" />
             </Principal>
             <Dependent Role="role">
               <PropertyRef Name="id_performance" />
@@ -290,10 +290,10 @@
           <End Role="showtime" Type="Self.showtime" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="performance">
-              <PropertyRef Name="id_performans" />
+              <PropertyRef Name="id_performance" />
             </Principal>
             <Dependent Role="showtime">
-              <PropertyRef Name="id_performanse" />
+              <PropertyRef Name="id_performanсe" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -472,7 +472,8 @@
             <End Role="viewer" EntitySet="viewer" />
           </AssociationSet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="TheaterModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -505,7 +506,7 @@
           <Key>
             <PropertyRef Name="id_basket" />
           </Key>
-          <Property Name="id_basket" Type="Int32" Nullable="false" />
+          <Property Name="id_basket" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="id_viewer" Type="Int32" Nullable="false" />
           <Property Name="id_showtime" Type="Int32" Nullable="false" />
           <NavigationProperty Name="showtime" Relationship="Self.FK_basket_showtime" FromRole="basket" ToRole="showtime" />
@@ -531,9 +532,9 @@
         </EntityType>
         <EntityType Name="performance">
           <Key>
-            <PropertyRef Name="id_performans" />
+            <PropertyRef Name="id_performance" />
           </Key>
-          <Property Name="id_performans" Type="Int32" Nullable="false" />
+          <Property Name="id_performance" Type="Int32" Nullable="false" />
           <Property Name="title" Type="String" MaxLength="250" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="genre" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="year_created" Type="Int32" Nullable="false" />
@@ -581,8 +582,8 @@
           <Key>
             <PropertyRef Name="id_showtime" />
           </Key>
-          <Property Name="id_showtime" Type="Int32" Nullable="false" />
-          <Property Name="id_performanse" Type="Int32" Nullable="false" />
+          <Property Name="id_showtime" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_performanсe" Type="Int32" Nullable="false" />
           <Property Name="id_photo" Type="Int32" Nullable="false" />
           <Property Name="date" Type="DateTime" Nullable="false" Precision="7" />
           <Property Name="price" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
@@ -773,7 +774,7 @@
           <End Role="role" Type="Self.role" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="performance">
-              <PropertyRef Name="id_performans" />
+              <PropertyRef Name="id_performance" />
             </Principal>
             <Dependent Role="role">
               <PropertyRef Name="id_performance" />
@@ -785,10 +786,10 @@
           <End Role="showtime" Type="Self.showtime" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="performance">
-              <PropertyRef Name="id_performans" />
+              <PropertyRef Name="id_performance" />
             </Principal>
             <Dependent Role="showtime">
-              <PropertyRef Name="id_performanse" />
+              <PropertyRef Name="id_performanсe" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -888,7 +889,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="TheaterEntities4" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="TheaterEntities5" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="actors" EntityType="Self.actors" />
           <EntitySet Name="actors_role" EntityType="Self.actors_role" />
           <EntitySet Name="basket" EntityType="Self.basket" />
@@ -984,7 +985,7 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="Хранилище TheaterModelContainer" CdmEntityContainer="TheaterEntities4">
+        <EntityContainerMapping StorageEntityContainer="Хранилище TheaterModelContainer" CdmEntityContainer="TheaterEntities5">
           <EntitySetMapping Name="actors">
             <EntityTypeMapping TypeName="TheaterModel.actors">
               <MappingFragment StoreEntitySet="actors">
@@ -1037,7 +1038,7 @@
           <EntitySetMapping Name="performance">
             <EntityTypeMapping TypeName="TheaterModel.performance">
               <MappingFragment StoreEntitySet="performance">
-                <ScalarProperty Name="id_performans" ColumnName="id_performans" />
+                <ScalarProperty Name="id_performance" ColumnName="id_performance" />
                 <ScalarProperty Name="title" ColumnName="title" />
                 <ScalarProperty Name="genre" ColumnName="genre" />
                 <ScalarProperty Name="year_created" ColumnName="year_created" />
@@ -1080,7 +1081,7 @@
             <EntityTypeMapping TypeName="TheaterModel.showtime">
               <MappingFragment StoreEntitySet="showtime">
                 <ScalarProperty Name="id_showtime" ColumnName="id_showtime" />
-                <ScalarProperty Name="id_performanse" ColumnName="id_performanse" />
+                <ScalarProperty Name="id_performanсe" ColumnName="id_performanсe" />
                 <ScalarProperty Name="id_photo" ColumnName="id_photo" />
                 <ScalarProperty Name="date" ColumnName="date" />
                 <ScalarProperty Name="price" ColumnName="price" />

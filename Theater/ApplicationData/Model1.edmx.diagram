@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="ba2493da95584453837529cb4a2853ee" Name="Diagram1">
+      <Diagram DiagramId="70cadf11037543ab8372f4742e6c18ad" Name="Diagram1">
         <EntityTypeShape EntityType="TheaterModel.actors" Width="1.5" PointX="3" PointY="6" IsExpanded="true" />
         <EntityTypeShape EntityType="TheaterModel.actors_role" Width="1.5" PointX="7.5" PointY="8.125" IsExpanded="true" />
         <EntityTypeShape EntityType="TheaterModel.basket" Width="1.5" PointX="10.5" PointY="11.125" IsExpanded="true" />

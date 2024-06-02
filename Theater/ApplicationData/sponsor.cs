@@ -20,14 +20,5 @@ namespace theater.ApplicationData
         public int id_photo { get; set; }
     
         public virtual photo photo { get; set; }
-
-        public string SponsorPhotoPath
-        {
-
-            get
-            {
-                return MethodsForDB.PhotoPath(photo.photo1);
-            }
-        }
     }
 }

@@ -23,7 +23,7 @@ namespace theater.ApplicationData
         }
     
         public int id_showtime { get; set; }
-        public int id_performanse { get; set; }
+        public int id_performanсe { get; set; }
         public int id_photo { get; set; }
         public System.DateTime date { get; set; }
         public decimal price { get; set; }
@@ -36,21 +36,5 @@ namespace theater.ApplicationData
         public virtual ICollection<review> review { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tickets> tickets { get; set; }
-
-        public string ShowtimesPhotoPath
-        {
-
-            get
-            {
-                return MethodsForDB.PhotoPath(photo.photo1);
-            }
-        }
-        public string PerformanceTitle
-        {
-            get
-            {
-                return MethodsForDB.Title(id_performanse);
-            }
-        }
     }
 }

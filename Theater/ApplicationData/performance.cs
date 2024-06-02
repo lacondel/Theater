@@ -21,7 +21,7 @@ namespace theater.ApplicationData
             this.showtime = new HashSet<showtime>();
         }
     
-        public int id_performans { get; set; }
+        public int id_performance { get; set; }
         public string title { get; set; }
         public string genre { get; set; }
         public int year_created { get; set; }
@@ -34,14 +34,5 @@ namespace theater.ApplicationData
         public virtual ICollection<role> role { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<showtime> showtime { get; set; }
-
-        public string PerformancePhotoPath
-        {
-
-            get
-            {
-                return MethodsForDB.PhotoPath(photo.photo1);
-            }
-        }
     }
 }

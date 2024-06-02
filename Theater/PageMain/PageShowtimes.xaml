@@ -43,7 +43,7 @@
                             <ColumnDefinition Width="3*"/>
                             <ColumnDefinition Width="1.5*"/>
                         </Grid.ColumnDefinitions>
-                        <Image Source="{Binding ShowtimesPhotoPath}" Grid.Column="0"/>
+                        <Image Source="{Binding ShowtimePhotoPath}" Grid.Column="0"/>
                         <StackPanel Grid.Column="1" Width="auto" Orientation="Vertical" HorizontalAlignment="Left">
                             <TextBlock Width="auto" TextWrapping="Wrap" Height="auto">
                                 <Run Text="Название: "/>
@@ -58,7 +58,7 @@
                                 <Run Text="{Binding price}"/>
                             </TextBlock>
                         </StackPanel>
-                        <Button x:Name="btnAddToBasket" Height="30" VerticalAlignment="Center" Grid.Column="2">Добавить в корзину</Button>
+                        <Button x:Name="btnAddToBasket" Height="30" VerticalAlignment="Center" Grid.Column="2" Click="btnAddToBasket_Click">Добавить в корзину</Button>
                     </Grid>
                 </DataTemplate>
             </ListView.ItemTemplate>

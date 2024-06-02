@@ -31,6 +31,45 @@ namespace theater.PageMain
         public PageBasket()
         {
             InitializeComponent();
+            listBasket.ItemsSource = GetBasketItems();
+        }
+
+        public class BasketItem
+        {
+            public int id { get; set; }
+            public string title { get; set; }
+            public DateTime date { get; set; }
+            public decimal? price { get; set; }
+            public string viewerName { get; set; }
+        }
+
+        private List<BasketItem> GetBasketItems()
+        {
+            try
+            {
+                using (var context = new TheaterEntities5())
+                {
+                    var basketItems = context.basket
+                        .Include("showtime.performance")
+                        .Include("viewer")
+                        .Select(b => new BasketItem
+                        {
+                            id = b.id_basket,
+                            title = b.showtime.performance.title,
+                            date = b.showtime.date,
+                            price = b.showtime.price,
+                            viewerName = b.viewer.fio,
+                        })
+                        .ToList();
+
+                    return basketItems;
+                }
+            }
+            catch (Exception ex) 
+            { 
+                MessageBox.Show($"Ошибка при извлечении данных из корзины: {ex.Message}");
+                return new List<BasketItem>();
+            }
         }
 
         //private void btnPay_Click(object sender, RoutedEventArgs e)

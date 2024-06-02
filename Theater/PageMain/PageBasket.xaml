@@ -18,14 +18,12 @@
                 <DataTemplate>
                     <Grid>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="auto"/>
-                            <ColumnDefinition Width="auto"/>
-                            <ColumnDefinition Width="auto"/>
-                            <ColumnDefinition Width="auto"/>
-                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
-                        <Image Source="{Binding CurrentPhoto}" Grid.Column="0"/>
-                        <StackPanel Grid.Column="1" Width="auto" Orientation="Vertical" HorizontalAlignment="Left">
+                        <StackPanel Grid.Column="0" Width="auto" Orientation="Vertical" HorizontalAlignment="Left">
                             <TextBlock Width="auto" TextWrapping="Wrap" Height="auto">
                                <Run Text="Название: "/>
                                <Run Text="{Binding title}"/>
@@ -35,8 +33,8 @@
                                <Run Text="{Binding date}"/>
                             </TextBlock>
                         </StackPanel>
-                        <Button x:Name="btnPlus" Grid.Column="2">плюс</Button>
-                        <Button x:Name="btnDeleteFromBasket" Grid.Column="3">Удалить</Button>
+                        <Button x:Name="btnPlus" Grid.Column="1">плюс</Button>
+                        <Button x:Name="btnDeleteFromBasket" Grid.Column="2">Удалить</Button>
                     </Grid>
                 </DataTemplate>
             </ListView.ItemTemplate>

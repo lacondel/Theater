@@ -26,17 +26,34 @@ namespace theater.PageMain
         public PageLogin()
         {
             InitializeComponent();
-            //AppConnect.model0db = new TheaterEntities();
+            AppConnect.model0db = new TheaterEntities5();
         }
 
-        public static int CurrentUserID { get; private set; }
+        public static class UserSessin
+        {
+            public static int? CurrentViewerID { get; set; }
 
+            public static void SetCurrentViewerID(int userID)
+            {
+                using (var context = new TheaterEntities5())
+                {
+                    var viewer = context.viewer.FirstOrDefault(v => v.id_user == userID);
+                    if (viewer != null)
+                    {
+                        CurrentViewerID = viewer.id_viewer;
+                    }
+                }
+            }
+        }
+        
+
+        // Нажатие на кнопку авторизации пользователя
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             try
             {
                 var userObj = AppConnect.model0db.users.FirstOrDefault(x => x.login == login.Text && x.pass == password.Password);
-                var viewerObj = AppConnect.model0db.viewer.FirstOrDefault(x => x.id_user == userObj.id_user);
+                
                 //var actorsObj = AppConnect.model0db.actors.FirstOrDefault(x => x.id_user == userObj.id_user);
                 if (userObj == null)
                 {
@@ -44,6 +61,10 @@ namespace theater.PageMain
                 }
                 else
                 {
+                    UserSessin.SetCurrentViewerID(userObj.id_user);
+
+                    var viewerObj = AppConnect.model0db.viewer.FirstOrDefault(x => x.id_user == userObj.id_user);
+
                     switch (userObj.id_user_role)
                     {
                         case 1:

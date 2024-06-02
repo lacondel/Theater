@@ -13,10 +13,10 @@ namespace theater.ApplicationData
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class TheaterEntities4 : DbContext
+    public partial class TheaterEntities5 : DbContext
     {
-        public TheaterEntities4()
-            : base("name=TheaterEntities4")
+        public TheaterEntities5()
+            : base("name=TheaterEntities5")
         {
         }
     

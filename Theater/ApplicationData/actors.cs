@@ -32,14 +32,5 @@ namespace theater.ApplicationData
         public virtual photo photo { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<actors_role> actors_role { get; set; }
-        
-        public string ActorPhotoPath
-        {
-
-            get
-            {
-                return MethodsForDB.PhotoPath(photo.photo1);
-            }
-        }
     }
 }
