@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="Хранилище TheaterModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="Хранилище TheaterModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="actors">
           <Key>
             <PropertyRef Name="id_actor" />
@@ -33,6 +33,7 @@
           <Property Name="id_basket" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="id_viewer" Type="int" Nullable="false" />
           <Property Name="id_showtime" Type="int" Nullable="false" />
+          <Property Name="quantity" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="inventory">
           <Key>
@@ -105,16 +106,6 @@
           <Property Name="company_name" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="contact_info" Type="nvarchar" MaxLength="200" Nullable="false" />
           <Property Name="id_photo" Type="int" Nullable="false" />
-        </EntityType>
-        <EntityType Name="sysdiagrams">
-          <Key>
-            <PropertyRef Name="diagram_id" />
-          </Key>
-          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
-          <Property Name="principal_id" Type="int" Nullable="false" />
-          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="version" Type="int" />
-          <Property Name="definition" Type="varbinary(max)" />
         </EntityType>
         <EntityType Name="theater">
           <Key>
@@ -393,7 +384,6 @@
           <EntitySet Name="role" EntityType="Self.role" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="showtime" EntityType="Self.showtime" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sponsor" EntityType="Self.sponsor" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="theater" EntityType="Self.theater" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tickets" EntityType="Self.tickets" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="user_role" EntityType="Self.user_role" Schema="dbo" store:Type="Tables" />
@@ -472,8 +462,7 @@
             <End Role="viewer" EntitySet="viewer" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="TheaterModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -511,6 +500,7 @@
           <Property Name="id_showtime" Type="Int32" Nullable="false" />
           <NavigationProperty Name="showtime" Relationship="Self.FK_basket_showtime" FromRole="basket" ToRole="showtime" />
           <NavigationProperty Name="viewer" Relationship="Self.FK_basket_viewer" FromRole="basket" ToRole="viewer" />
+          <Property Name="quantity" Type="Int32" Nullable="false" />
         </EntityType>
         <EntityType Name="inventory">
           <Key>
@@ -602,16 +592,6 @@
           <Property Name="contact_info" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="id_photo" Type="Int32" Nullable="false" />
           <NavigationProperty Name="photo" Relationship="Self.FK_sponsor_photo" FromRole="sponsor" ToRole="photo" />
-        </EntityType>
-        <EntityType Name="sysdiagrams">
-          <Key>
-            <PropertyRef Name="diagram_id" />
-          </Key>
-          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="principal_id" Type="Int32" Nullable="false" />
-          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="version" Type="Int32" />
-          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
         </EntityType>
         <EntityType Name="theater">
           <Key>
@@ -889,7 +869,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="TheaterEntities5" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="TheaterEntities6" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="actors" EntityType="Self.actors" />
           <EntitySet Name="actors_role" EntityType="Self.actors_role" />
           <EntitySet Name="basket" EntityType="Self.basket" />
@@ -901,7 +881,6 @@
           <EntitySet Name="role" EntityType="Self.role" />
           <EntitySet Name="showtime" EntityType="Self.showtime" />
           <EntitySet Name="sponsor" EntityType="Self.sponsor" />
-          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
           <EntitySet Name="theater" EntityType="Self.theater" />
           <EntitySet Name="tickets" EntityType="Self.tickets" />
           <EntitySet Name="user_role" EntityType="Self.user_role" />
@@ -985,7 +964,7 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="Хранилище TheaterModelContainer" CdmEntityContainer="TheaterEntities5">
+        <EntityContainerMapping StorageEntityContainer="Хранилище TheaterModelContainer" CdmEntityContainer="TheaterEntities6">
           <EntitySetMapping Name="actors">
             <EntityTypeMapping TypeName="TheaterModel.actors">
               <MappingFragment StoreEntitySet="actors">
@@ -1012,6 +991,7 @@
           <EntitySetMapping Name="basket">
             <EntityTypeMapping TypeName="TheaterModel.basket">
               <MappingFragment StoreEntitySet="basket">
+                <ScalarProperty Name="quantity" ColumnName="quantity" />
                 <ScalarProperty Name="id_basket" ColumnName="id_basket" />
                 <ScalarProperty Name="id_viewer" ColumnName="id_viewer" />
                 <ScalarProperty Name="id_showtime" ColumnName="id_showtime" />
@@ -1095,17 +1075,6 @@
                 <ScalarProperty Name="company_name" ColumnName="company_name" />
                 <ScalarProperty Name="contact_info" ColumnName="contact_info" />
                 <ScalarProperty Name="id_photo" ColumnName="id_photo" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="sysdiagrams">
-            <EntityTypeMapping TypeName="TheaterModel.sysdiagrams">
-              <MappingFragment StoreEntitySet="sysdiagrams">
-                <ScalarProperty Name="name" ColumnName="name" />
-                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
-                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
-                <ScalarProperty Name="version" ColumnName="version" />
-                <ScalarProperty Name="definition" ColumnName="definition" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

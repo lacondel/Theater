@@ -17,6 +17,7 @@ namespace theater.ApplicationData
         public int id_basket { get; set; }
         public int id_viewer { get; set; }
         public int id_showtime { get; set; }
+        public int quantity { get; set; }
     
         public virtual showtime showtime { get; set; }
         public virtual viewer viewer { get; set; }

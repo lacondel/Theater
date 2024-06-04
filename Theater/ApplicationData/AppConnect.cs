@@ -8,6 +8,6 @@ namespace theater.ApplicationData
 {
     internal class AppConnect
     {
-        public static TheaterEntities4 model0db;
+        public static TheaterEntities6 model0db;
     }
 }

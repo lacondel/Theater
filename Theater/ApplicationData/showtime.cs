@@ -36,5 +36,21 @@ namespace theater.ApplicationData
         public virtual ICollection<review> review { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tickets> tickets { get; set; }
+
+        public string ShowtimePhotoPath
+        {
+
+            get
+            {
+                return MethodsForDB.PhotoPath(photo.id_photo);
+            }
+        }
+        public string PerformanceTitle
+        {
+            get
+            {
+                return MethodsForDB.Title(performance.id_performance);
+            }
+        }
     }
 }

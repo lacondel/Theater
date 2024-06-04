@@ -22,6 +22,7 @@
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
                         <StackPanel Grid.Column="0" Width="auto" Orientation="Vertical" HorizontalAlignment="Left">
                             <TextBlock Width="auto" TextWrapping="Wrap" Height="auto">
@@ -33,8 +34,10 @@
                                <Run Text="{Binding date}"/>
                             </TextBlock>
                         </StackPanel>
-                        <Button x:Name="btnPlus" Grid.Column="1">плюс</Button>
-                        <Button x:Name="btnDeleteFromBasket" Grid.Column="2">Удалить</Button>
+                        <Button x:Name="btnIncreaseQuantity" Grid.Column="1" Click="btnIncreaseQuantity_Click" CommandParameter="{Binding}">+</Button>
+                        <TextBlock Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center" Text="{Binding Quantity}"/>
+                        <Button x:Name="btnDecreaseQuantity" Grid.Column="3" Click="btnDecreaseQuantity_Click" CommandParameter="{Binding}">-</Button>
+                        <Button x:Name="btnDeleteFromBasket" Grid.Column="4" Click="btnDeleteFromBasket_Click" CommandParameter="{Binding}">Удалить</Button>
                     </Grid>
                 </DataTemplate>
             </ListView.ItemTemplate>
@@ -42,6 +45,7 @@
         <StackPanel Orientation="Horizontal" Grid.Row="1" HorizontalAlignment="Center">
             <Button x:Name="btnBack" Click="btnBack_Click">Вернуться</Button>
             <Button x:Name="btnPay" Click="btnPay_Click">Оплатить заказ</Button>
+            <Button x:Name="btnClearBasket" Click="btnClearBasket_Click">Очистить корзину</Button>
         </StackPanel>
         <TextBlock x:Name="tbCounter" Text="Не найдено" Grid.Row="3" Width="95" HorizontalAlignment="Left" Height="22" Margin="695,0,0,0"/>
     </Grid>

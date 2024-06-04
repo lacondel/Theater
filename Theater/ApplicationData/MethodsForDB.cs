@@ -10,31 +10,7 @@ using System.Windows;
 
 namespace theater.ApplicationData
 {
-    public partial class App : Application
-    {
-        protected override void OnExit(ExitEventArgs e)
-        {
-            base.OnExit(e);
-            ClearBasket();
-        }
 
-        private void ClearBasket()
-        {
-            try
-            {
-                using (var context = new TheaterEntities5())
-                {
-                    var basketItems = context.basket.ToList();
-                    context.basket.RemoveRange(basketItems);
-                    context.SaveChanges();
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Ошибка при очистке корзины: {ex.Message}");
-            }
-        }
-    }
 
     public static class MethodsForDB
     {
@@ -54,7 +30,7 @@ namespace theater.ApplicationData
 
         public static string Title(int id)
         {
-            var performance = AppConnect.model0db.performance.FirstOrDefault(p => p.id_performans == id);
+            var performance = AppConnect.model0db.performance.FirstOrDefault(p => p.id_performance == id);
 
             if (performance != null)
             {

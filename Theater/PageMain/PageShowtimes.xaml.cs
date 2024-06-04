@@ -105,16 +105,26 @@ namespace theater.PageMain
 
                 try
                 {
-                    using (var context = new TheaterEntities5())
+                    using (var context = new TheaterEntities6())
                     {
-                        basket basketItem = new basket
-                        {
-                            id_viewer = PageLogin.UserSessin.CurrentViewerID.Value,
-                            id_showtime = selectedShowtime.id_showtime
-                            
-                        };
+                        var existingItem = context.basket.FirstOrDefault(b => b.id_showtime == selectedShowtime.id_showtime);
 
-                        context.basket.Add(basketItem);
+                        if (existingItem != null)
+                        {
+                            existingItem.quantity++;
+                        }
+                        else
+                        {
+                            basket basketItem = new basket
+                            {
+                                id_viewer = PageLogin.UserSessin.CurrentViewerID.Value,
+                                id_showtime = selectedShowtime.id_showtime,
+                                quantity = 1
+                            };
+
+                            context.basket.Add(basketItem);
+                        }
+                        
                         context.SaveChanges();
                     }
 

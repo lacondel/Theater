@@ -41,10 +41,10 @@
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="100"/>
                             <ColumnDefinition Width="3*"/>
-                            <ColumnDefinition Width="1.5*"/>
+                            <ColumnDefinition Width="150"/>
                         </Grid.ColumnDefinitions>
-                        <Image Source="{Binding ShowtimePhotoPath}" Grid.Column="0"/>
-                        <StackPanel Grid.Column="1" Width="auto" Orientation="Vertical" HorizontalAlignment="Left">
+                        <Image Source="{Binding ShowtimePhotoPath}" Grid.Column="0" HorizontalAlignment="Left"/>
+                        <StackPanel Grid.Column="1" Orientation="Vertical" HorizontalAlignment="Stretch">
                             <TextBlock Width="auto" TextWrapping="Wrap" Height="auto">
                                 <Run Text="Название: "/>
                                 <Run Text="{Binding PerformanceTitle, Mode=OneWay}"/>
@@ -58,7 +58,7 @@
                                 <Run Text="{Binding price}"/>
                             </TextBlock>
                         </StackPanel>
-                        <Button x:Name="btnAddToBasket" Height="30" VerticalAlignment="Center" Grid.Column="2" Click="btnAddToBasket_Click">Добавить в корзину</Button>
+                        <Button x:Name="btnAddToBasket" Height="30" VerticalAlignment="Center" HorizontalAlignment="Right" Grid.Column="2" Click="btnAddToBasket_Click">Добавить в корзину</Button>
                     </Grid>
                 </DataTemplate>
             </ListView.ItemTemplate>

@@ -26,7 +26,7 @@ namespace theater.PageMain
         public PageLogin()
         {
             InitializeComponent();
-            AppConnect.model0db = new TheaterEntities5();
+            AppConnect.model0db = new TheaterEntities6();
         }
 
         public static class UserSessin
@@ -35,7 +35,7 @@ namespace theater.PageMain
 
             public static void SetCurrentViewerID(int userID)
             {
-                using (var context = new TheaterEntities5())
+                using (var context = new TheaterEntities6())
                 {
                     var viewer = context.viewer.FirstOrDefault(v => v.id_user == userID);
                     if (viewer != null)
