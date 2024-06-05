@@ -22,6 +22,8 @@ using System.Windows.Markup;
 using Paragraph = iTextSharp.text.Paragraph;
 using System.ComponentModel;
 using System.Security.RightsManagement;
+using Aspose.BarCode.Generation;
+using System.Drawing;
 
 namespace theater.PageMain
 {
@@ -226,7 +228,7 @@ namespace theater.PageMain
 
             try
             {
-                PdfWriter.GetInstance(doc, new FileStream("*..\\..\\output.pdf", FileMode.Create));
+                PdfWriter.GetInstance(doc, new FileStream("C:\\Users\\Webmaster1\\source\\repos\\Theater\\Theater\\Receipts\\output.pdf", FileMode.Create));
 
                 doc.Open();
 
@@ -234,9 +236,10 @@ namespace theater.PageMain
                 Font font = new Font(baseFont, 12);
                 Font bold_font = new Font(baseFont, 25, 1);
                 
-                Paragraph paragraph1 = new Paragraph("СПИСОК ТОВАРОВ: " + bold_font);
+                Paragraph paragraph1 = new Paragraph("СПИСОК ТОВАРОВ: ", bold_font);
                 paragraph1.Alignment = Element.ALIGN_CENTER;
                 doc.Add(paragraph1);
+                doc.Add(new Paragraph(" ", font));
                
                 decimal? sum = 0;
 
@@ -245,6 +248,7 @@ namespace theater.PageMain
                 foreach (var item in basketItems)
                 {
                     var totalPrice = item.price * item.Quantity;
+
                     doc.Add(new Paragraph("Название: " + item.title, font));
                     doc.Add(new Paragraph("Дата: " + item.date.ToString("dd.MM.yyyy HH:mm"), font));
                     doc.Add(new Paragraph("Цена: " + item.price?.ToString("F2") + " руб.", font));
@@ -255,7 +259,23 @@ namespace theater.PageMain
                     sum += totalPrice;
                 }
 
-                doc.Add(new Paragraph("Итого: " + sum, font));
+                doc.Add(new Paragraph("Итого: " + sum?.ToString("F2") + " руб.", font));
+                doc.Add(new Paragraph(" ", font));
+
+                BitmapImage qrCodeImage = GenerateQRCode("http://firpo.ru/Public/86");
+
+                using (MemoryStream memoryStream = new MemoryStream())
+                {
+                    BitmapEncoder encoder = new PngBitmapEncoder();
+                    encoder.Frames.Add(BitmapFrame.Create(qrCodeImage));
+                    encoder.Save(memoryStream);
+                    
+                    Image qrImage = Image.GetInstance(memoryStream.ToArray());
+                    qrImage.Alignment = Element.ALIGN_CENTER;
+                    doc.Add(qrImage);
+                }
+                
+                MessageBox.Show("PDF сформирован!");
             }
             catch (DocumentException de)
             {
@@ -270,5 +290,27 @@ namespace theater.PageMain
                 doc.Close();
             }
         }
+
+        private BitmapImage GenerateQRCode(string text)
+        {
+            BarcodeGenerator generator = new BarcodeGenerator(EncodeTypes.QR, text);
+            generator.Parameters.Barcode.XDimension.Pixels = 6;
+
+            using (MemoryStream memoryStream = new MemoryStream())
+            {
+                generator.Save(memoryStream, BarCodeImageFormat.Png);
+
+                BitmapImage bitmapImage = new BitmapImage();
+                bitmapImage.BeginInit();
+                bitmapImage.CacheOption = BitmapCacheOption.OnLoad;
+                bitmapImage.StreamSource = memoryStream;
+                bitmapImage.EndInit();
+                bitmapImage.Freeze();
+
+                return bitmapImage;
+            }
+        }
     }
 }
+
+
