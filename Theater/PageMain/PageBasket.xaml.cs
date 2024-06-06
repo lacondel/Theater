@@ -24,6 +24,7 @@ using System.ComponentModel;
 using System.Security.RightsManagement;
 using Aspose.BarCode.Generation;
 using System.Drawing;
+using System.Diagnostics;
 
 namespace theater.PageMain
 {
@@ -206,11 +207,7 @@ namespace theater.PageMain
             {
                 using (var context = new TheaterEntities6())
                 {
-                    var basketItems = context.basket.ToList();
-                    context.basket.RemoveRange(basketItems);
-                    context.SaveChanges();
-
-                    MessageBox.Show("Корзина успешно очищена!");
+                    ClearBasket();
 
                     // Обновляем отображение списка корзины
                     listBasket.ItemsSource = GetBasketItems();
@@ -228,7 +225,7 @@ namespace theater.PageMain
 
             try
             {
-                PdfWriter.GetInstance(doc, new FileStream("C:\\Users\\Webmaster1\\source\\repos\\Theater\\Theater\\Receipts\\output.pdf", FileMode.Create));
+                PdfWriter.GetInstance(doc, new FileStream("..\\..\\Receipts\\output.pdf", FileMode.Create));
 
                 doc.Open();
 
@@ -288,9 +285,22 @@ namespace theater.PageMain
             finally
             {
                 doc.Close();
+                ClearBasket();
+                listBasket.ItemsSource = GetBasketItems();
+            }
+
+            // Открытие PDF файла
+            try
+            {
+                Process.Start(new ProcessStartInfo("..\\..\\Receipts\\output.pdf") { UseShellExecute = true });
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Не удалось открыть PDF файл: {ex.Message}");
             }
         }
 
+        // Генерация QR кода
         private BitmapImage GenerateQRCode(string text)
         {
             BarcodeGenerator generator = new BarcodeGenerator(EncodeTypes.QR, text);
@@ -308,6 +318,23 @@ namespace theater.PageMain
                 bitmapImage.Freeze();
 
                 return bitmapImage;
+            }
+        }
+
+        private void ClearBasket()
+        {
+            try
+            {
+                using (var context = new TheaterEntities6())
+                {
+                    var basketItems = context.basket.ToList();
+                    context.basket.RemoveRange(basketItems);
+                    context.SaveChanges();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ошибка при очистке корзины: {ex.Message}");
             }
         }
     }
