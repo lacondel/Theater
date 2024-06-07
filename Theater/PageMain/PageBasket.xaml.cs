@@ -2,28 +2,16 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using System.Xml.Linq;
 using theater.ApplicationData;
 using iTextSharp.text;
 using iTextSharp.text.pdf;
 using Image = iTextSharp.text.Image;
-using System.Windows.Markup;
 using Paragraph = iTextSharp.text.Paragraph;
 using System.ComponentModel;
-using System.Security.RightsManagement;
 using Aspose.BarCode.Generation;
-using System.Drawing;
 using System.Diagnostics;
 
 namespace theater.PageMain
@@ -39,6 +27,7 @@ namespace theater.PageMain
             listBasket.ItemsSource = GetBasketItems();
         }
 
+        // Класс для отображения информации на странице PageBasket при помощи Binding
         public class BasketItem : INotifyPropertyChanged
         {
             private int quantity;
@@ -221,31 +210,40 @@ namespace theater.PageMain
 
         private void CreatePDF()
         {
+
             Document doc = new Document();
 
             try
             {
                 PdfWriter.GetInstance(doc, new FileStream("..\\..\\Receipts\\output.pdf", FileMode.Create));
 
+                // Открываем PDF-документ для записи
                 doc.Open();
 
+                // Создаем шрифты для PDF-документа
                 BaseFont baseFont = BaseFont.CreateFont("C:\\Windows\\Fonts\\times.ttf", BaseFont.IDENTITY_H, BaseFont.NOT_EMBEDDED);
                 Font font = new Font(baseFont, 12);
                 Font bold_font = new Font(baseFont, 25, 1);
                 
-                Paragraph paragraph1 = new Paragraph("СПИСОК ТОВАРОВ: ", bold_font);
-                paragraph1.Alignment = Element.ALIGN_CENTER;
-                doc.Add(paragraph1);
+                // Добавление заголовка в PDF
+                Paragraph title = new Paragraph("СПИСОК ТОВАРОВ: ", bold_font);
+                title.Alignment = Element.ALIGN_CENTER;
+                doc.Add(title);
                 doc.Add(new Paragraph(" ", font));
                
+                // Объявляем переменные для итоговой суммы заказа и зрителя(покупателя)
                 decimal? sum = 0;
+                string viewerName = null;
 
                 List<BasketItem> basketItems = GetBasketItems();
 
+                // Перебор элементов корзины
                 foreach (var item in basketItems)
                 {
+                    // Получение общей стоимости экземпляров элемента корзины
                     var totalPrice = item.price * item.Quantity;
 
+                    // Добавление информации о элементе корзины в PDF
                     doc.Add(new Paragraph("Название: " + item.title, font));
                     doc.Add(new Paragraph("Дата: " + item.date.ToString("dd.MM.yyyy HH:mm"), font));
                     doc.Add(new Paragraph("Цена: " + item.price?.ToString("F2") + " руб.", font));
@@ -253,10 +251,22 @@ namespace theater.PageMain
                     doc.Add(new Paragraph("Сумма: " + totalPrice + " руб.", font));
                     doc.Add(new Paragraph(" ", font)); 
 
+                    // Добавление общей стоимости экземпляра элемента корзины к итоговой стоимости заказа
                     sum += totalPrice;
+
+                    // Получение ФИО зрителя
+                    if (viewerName == null)
+                    {
+                        viewerName = item.viewerName;
+                    }
                 }
 
+                // Добавление итоговой стоимости заказа в PDF
                 doc.Add(new Paragraph("Итого: " + sum?.ToString("F2") + " руб.", font));
+                doc.Add(new Paragraph(" ", font));
+
+                // Добавление ФИО зрителя в PDF
+                doc.Add(new Paragraph("Покупатель: " + viewerName, font));
                 doc.Add(new Paragraph(" ", font));
 
                 BitmapImage qrCodeImage = GenerateQRCode("http://firpo.ru/Public/86");
@@ -289,7 +299,7 @@ namespace theater.PageMain
                 listBasket.ItemsSource = GetBasketItems();
             }
 
-            // Открытие PDF файла
+            // Открытие PDF файла для просмотра
             try
             {
                 Process.Start(new ProcessStartInfo("..\\..\\Receipts\\output.pdf") { UseShellExecute = true });
@@ -321,6 +331,7 @@ namespace theater.PageMain
             }
         }
 
+        // Метод очистки корзины от всех элементов
         private void ClearBasket()
         {
             try
