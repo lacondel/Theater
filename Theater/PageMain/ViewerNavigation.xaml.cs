@@ -40,10 +40,5 @@ namespace theater.PageMain
         {
             AppFrame.frameMain.Navigate(new PageActors());
         }
-
-        private void btnSponsors_Click(object sender, RoutedEventArgs e)
-        {
-            AppFrame.frameMain.Navigate(new PageSponsors());
-        }
     }
 }

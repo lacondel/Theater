@@ -13,14 +13,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace theater.PageMain
+namespace theater.PageAdmin
 {
     /// <summary>
-    /// Логика взаимодействия для PageSponsors.xaml
+    /// Логика взаимодействия для PageAddAdmin.xaml
     /// </summary>
-    public partial class PageSponsors : Page
+    public partial class PageAddAdmin : Page
     {
-        public PageSponsors()
+        public PageAddAdmin()
         {
             InitializeComponent();
         }

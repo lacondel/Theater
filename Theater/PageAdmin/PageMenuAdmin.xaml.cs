@@ -12,6 +12,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using theater.ApplicationData;
+using theater.PageMain;
 
 namespace theater.PageAdmin
 {
@@ -23,6 +25,26 @@ namespace theater.PageAdmin
         public PageMenuAdmin()
         {
             InitializeComponent();
+        }
+
+        private void btnAddActor_Click(object sender, RoutedEventArgs e)
+        {
+            AppFrame.frameMain.Navigate(new PageAddActor());
+        }
+
+        private void btnAddAdmin_Click(object sender, RoutedEventArgs e)
+        {
+            AppFrame.frameMain.Navigate(new PageAddAdmin());
+        }
+
+        private void btnAddPerformance_Click(object sender, RoutedEventArgs e)
+        {
+            AppFrame.frameMain.Navigate(new PageAddPerformance());
+        }
+
+        private void btnAddShowtime_Click(object sender, RoutedEventArgs e)
+        {
+            AppFrame.frameMain.Navigate(new PageAddShowtime());
         }
     }
 }

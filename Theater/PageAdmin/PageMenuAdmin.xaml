@@ -5,16 +5,15 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:theater.PageAdmin"
       mc:Ignorable="d" 
-      d:DesignHeight="350" d:DesignWidth="800"
+      d:DesignHeight="350" d:DesignWidth="200"
       Title="PageMenuAdmin">
 
     <Grid>
         <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
-            <Button x:Name="btnAddActor">Добавить актёр</Button>
-            <Button x:Name="btnAddAdmin">Добавить админа</Button>
-            <Button x:Name="btnAddPerformance">Добавить спектакль</Button>
-            <Button x:Name="btnAddShowtime">Добавить представление</Button>
-            <Button x:Name="btnAddSponsor">Добавить спонсора</Button>
+            <Button x:Name="btnAddActor" Click="btnAddActor_Click">Добавить актёр</Button>
+            <Button x:Name="btnAddAdmin" Click="btnAddAdmin_Click">Добавить админа</Button>
+            <Button x:Name="btnAddPerformance" Click="btnAddPerformance_Click">Добавить спектакль</Button>
+            <Button x:Name="btnAddShowtime" Click="btnAddShowtime_Click">Добавить представление</Button>
         </StackPanel>
     </Grid>
 </Page>
