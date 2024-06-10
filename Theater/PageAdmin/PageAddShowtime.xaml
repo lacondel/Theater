@@ -5,10 +5,19 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:theater.PageAdmin"
       mc:Ignorable="d" 
-      d:DesignHeight="350" d:DesignWidth="200"
+      d:DesignHeight="450" d:DesignWidth="800"
       Title="PageAddShowtime">
 
     <Grid>
-        
+        <StackPanel x:Name="adminStackPanel" Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <TextBox x:Name="addPerformanceTitle"/>
+            <TextBox x:Name="addPerformancePhoto"/>
+            <TextBox x:Name="addShowtimeDate"/>
+            <TextBox x:Name="addShowtimePrice"/>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                <Button x:Name="btnAddPerformance"  Content="Добавить спектакль" Margin="5"/>
+                <Button x:Name="btnBack" Grid.Column="1" Content="Вернуться" Margin="5" Click="btnBack_Click"/>
+            </StackPanel>
+        </StackPanel>
     </Grid>
 </Page>

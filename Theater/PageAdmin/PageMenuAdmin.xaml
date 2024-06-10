@@ -9,7 +9,7 @@
       Title="PageMenuAdmin">
 
     <Grid>
-        <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
+        <StackPanel x:Name="adminStackPanel" Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
             <Button x:Name="btnAddActor" Click="btnAddActor_Click">Добавить актёр</Button>
             <Button x:Name="btnAddAdmin" Click="btnAddAdmin_Click">Добавить админа</Button>
             <Button x:Name="btnAddPerformance" Click="btnAddPerformance_Click">Добавить спектакль</Button>

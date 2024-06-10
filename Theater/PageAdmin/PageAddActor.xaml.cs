@@ -12,6 +12,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using theater.ApplicationData;
+using theater.PageMain;
 
 namespace theater.PageAdmin
 {
@@ -25,10 +27,15 @@ namespace theater.PageAdmin
             InitializeComponent();
         }
 
+        private void btnBack_Click(object sender, RoutedEventArgs e)
+        {
+            AppFrame.frameMain.Navigate(new PageMenuAdmin());
+        }
+
         private void ComboBox_Loaded(object sender, RoutedEventArgs e)
         {
             var comboBox = sender as ComboBox;
-            if (comboBox != null )
+            if (comboBox != null)
             {
                 comboBox.SelectedIndex = 0;
             }
@@ -37,8 +44,9 @@ namespace theater.PageAdmin
         private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             var comboBox = sender as ComboBox;
-            if (comboBox != null ) {
-                if(comboBox.SelectedIndex != 0 && comboBox.Items[0] is ComboBoxItem placeholderItem && !placeholderItem.IsEnabled)
+            if (comboBox != null)
+            {
+                if (comboBox.SelectedIndex != 0 && comboBox.Items[0] is ComboBoxItem placeholderItem && !placeholderItem.IsEnabled)
                 {
                     comboBox.Items.RemoveAt(0);
                 }
