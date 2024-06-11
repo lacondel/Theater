@@ -1,5 +1,6 @@
 ﻿using Microsoft.Win32;
 using System;
+using System.IO;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -66,7 +67,13 @@ namespace theater.PageAdmin
                     return;
                 }
 
-                string photoPath = Path.Combine("Images", photoFileName);
+                string photoPath = System.IO.Path.Combine("Images", photoFileName);
+
+                if (IsFileLocked(new FileInfo(photoFileName)))
+                {
+                    MessageBox.Show("Файл заблокирован другим процессом!", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
+                }
 
                 if (!File.Exists(photoFileName))
                 {
@@ -74,12 +81,21 @@ namespace theater.PageAdmin
                     return;
                 }
 
-                string destinationPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, photoPath);
-                FileDialog.Copy(photoFileName, destinationPath, true);
+                imgPhotoPreview.Source = null;
+
+                string destinationPath = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, photoPath);
+                
+                File.WriteAllBytes(destinationPath, File.ReadAllBytes(photoFileName));
 
                 using (var context = new TheaterEntities6())
                 {
-                    
+                    var newPhoto = new photo
+                    { 
+                        photo1 = photoPath, 
+                        description = photoPath
+                    };
+                    context.photo.Add(newPhoto);
+                    context.SaveChanges();
 
                     performance newPerformance = new performance
                     {
@@ -92,7 +108,7 @@ namespace theater.PageAdmin
                     };
                 }
             }
-            catch (Exception ex) 
+            catch (Exception ex)
             {
                 MessageBox.Show($"Ошибка при добавлении спектакля: {ex.Message}");
             }
@@ -102,11 +118,48 @@ namespace theater.PageAdmin
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();
             openFileDialog.Filter = "Image files (*.jpg, *.jpeg, *.png, *.bmp)|*.jpg;*.jpeg;*.png;*.bmp|All files (*.*)|*.*";
+            
             if (openFileDialog.ShowDialog() == true)
             {
                 photoFileName = openFileDialog.FileName;
                 addPerformancePhoto.Text = photoFileName;
+
+                // Загрузка изображения для предварительного просмотра
+                BitmapImage bitmap = new BitmapImage();
+                bitmap.BeginInit();
+                bitmap.UriSource = new Uri(photoFileName);
+                bitmap.EndInit();
+                imgPhotoPreview.Source = bitmap;
+
+                // Отображение названия файла в поле description
+                string fileNameWithoutExtension = System.IO.Path.GetFileNameWithoutExtension(photoFileName);
+                string fileDescription = string.Join(" ", fileNameWithoutExtension.Split('_')); // Пример разделения имени файла
+                addPerformanceDescription.Text = fileDescription;
+
+                // Отображение названия файла в поле photo1
+                addPerformancePhoto1.Text = System.IO.Path.GetFileName(photoFileName);
             }
+        }
+
+        private static bool IsFileLocked(FileInfo file)
+        {
+            FileStream stream = null;
+
+            try
+            {
+                stream = file.Open(FileMode.Open, FileAccess.ReadWrite, FileShare.None);
+            }
+            catch (IOException)
+            {
+                MessageBox.Show("Файл заблокирован другим процессом");
+                return true;
+            }
+            finally
+            {
+                stream?.Close();
+            }        
+
+            return false;
         }
     }
 }

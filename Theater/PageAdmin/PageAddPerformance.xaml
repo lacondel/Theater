@@ -21,6 +21,9 @@
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                 <TextBox x:Name="addPerformancePhoto"/>
                 <Button x:Name="btnAddPhoto" Content="..." Margin="5" Click="btnAddPhoto_Click"/>
+                <TextBox x:Name="addPerformanceDescription"/>
+                <TextBox x:Name="addPerformancePhoto1"/>
+                <Image x:Name="imgPhotoPreview" Width="200" Height="200"/>
             </StackPanel>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                 <Button x:Name="btnAddPerformance"  Content="Добавить спектакль" Margin="5" Click="btnAddPerformance_Click"/>
