@@ -12,7 +12,7 @@
         <StackPanel x:Name="adminStackPanel" Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
             <TextBox x:Name="addPerformanceTitle"/>
             <ComboBox x:Name="cbGenre" HorizontalAlignment="Stretch" Loaded="ComboBox_Loaded" SelectionChanged="ComboBox_SelectionChanged">
-                <ComboBoxItem  IsHitTestVisible="False" Content="Выберите жанр:"/>
+                <ComboBoxItem  IsHitTestVisible="False" IsEnabled="False" Content="Выберите жанр:"/>
                 <ComboBoxItem Content="драма"/>
             </ComboBox>
             <TextBox x:Name="addPerformanceYearCreated"/>

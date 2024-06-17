@@ -132,10 +132,20 @@ namespace theater.PageMain
                         var itemToUpdate = context.basket.FirstOrDefault(b => b.id_basket == basketItem.id);
                         if (itemToUpdate != null)
                         {
-                            itemToUpdate.quantity--;
-                            context.SaveChanges();
+                            if (itemToUpdate.quantity > 1)
+                            {
+                                itemToUpdate.quantity--;
+                                context.SaveChanges();
 
-                            basketItem.Quantity--;
+                                basketItem.Quantity--;
+                            }
+                            else
+                            {
+                                context.basket.Remove(itemToUpdate);
+                                context.SaveChanges();
+
+                                listBasket.ItemsSource = GetBasketItems();
+                            }
                         }
                     }
                 }

@@ -37,5 +37,15 @@ namespace theater.ApplicationData
             }
             
         }
+
+        // Подсказка для ComboBox'ов
+        public static void InitializeComboBox(ComboBox comboBox) 
+        {
+            // Утсанавливаем элемент-заполнитель при загрузке
+            comboBox.SelectedIndex = 0;
+
+            // Удаляем элемент-заполнитель при изменении выбора
+
+        }
     }
 }

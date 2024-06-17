@@ -1,19 +1,9 @@
 ﻿using Microsoft.Win32;
 using System;
 using System.IO;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using theater.ApplicationData;
 
 namespace theater.PageAdmin
@@ -31,6 +21,12 @@ namespace theater.PageAdmin
         }
 
 
+        
+        /// <summary>
+        /// Методы для загрузки и изменения выбора в ComboBox
+        /// </summary>
+        
+        // Установка первого элемента в качестве выбранного при загрузке
         private void ComboBox_Loaded(object sender, RoutedEventArgs e)
         {
             var comboBox = sender as ComboBox;
@@ -39,7 +35,8 @@ namespace theater.PageAdmin
                 comboBox.SelectedIndex = 0;
             }
         }
-
+        
+        // 
         private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             var comboBox = sender as ComboBox;
