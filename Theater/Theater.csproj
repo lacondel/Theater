@@ -132,6 +132,9 @@
     <Compile Include="ApplicationData\sponsor.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="ApplicationData\sysdiagrams.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="ApplicationData\theater.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -201,6 +204,7 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="MethodsForView.cs" />
     <Compile Include="PageAdmin\PageAddActor.xaml.cs">
       <DependentUpon>PageAddActor.xaml</DependentUpon>
     </Compile>
@@ -292,6 +296,9 @@
     <Resource Include="Resources\curtain.jpg" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Receipts\" />
+  </ItemGroup>
+  <ItemGroup>
     <Content Include="ApplicationData\Model1.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>Model1.edmx</DependentUpon>
@@ -302,9 +309,6 @@
       <DependentUpon>Model1.edmx</DependentUpon>
       <LastGenOutput>Model1.cs</LastGenOutput>
     </Content>
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Receipts\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

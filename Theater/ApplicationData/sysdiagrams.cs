@@ -12,13 +12,12 @@ namespace theater.ApplicationData
     using System;
     using System.Collections.Generic;
     
-    public partial class sponsor
+    public partial class sysdiagrams
     {
-        public int id_sponsor { get; set; }
-        public string company_name { get; set; }
-        public string contact_info { get; set; }
-        public int id_photo { get; set; }
-    
-        public virtual photo photo { get; set; }
+        public string name { get; set; }
+        public int principal_id { get; set; }
+        public int diagram_id { get; set; }
+        public Nullable<int> version { get; set; }
+        public byte[] definition { get; set; }
     }
 }

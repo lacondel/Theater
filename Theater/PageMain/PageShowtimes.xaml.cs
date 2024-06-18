@@ -105,7 +105,7 @@ namespace theater.PageMain
 
                 try
                 {
-                    using (var context = new TheaterEntities6())
+                    using (var context = new TheaterEntities7())
                     {
                         var existingItem = context.basket.FirstOrDefault(b => b.id_showtime == selectedShowtime.id_showtime);
 

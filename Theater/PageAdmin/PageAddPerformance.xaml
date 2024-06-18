@@ -11,7 +11,7 @@
     <Grid>
         <StackPanel x:Name="adminStackPanel" Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
             <TextBox x:Name="addPerformanceTitle"/>
-            <ComboBox x:Name="cbGenre" HorizontalAlignment="Stretch" Loaded="ComboBox_Loaded" SelectionChanged="ComboBox_SelectionChanged">
+            <ComboBox x:Name="cbGenre" HorizontalAlignment="Stretch" Loaded="ComboBox_Loaded">
                 <ComboBoxItem  IsHitTestVisible="False" IsEnabled="False" Content="Выберите жанр:"/>
                 <ComboBoxItem Content="драма"/>
             </ComboBox>

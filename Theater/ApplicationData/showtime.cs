@@ -39,7 +39,6 @@ namespace theater.ApplicationData
 
         public string ShowtimePhotoPath
         {
-
             get
             {
                 return MethodsForDB.PhotoPath(photo.id_photo);

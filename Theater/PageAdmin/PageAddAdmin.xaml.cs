@@ -35,7 +35,7 @@ namespace theater.PageAdmin
         {
             try
             {
-                using (var context = new TheaterEntities6())
+                using (var context = new TheaterEntities7())
                 {
                     // Создаем новый объект пользователя
                     users newUser = new users
