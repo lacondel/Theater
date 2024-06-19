@@ -111,16 +111,16 @@ namespace theater.PageAdmin
                 File.WriteAllBytes(photoPath, File.ReadAllBytes(photoFileName));
 
                 string destinationPath = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, photoPath);
-                
+
                 //File.Copy(photoPath, destinationPath, true);
 
                 using (var context = new TheaterEntities7())
                 {
                     var newPhoto = new photo
                     { 
-                        photo1 = photoFileName, 
-                        description = photoPath
-                    };
+                        photo1 = System.IO.Path.GetFileName(photoFileName),
+                        description = System.IO.Path.GetFileNameWithoutExtension(photoFileName)
+                };
                     context.photo.Add(newPhoto);
                     context.SaveChanges();
 
