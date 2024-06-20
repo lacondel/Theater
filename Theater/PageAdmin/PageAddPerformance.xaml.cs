@@ -1,7 +1,9 @@
 ﻿using Microsoft.Win32;
 using System;
+using System.Collections.Generic;
 using System.Data.Entity.Validation;
 using System.IO;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media.Imaging;
@@ -110,9 +112,9 @@ namespace theater.PageAdmin
                 // Копирование файла в папку "Images"
                 File.WriteAllBytes(photoPath, File.ReadAllBytes(photoFileName));
 
-                string destinationPath = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, photoPath);
+                // string destinationPath = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, photoPath);
 
-                //File.Copy(photoPath, destinationPath, true);
+                // File.Copy(photoPath, destinationPath, true);
 
                 using (var context = new TheaterEntities7())
                 {
@@ -120,7 +122,7 @@ namespace theater.PageAdmin
                     { 
                         photo1 = System.IO.Path.GetFileName(photoFileName),
                         description = System.IO.Path.GetFileNameWithoutExtension(photoFileName)
-                };
+                    };
                     context.photo.Add(newPhoto);
                     context.SaveChanges();
 
