@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Controls;
 
 namespace theater
@@ -29,6 +31,28 @@ namespace theater
                     }
                 }
             };
+        }
+
+        // Проверка, заблокирован ли файл другим процессом
+        public static bool IsFileLocked(FileInfo file)
+        {
+            FileStream stream = null;
+
+            try
+            {
+                stream = file.Open(FileMode.Open, FileAccess.ReadWrite, FileShare.None);
+            }
+            catch (IOException)
+            {
+                MessageBox.Show("Файл заблокирован другим процессом");
+                return true;
+            }
+            finally
+            {
+                stream?.Close();
+            }
+
+            return false;
         }
     }
 }

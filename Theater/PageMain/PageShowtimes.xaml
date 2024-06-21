@@ -28,6 +28,9 @@
             </ComboBox>
             <Button x:Name="btnBack" Click="btnBack_Click">Вернуться</Button>
             <Button x:Name="btnGoToBasket" Click="btnGoToBasket_Click">Корзина</Button>
+            <Button x:Name="btnAddShowtime" Visibility="Collapsed">Добавить представление</Button>
+            <Button x:Name="btnDeleteShowtime" Visibility="Collapsed">Удалить представление</Button>
+            <Button x:Name="btnEditShowtime" Visibility="Collapsed">Редактировать представление</Button>
         </StackPanel>
         
         <ListView x:Name="listOfShowtimes" Grid.Row="1" ScrollViewer.CanContentScroll="False">

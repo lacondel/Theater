@@ -1,0 +1,38 @@
+﻿<Page x:Class="theater.PageEdit.PageEditPerformance"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:theater.PageEdit"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="PageEditPerformance">
+
+    <Grid>
+        <StackPanel x:Name="editPerformanceStackPanel" Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <TextBox x:Name="editPerformanceTitle"/>
+            <ComboBox x:Name="cbGenre" HorizontalAlignment="Stretch">
+                <ComboBoxItem IsHitTestVisible="False" IsEnabled="False" Content="Выберите жанр:"/>
+                <ComboBoxItem Content="драма"/>
+            </ComboBox>
+            <TextBox x:Name="editPerformanceYearCreated"/>
+            <TextBox x:Name="editPerformanceAuthor"/>
+            <TextBox x:Name="editPerformanceDuration"/>
+            
+            <!-- StackPanel добавления фотографии -->
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                <TextBox x:Name="addPerformancePhoto"/>
+                <Button x:Name="btnAddPhoto" Content="..." Margin="5" Click="btnAddPhoto_Click"/>
+                <TextBox x:Name="addPerformanceDescription"/>
+                <TextBox x:Name="addPerformancePhoto1"/>
+                <Image x:Name="imgPhotoPreview" Width="200" Height="200"/>
+            </StackPanel>
+            
+            <!-- Конопки управления -->
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                <Button x:Name="btnEditPerformance" Content="Сохранить изменения" Margin="5" Click="btnEditPerformance_Click"/>
+                <Button x:Name="btnBack" Content="Вернуться" Margin="5" Click="btnBack_Click"/>
+            </StackPanel>
+        </StackPanel>
+    </Grid>
+</Page>

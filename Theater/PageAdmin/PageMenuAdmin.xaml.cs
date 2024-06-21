@@ -22,8 +22,11 @@ namespace theater.PageAdmin
     /// </summary>
     public partial class PageMenuAdmin : Page
     {
+        public users objUser { get; set; }
+
         public PageMenuAdmin()
         {
+            this.objUser = objUser;
             InitializeComponent();
         }
 
@@ -39,7 +42,7 @@ namespace theater.PageAdmin
 
         private void btnAddPerformance_Click(object sender, RoutedEventArgs e)
         {
-            AppFrame.frameMain.Navigate(new PageAddPerformance());
+            AppFrame.frameMain.Navigate(new PageAddPerformance(objUser));
         }
 
         private void btnAddShowtime_Click(object sender, RoutedEventArgs e)

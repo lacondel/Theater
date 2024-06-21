@@ -8,6 +8,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media.Imaging;
 using theater.ApplicationData;
+using theater.PageMain;
 
 namespace theater.PageAdmin
 {
@@ -16,19 +17,18 @@ namespace theater.PageAdmin
     /// </summary>
     public partial class PageAddPerformance : Page
     {
-        private string photoFileName;
+        public users objUser { get; set; }
 
-        public PageAddPerformance()
+        // Переменная для пути к изображению на компьютере
+        private string photoFilePath;
+
+        public PageAddPerformance(users objUser)
         {
+            this.objUser = objUser;
             InitializeComponent();
         }
-
-
         
-        /// <summary>
-        /// Методы для загрузки и изменения выбора в ComboBox
-        /// </summary>
-        
+
         // Установка первого элемента в качестве выбранного при загрузке
         private void ComboBox_Loaded(object sender, RoutedEventArgs e)
         {
@@ -36,11 +36,8 @@ namespace theater.PageAdmin
             MethodsForView.InitializeComboBox(comboBox);
         }
 
-        private void btnBack_Click(object sender, RoutedEventArgs e)
-        {
-            AppFrame.frameMain.Navigate(new PageMenuAdmin());
-        }
 
+        // Кнопка загрузки изображение для предпросмотра
         private void btnAddPhoto_Click(object sender, RoutedEventArgs e)
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();
@@ -48,32 +45,34 @@ namespace theater.PageAdmin
 
             if (openFileDialog.ShowDialog() == true)
             {
-                photoFileName = openFileDialog.FileName;
-                addPerformancePhoto.Text = photoFileName;
+                photoFilePath = openFileDialog.FileName;
+                addPerformancePhoto.Text = photoFilePath;
 
                 // Загрузка изображения для предварительного просмотра
                 BitmapImage bitmap = new BitmapImage();
                 bitmap.BeginInit();
-                bitmap.UriSource = new Uri(photoFileName);
+                bitmap.UriSource = new Uri(photoFilePath);
                 bitmap.CacheOption = BitmapCacheOption.OnLoad;
                 bitmap.EndInit();
                 imgPhotoPreview.Source = bitmap;
 
                 // Отображение названия файла в поле description
-                string fileNameWithoutExtension = System.IO.Path.GetFileNameWithoutExtension(photoFileName);
+                string fileNameWithoutExtension = System.IO.Path.GetFileNameWithoutExtension(photoFilePath);
                 string fileDescription = string.Join(" ", fileNameWithoutExtension.Split('_')); // Пример разделения имени файла
                 addPerformanceDescription.Text = fileDescription;
 
                 // Отображение названия файла в поле photo1
-                addPerformancePhoto1.Text = System.IO.Path.GetFileName(photoFileName);
+                addPerformancePhoto1.Text = System.IO.Path.GetFileName(photoFilePath);
             }
         }
 
+
+        // Конопка добавления спектакля в базу данных
         private void btnAddPerformance_Click(object sender, RoutedEventArgs e)
         {
             try
             {
-                if (string.IsNullOrEmpty(photoFileName))
+                if (string.IsNullOrEmpty(photoFilePath))
                 {
                     MessageBox.Show("Выберите фотографию спектакля!", "Предупреждение", MessageBoxButton.OK, MessageBoxImage.Warning);
                     return;
@@ -90,17 +89,17 @@ namespace theater.PageAdmin
                 }
 
                 // Определение полного пути для сохранения фотографии
-                string photoPath = System.IO.Path.Combine(imagesDirectory, System.IO.Path.GetFileName(photoFileName));
+                string photoPath = System.IO.Path.Combine(imagesDirectory, System.IO.Path.GetFileName(photoFilePath));
 
                 // Проверка блокировки файла
-                if (IsFileLocked(new FileInfo(photoFileName)))
+                if (MethodsForView.IsFileLocked(new FileInfo(photoFilePath)))
                 {
                     MessageBox.Show("Файл заблокирован другим процессом!", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
                     return;
                 }
 
                 // Проверка существования исходного файла
-                if (!File.Exists(photoFileName))
+                if (!File.Exists(photoFilePath))
                 {
                     MessageBox.Show("Фотография не найдена в указанной папке!", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
                     return;
@@ -110,7 +109,7 @@ namespace theater.PageAdmin
                 imgPhotoPreview.Source = null;
 
                 // Копирование файла в папку "Images"
-                File.WriteAllBytes(photoPath, File.ReadAllBytes(photoFileName));
+                File.WriteAllBytes(photoPath, File.ReadAllBytes(photoFilePath));
 
                 // string destinationPath = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, photoPath);
 
@@ -120,8 +119,8 @@ namespace theater.PageAdmin
                 {
                     var newPhoto = new photo
                     { 
-                        photo1 = System.IO.Path.GetFileName(photoFileName),
-                        description = System.IO.Path.GetFileNameWithoutExtension(photoFileName)
+                        photo1 = System.IO.Path.GetFileName(photoFilePath),
+                        description = System.IO.Path.GetFileNameWithoutExtension(photoFilePath)
                     };
                     context.photo.Add(newPhoto);
                     context.SaveChanges();
@@ -141,41 +140,17 @@ namespace theater.PageAdmin
 
                 MessageBox.Show("Спектакль добавлен!");
             }
-            //catch (Exception ex)
-            //{
-            //    MessageBox.Show($"Ошибка при добавлении спектакля: {ex.Message}");
-            //}
-            catch (DbEntityValidationException ex)
+            catch (Exception ex)
             {
-                foreach (var entityValidationErrors in ex.EntityValidationErrors)
-                {
-                    foreach (var validationError in entityValidationErrors.ValidationErrors)
-                    {
-                        MessageBox.Show($"Entity: {entityValidationErrors.Entry.Entity.GetType().Name}, Property: {validationError.PropertyName}, Error: {validationError.ErrorMessage}");
-                    }
-                }
+                MessageBox.Show($"Ошибка при добавлении спектакля: {ex.Message}");
             }
         }
 
-        private static bool IsFileLocked(FileInfo file)
+
+        // Кнопка возвращения на предыдущую страницу
+        private void btnBack_Click(object sender, RoutedEventArgs e)
         {
-            FileStream stream = null;
-
-            try
-            {
-                stream = file.Open(FileMode.Open, FileAccess.ReadWrite, FileShare.None);
-            }
-            catch (IOException)
-            {
-                MessageBox.Show("Файл заблокирован другим процессом");
-                return true;
-            }
-            finally
-            {
-                stream?.Close();
-            }        
-
-            return false;
+            AppFrame.frameMain.Navigate(new PageListOfPerformances(objUser));
         }
     }
 }

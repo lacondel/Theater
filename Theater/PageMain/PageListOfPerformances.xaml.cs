@@ -1,20 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
-using System.Net.Http.Headers;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using theater.ApplicationData;
+using theater.PageAdmin;
+using theater.PageEdit;
 
 namespace theater.PageMain
 {
@@ -23,11 +14,30 @@ namespace theater.PageMain
     /// </summary>
     public partial class PageListOfPerformances : Page
     {
-        public PageListOfPerformances()
+        public users objUser {  get; set; }
+
+        public PageListOfPerformances(users objUser)
         {
+            this.objUser = objUser;
             InitializeComponent();
             listOfPerformances.ItemsSource = FindPerformance();
+            RenderBtn(this.objUser);
         }
+
+
+        // Отображение кнопок администратора
+        public void RenderBtn(users objUser) 
+        {
+            if (objUser.id_user_role == 1)
+            {
+                btnAddPerformance.Visibility = Visibility.Visible;
+                btnDeletePerformance.Visibility = Visibility.Visible;
+                btnEditPerformance.Visibility = Visibility.Visible;
+            }
+        }
+
+
+
 
         performance[] FindPerformance()
         {
@@ -89,26 +99,120 @@ namespace theater.PageMain
             }
         }
 
+
+
+        // Поле поиска
         private void searchChanged(object sender, TextChangedEventArgs e)
         {
             listOfPerformances.ItemsSource = FindPerformance();
         }
 
+
+
+        // Кнопка сортировки
         private void sortChanged(object sender, SelectionChangedEventArgs e)
         {
             listOfPerformances.ItemsSource = FindPerformance();
         }
 
+
+
+        // Кнопка фильтрации
         private void filterChanged(object sender, SelectionChangedEventArgs e)
         {
             listOfPerformances.ItemsSource = FindPerformance();
         }
 
+
+
+        // Кнопка для перехода к форме добавления спектакля
+        private void btnAddPerformance_Click(object sender, RoutedEventArgs e)
+        {
+            AppFrame.frameMain.Navigate(new PageAddPerformance(objUser));
+        }
+
+
+
+        // Конпка удаления выбранного спектакля
+        private void btnDeletePerformance_Click(object sender, RoutedEventArgs e)
+        {
+            // Проверка, выбран ли спектакль для удаления
+            if (listOfPerformances.SelectedItem == null)
+            {
+                MessageBox.Show("Выберите спектакль для удаления.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);   
+            }
+            
+            // Преобразуем выбранный элемент в объект типа "performance", если преобразование не удалось, выводим ошибку
+            var selectedPerformance = listOfPerformances.SelectedItem as performance;
+            if (selectedPerformance == null)
+            {
+                MessageBox.Show("Ошибка при получении данных о спектакле.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+
+            // Переменная, хранящая ответ выбранный в MessageBox
+            var result = MessageBox.Show($"Вы уверены, что хотите удалить спектакль '{selectedPerformance.title}'?", "Подтверждение удаления", MessageBoxButton.YesNo, MessageBoxImage.Question);
+            if (result == MessageBoxResult.Yes)
+            {
+                try
+                {
+                    using (var context = new TheaterEntities7())
+                    {
+                        var performanceToDelete = context.performance.FirstOrDefault(p => p.id_performance == selectedPerformance.id_performance);
+                        if (performanceToDelete != null) 
+                        { 
+                            context.performance.Remove(performanceToDelete);
+                            context.SaveChanges();
+                        }
+                    }
+                    listOfPerformances.ItemsSource = FindPerformance();
+                    MessageBox.Show("Спектакль успешно удален.", "Уведомление", MessageBoxButton.OK, MessageBoxImage.Information);
+                }
+                catch (Exception ex) 
+                {
+                    MessageBox.Show($"Ошибка при удалении спектакля: {ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);  
+                }
+            }
+        }
+
+
+
+        // Кнопка для перехода к форме редактирования выбранного спектакля
+        private void btnEditPerformance_Click(object sender, EventArgs e)
+        {
+            // Проверка, выбран ли спектакль для редактирования
+            if (listOfPerformances.SelectedItem == null) 
+            {
+                MessageBox.Show("Выберите спектакль для редактирования.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
+            // Преобразование выбранного элемента в объект типа "performance", если преобразование не проходит, выводим ошибку
+            var selectedPerformance = listOfPerformances.SelectedItem as performance;
+            if (selectedPerformance == null)
+            {
+                MessageBox.Show("Ошибка при получении данных о спектакле.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
+            // Переходим на страницу редактирования спектакля
+            AppFrame.frameMain.Navigate(new PageEditPerformance(selectedPerformance, objUser));
+        }
+
+
+
+        // Кнопка возвращения на предыдущую страницу
         private void btnBack_Click(object sender, RoutedEventArgs e)
         {
-            AppFrame.frameMain.Navigate(new ViewerNavigation());
+            AppFrame.frameMain.Navigate(new ViewerNavigation(objUser));
         }
+
+        //private void LoadPerformances()
+        //{
+        //    using (var context = new TheaterEntities7())
+        //    {
+        //        var performances = context.performance.ToList();
+        //        listOfPerformances.ItemsSource = performances;
+        //    }
+        //}
     }
-
-
 }

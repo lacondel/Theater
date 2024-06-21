@@ -21,24 +21,27 @@ namespace theater.PageMain
     /// </summary>
     public partial class ViewerNavigation : Page
     {
-        public ViewerNavigation()
+        public users objUser {  get; set; }
+
+        public ViewerNavigation(users objUser)
         {
+            this.objUser = objUser;
             InitializeComponent();
         }
 
         private void btnShowtimes_Click(object sender, RoutedEventArgs e)
         {
-            AppFrame.frameMain.Navigate(new PageShowtimes());
+            AppFrame.frameMain.Navigate(new PageShowtimes(objUser));
         }
 
         private void btnPerformances_Click(object sender, RoutedEventArgs e)
         {
-            AppFrame.frameMain.Navigate(new PageListOfPerformances());
+            AppFrame.frameMain.Navigate(new PageListOfPerformances(objUser));
         }
 
         private void btnActors_Click(object sender, RoutedEventArgs e)
         {
-            AppFrame.frameMain.Navigate(new PageActors());
+            AppFrame.frameMain.Navigate(new PageActors(objUser));
         }
     }
 }

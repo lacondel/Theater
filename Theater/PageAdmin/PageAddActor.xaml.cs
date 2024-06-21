@@ -22,7 +22,9 @@ namespace theater.PageAdmin
     /// </summary>
     public partial class PageAddActor : Page
     {
-        public PageAddActor()
+        public users objUser { get; set; }
+
+        public PageAddActor(users objUser)
         {
             InitializeComponent();
         }

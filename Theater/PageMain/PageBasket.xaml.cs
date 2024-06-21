@@ -21,7 +21,9 @@ namespace theater.PageMain
     /// </summary>
     public partial class PageBasket : Page
     {
-        public PageBasket()
+        public users objUser { get; set; }
+
+        public PageBasket(users objUser)
         {
             InitializeComponent();
             listBasket.ItemsSource = GetBasketItems();
@@ -190,7 +192,7 @@ namespace theater.PageMain
         // Отработка клика кнопки "Вернуться"
         private void btnBack_Click(object sender, RoutedEventArgs e)
         {
-            AppFrame.frameMain.Navigate(new PageShowtimes());
+            AppFrame.frameMain.Navigate(new PageShowtimes(objUser));
         }
 
         // Отработка клика кнопки "Оплатить заказ"

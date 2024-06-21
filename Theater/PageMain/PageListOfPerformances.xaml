@@ -39,6 +39,9 @@
             
             <!-- Кнопка возвращения на предыдущую страницу -->
             <Button x:Name="btnBack" Click="btnBack_Click">Вернуться</Button>
+            <Button x:Name="btnAddPerformance" Visibility="Collapsed" Click="btnAddPerformance_Click">Добавить спектакль</Button>
+            <Button x:Name="btnDeletePerformance" Visibility="Collapsed" Click="btnDeletePerformance_Click">Удалить спектакль</Button>
+            <Button x:Name="btnEditPerformance" Visibility="Collapsed" Click="btnEditPerformance_Click">Редактировать спектакль</Button>
         </StackPanel>
         
         

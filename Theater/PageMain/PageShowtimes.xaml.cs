@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
@@ -12,10 +13,24 @@ namespace theater.PageMain
     /// </summary>
     public partial class PageShowtimes : Page
     {
-        public PageShowtimes()
+        public users objUser { get; set; }
+
+        public PageShowtimes(users objUser)
         {
+            this.objUser = objUser;
             InitializeComponent();
             listOfShowtimes.ItemsSource = FindShowtime();
+            RenderBtn(this.objUser);
+        }
+
+        public void RenderBtn(users objUser)
+        {
+            if (objUser.id_user_role == 1)
+            {
+                btnAddShowtime.Visibility = Visibility.Visible;
+                btnDeleteShowtime.Visibility = Visibility.Visible;
+                btnEditShowtime.Visibility = Visibility.Visible;
+            }
         }
 
         public showtime[] FindShowtime()
@@ -94,7 +109,7 @@ namespace theater.PageMain
 
         private void btnBack_Click(object sender, RoutedEventArgs e)
         {
-            AppFrame.frameMain.Navigate(new ViewerNavigation());
+            AppFrame.frameMain.Navigate(new ViewerNavigation(objUser));
         }
 
         private void btnAddToBasket_Click(object sender, RoutedEventArgs e)
@@ -117,7 +132,7 @@ namespace theater.PageMain
                         {
                             basket basketItem = new basket
                             {
-                                id_viewer = PageLogin.UserSessin.CurrentViewerID.Value,
+                                id_viewer = AppConnect.model0db.viewer.FirstOrDefault(x => x.id_user == objUser.id_user).id_viewer,
                                 id_showtime = selectedShowtime.id_showtime,
                                 quantity = 1
                             };
@@ -143,7 +158,7 @@ namespace theater.PageMain
 
         private void btnGoToBasket_Click(object sender, RoutedEventArgs e)
         {
-            AppFrame.frameMain.Navigate(new PageBasket());
+            AppFrame.frameMain.Navigate(new PageBasket(objUser));
         }
 
     }
