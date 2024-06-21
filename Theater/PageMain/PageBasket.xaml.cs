@@ -25,6 +25,7 @@ namespace theater.PageMain
 
         public PageBasket(users objUser)
         {
+            this.objUser = objUser;
             InitializeComponent();
             listBasket.ItemsSource = GetBasketItems();
         }
@@ -189,17 +190,6 @@ namespace theater.PageMain
             }
         }
 
-        // Отработка клика кнопки "Вернуться"
-        private void btnBack_Click(object sender, RoutedEventArgs e)
-        {
-            AppFrame.frameMain.Navigate(new PageShowtimes(objUser));
-        }
-
-        // Отработка клика кнопки "Оплатить заказ"
-        private void btnPay_Click(object sender, RoutedEventArgs e)
-        {
-            CreatePDF();
-        }
 
         // Отработка клика кнопки "Очистить корзину"
         private void btnClearBasket_Click(object sender, RoutedEventArgs e)
@@ -359,6 +349,22 @@ namespace theater.PageMain
             {
                 MessageBox.Show($"Ошибка при очистке корзины: {ex.Message}");
             }
+        }
+
+
+
+        // Отработка клика кнопки "Оплатить заказ"
+        private void btnPay_Click(object sender, RoutedEventArgs e)
+        {
+            CreatePDF();
+        }
+
+
+
+        // Отработка клика кнопки "Вернуться"
+        private void btnBack_Click(object sender, RoutedEventArgs e)
+        {
+            AppFrame.frameMain.Navigate(new PageShowtimes(objUser));
         }
     }
 }

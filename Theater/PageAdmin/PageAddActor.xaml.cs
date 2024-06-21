@@ -26,12 +26,13 @@ namespace theater.PageAdmin
 
         public PageAddActor(users objUser)
         {
+            this.objUser = objUser;
             InitializeComponent();
         }
 
         private void btnBack_Click(object sender, RoutedEventArgs e)
         {
-            AppFrame.frameMain.Navigate(new PageMenuAdmin());
+            AppFrame.frameMain.Navigate(new PageActors(objUser));
         }
 
         private void ComboBox_Loaded(object sender, RoutedEventArgs e)

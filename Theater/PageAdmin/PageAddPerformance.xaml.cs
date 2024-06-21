@@ -72,12 +72,6 @@ namespace theater.PageAdmin
         {
             try
             {
-                if (string.IsNullOrEmpty(photoFilePath))
-                {
-                    MessageBox.Show("Выберите фотографию спектакля!", "Предупреждение", MessageBoxButton.OK, MessageBoxImage.Warning);
-                    return;
-                }
-
                 // Определение пути к папке "Images" в корне проекта
                 string projectDirectory = Directory.GetParent(AppDomain.CurrentDomain.BaseDirectory).Parent.Parent.FullName;
                 string imagesDirectory = System.IO.Path.Combine(projectDirectory, "Images");

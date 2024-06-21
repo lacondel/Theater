@@ -5,6 +5,7 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using theater.ApplicationData;
+using theater.PageAdmin;
 
 namespace theater.PageMain
 {
@@ -23,6 +24,9 @@ namespace theater.PageMain
             RenderBtn(this.objUser);
         }
 
+
+
+        // Отображение кнопок администратора
         public void RenderBtn(users objUser)
         {
             if (objUser.id_user_role == 1)
@@ -32,6 +36,9 @@ namespace theater.PageMain
                 btnEditShowtime.Visibility = Visibility.Visible;
             }
         }
+
+
+
 
         public showtime[] FindShowtime()
         {
@@ -92,26 +99,84 @@ namespace theater.PageMain
             }
         }
 
+
+
+        // Поле поиска
         private void searchChanged(object sender, TextChangedEventArgs e)
         {
             listOfShowtimes.ItemsSource = FindShowtime();
         }
 
+
+
+        // Кнопка сортировки
         private void sortChanged(object sender, SelectionChangedEventArgs e)
         {
             listOfShowtimes.ItemsSource = FindShowtime();
         }
 
+
+
+        // Кнопка фильтрации
         private void filterChanged(object sender, SelectionChangedEventArgs e)
         {
             listOfShowtimes.ItemsSource = FindShowtime();
         }
 
-        private void btnBack_Click(object sender, RoutedEventArgs e)
+
+        // Кнопка для перехода к форме добавления представления
+        private void btnAddShowtime_Click(object sender, RoutedEventArgs e)
         {
-            AppFrame.frameMain.Navigate(new ViewerNavigation(objUser));
+            AppFrame.frameMain.Navigate(new PageAddShowtime(objUser));
         }
 
+
+
+        // Конпка удаления выбранного представления
+        private void btnDeleteShowtime_Click(object sender, RoutedEventArgs e)
+        {
+            // Проверка, выбрано ли представление для удаления
+            if (listOfShowtimes.SelectedItem == null)
+            {
+                MessageBox.Show("Выберите представление для удаления.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+
+            // Преобразуем выбранный элемент в объект типа "showtime", если преобразование не удалось, выводим ошибку
+            var selectedShowtime = listOfShowtimes.SelectedItem as showtime;
+            if (selectedShowtime == null)
+            {
+                MessageBox.Show("Ошибка при получении данных о представлении.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+
+            // Переменная, хранящая ответ выбранный в MessageBox
+            var result = MessageBox.Show($"Вы уверены, что хотите удалить представление '{selectedShowtime.performance.title}' {selectedShowtime.date}?", "Подтверждение удаления", MessageBoxButton.YesNo, MessageBoxImage.Question);
+            if (result == MessageBoxResult.Yes)
+            {
+                try
+                {
+                    using (var context = new TheaterEntities7())
+                    {
+                        var showtimeToDelete = context.showtime.FirstOrDefault(p => p.id_showtime == selectedShowtime.id_showtime);
+                        if (showtimeToDelete != null)
+                        {
+                            context.showtime.Remove(showtimeToDelete);
+                            context.SaveChanges();
+                        }
+                    }
+                    listOfShowtimes.ItemsSource = FindShowtime();
+                    MessageBox.Show("Представление успешно удалено.", "Уведомление", MessageBoxButton.OK, MessageBoxImage.Information);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Ошибка при удалении представления: {ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
+        }
+
+
+
+
+        // Кнопка добавления представления в корзину
         private void btnAddToBasket_Click(object sender, RoutedEventArgs e)
         {
             if (listOfShowtimes.SelectedItem != null)
@@ -156,11 +221,21 @@ namespace theater.PageMain
             }
         }
 
+
+
+        // Кнопка перехода к корзине
         private void btnGoToBasket_Click(object sender, RoutedEventArgs e)
         {
             AppFrame.frameMain.Navigate(new PageBasket(objUser));
         }
 
+
+
+        // Кнопка возвращения на предыдущую страницу
+        private void btnBack_Click(object sender, RoutedEventArgs e)
+        {
+            AppFrame.frameMain.Navigate(new ViewerNavigation(objUser));
+        }
     }
 }
 

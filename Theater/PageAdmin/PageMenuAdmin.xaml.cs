@@ -32,7 +32,7 @@ namespace theater.PageAdmin
 
         private void btnAddActor_Click(object sender, RoutedEventArgs e)
         {
-            AppFrame.frameMain.Navigate(new PageAddActor());
+            AppFrame.frameMain.Navigate(new PageAddActor(objUser));
         }
 
         private void btnAddAdmin_Click(object sender, RoutedEventArgs e)
@@ -47,7 +47,7 @@ namespace theater.PageAdmin
 
         private void btnAddShowtime_Click(object sender, RoutedEventArgs e)
         {
-            AppFrame.frameMain.Navigate(new PageAddShowtime());
+            AppFrame.frameMain.Navigate(new PageAddShowtime(objUser));
         }
     }
 }
