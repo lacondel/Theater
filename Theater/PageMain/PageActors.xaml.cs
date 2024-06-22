@@ -4,6 +4,7 @@ using System.Windows;
 using System.Windows.Controls;
 using theater.ApplicationData;
 using theater.PageAdmin;
+using theater.PageEdit;
 
 namespace theater.PageMain
 {
@@ -45,7 +46,7 @@ namespace theater.PageMain
 
 
 
-        // Конпка удаления выбранного актёра
+        // Кнопка удаления выбранного актёра
         private void btnDeleteActor_Click(object sender, RoutedEventArgs e)
         {
             // Проверка, выбран ли актёр для удаления
@@ -67,7 +68,7 @@ namespace theater.PageMain
             {
                 try
                 {
-                    using (var context = new TheaterEntities7())
+                    using (var context = new TheaterEntities10())
                     {
                         var actorToDelete = context.actors.FirstOrDefault(p => p.id_actor == selectedActor.id_actor);
                         if (actorToDelete != null)
@@ -86,6 +87,29 @@ namespace theater.PageMain
             }
         }
 
+
+
+        // Кнопка для перехода к форме редактирования выбранного актёра
+        private void btnEditActor_Click(object sender, EventArgs e)
+        {
+            // Проверка, выбран ли спектакль для редактирования
+            if (listOfActors.SelectedItem == null)
+            {
+                MessageBox.Show("Выберите спектакль для редактирования.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
+            // Преобразование выбранного элемента в объект типа "performance", если преобразование не проходит, выводим ошибку
+            var selectedActor = listOfActors.SelectedItem as actors;
+            if (selectedActor== null)
+            {
+                MessageBox.Show("Ошибка при получении данных о спектакле.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
+            // Переходим на страницу редактирования спектакля
+            AppFrame.frameMain.Navigate(new PageEditActor(selectedActor, objUser));
+        }
 
 
         // Кнопка возвращения на предыдущую страницу

@@ -6,6 +6,7 @@ using System.Windows;
 using System.Windows.Controls;
 using theater.ApplicationData;
 using theater.PageAdmin;
+using theater.PageEdit;
 
 namespace theater.PageMain
 {
@@ -39,7 +40,7 @@ namespace theater.PageMain
 
 
 
-
+        // Сортировка, поиск, фильтрация функционал
         public showtime[] FindShowtime()
         {
             try
@@ -154,7 +155,7 @@ namespace theater.PageMain
             {
                 try
                 {
-                    using (var context = new TheaterEntities7())
+                    using (var context = new TheaterEntities10())
                     {
                         var showtimeToDelete = context.showtime.FirstOrDefault(p => p.id_showtime == selectedShowtime.id_showtime);
                         if (showtimeToDelete != null)
@@ -175,6 +176,29 @@ namespace theater.PageMain
 
 
 
+        // Кнопка для перехода к форме редактирования выбранного представления
+        private void btnEditShowtime_Click(object sender, EventArgs e)
+        {
+            // Проверка, выбрано ли представление для редактирования
+            if (listOfShowtimes.SelectedItem == null)
+            {
+                MessageBox.Show("Выберите представление для редактирования.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
+            // Преобразование выбранного элемента в объект типа "showtime", если преобразование не проходит, выводим ошибку
+            var selectedShowtime = listOfShowtimes.SelectedItem as showtime;
+            if (selectedShowtime == null)
+            {
+                MessageBox.Show("Ошибка при получении данных о представлении.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
+            // Переходим на страницу редактирования спектакля
+            AppFrame.frameMain.Navigate(new PageEditShowtime(selectedShowtime, objUser));
+        }
+
+
 
         // Кнопка добавления представления в корзину
         private void btnAddToBasket_Click(object sender, RoutedEventArgs e)
@@ -185,7 +209,7 @@ namespace theater.PageMain
 
                 try
                 {
-                    using (var context = new TheaterEntities7())
+                    using (var context = new TheaterEntities10())
                     {
                         var existingItem = context.basket.FirstOrDefault(b => b.id_showtime == selectedShowtime.id_showtime);
 

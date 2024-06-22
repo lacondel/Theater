@@ -158,10 +158,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="PageAdmin\PageAddAdmin.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="PageAdmin\PageAddPerformance.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -170,11 +166,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="PageAdmin\PageMenuAdmin.xaml">
+    <Page Include="PageEdit\PageEditActor.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="PageEdit\PageEditPerformance.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="PageEdit\PageEditShowtime.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -212,20 +212,20 @@
     <Compile Include="PageAdmin\PageAddActor.xaml.cs">
       <DependentUpon>PageAddActor.xaml</DependentUpon>
     </Compile>
-    <Compile Include="PageAdmin\PageAddAdmin.xaml.cs">
-      <DependentUpon>PageAddAdmin.xaml</DependentUpon>
-    </Compile>
     <Compile Include="PageAdmin\PageAddPerformance.xaml.cs">
       <DependentUpon>PageAddPerformance.xaml</DependentUpon>
     </Compile>
     <Compile Include="PageAdmin\PageAddShowtime.xaml.cs">
       <DependentUpon>PageAddShowtime.xaml</DependentUpon>
     </Compile>
-    <Compile Include="PageAdmin\PageMenuAdmin.xaml.cs">
-      <DependentUpon>PageMenuAdmin.xaml</DependentUpon>
+    <Compile Include="PageEdit\PageEditActor.xaml.cs">
+      <DependentUpon>PageEditActor.xaml</DependentUpon>
     </Compile>
     <Compile Include="PageEdit\PageEditPerformance.xaml.cs">
       <DependentUpon>PageEditPerformance.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PageEdit\PageEditShowtime.xaml.cs">
+      <DependentUpon>PageEditShowtime.xaml</DependentUpon>
     </Compile>
     <Compile Include="PageMain\PageActors.xaml.cs">
       <DependentUpon>PageActors.xaml</DependentUpon>
@@ -306,6 +306,9 @@
     <Folder Include="Receipts\" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="Images\oblom.jpg" />
+  </ItemGroup>
+  <ItemGroup>
     <Content Include="ApplicationData\Model1.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>Model1.edmx</DependentUpon>
@@ -316,7 +319,6 @@
       <DependentUpon>Model1.edmx</DependentUpon>
       <LastGenOutput>Model1.cs</LastGenOutput>
     </Content>
-    <Resource Include="Images\oblom.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

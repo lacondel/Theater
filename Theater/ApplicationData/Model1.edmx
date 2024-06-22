@@ -22,7 +22,7 @@
           <Key>
             <PropertyRef Name="id_ar" />
           </Key>
-          <Property Name="id_ar" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="id_ar" Type="int" Nullable="false" />
           <Property Name="id_actor" Type="int" Nullable="false" />
           <Property Name="id_role" Type="int" Nullable="false" />
         </EntityType>
@@ -39,7 +39,7 @@
           <Key>
             <PropertyRef Name="id_inventory" />
           </Key>
-          <Property Name="id_inventory" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="id_inventory" Type="int" Nullable="false" />
           <Property Name="id_iin" Type="int" Nullable="false" />
           <Property Name="id_theater_building" Type="int" Nullable="false" />
         </EntityType>
@@ -47,7 +47,7 @@
           <Key>
             <PropertyRef Name="id_iin" />
           </Key>
-          <Property Name="id_iin" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="id_iin" Type="int" Nullable="false" />
           <Property Name="name" Type="nchar" MaxLength="50" Nullable="false" />
         </EntityType>
         <EntityType Name="performance">
@@ -497,7 +497,7 @@
           <Key>
             <PropertyRef Name="id_ar" />
           </Key>
-          <Property Name="id_ar" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_ar" Type="Int32" Nullable="false" />
           <Property Name="id_actor" Type="Int32" Nullable="false" />
           <Property Name="id_role" Type="Int32" Nullable="false" />
           <NavigationProperty Name="actors" Relationship="Self.FK_actors_role_actors" FromRole="actors_role" ToRole="actors" />
@@ -518,7 +518,7 @@
           <Key>
             <PropertyRef Name="id_inventory" />
           </Key>
-          <Property Name="id_inventory" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_inventory" Type="Int32" Nullable="false" />
           <Property Name="id_iin" Type="Int32" Nullable="false" />
           <Property Name="id_theater_building" Type="Int32" Nullable="false" />
           <NavigationProperty Name="inventory_item_name" Relationship="Self.FK_inventory_inventory_item_name" FromRole="inventory" ToRole="inventory_item_name" />
@@ -528,7 +528,7 @@
           <Key>
             <PropertyRef Name="id_iin" />
           </Key>
-          <Property Name="id_iin" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_iin" Type="Int32" Nullable="false" />
           <Property Name="name" Type="String" MaxLength="50" FixedLength="true" Unicode="true" Nullable="false" />
           <NavigationProperty Name="inventory" Relationship="Self.FK_inventory_inventory_item_name" FromRole="inventory_item_name" ToRole="inventory" />
         </EntityType>
@@ -891,7 +891,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="TheaterEntities7" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="TheaterEntities10" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="actors" EntityType="Self.actors" />
           <EntitySet Name="actors_role" EntityType="Self.actors_role" />
           <EntitySet Name="basket" EntityType="Self.basket" />
@@ -987,7 +987,7 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="Хранилище TheaterModelContainer" CdmEntityContainer="TheaterEntities7">
+        <EntityContainerMapping StorageEntityContainer="Хранилище TheaterModelContainer" CdmEntityContainer="TheaterEntities10">
           <EntitySetMapping Name="actors">
             <EntityTypeMapping TypeName="TheaterModel.actors">
               <MappingFragment StoreEntitySet="actors">

@@ -38,7 +38,7 @@ namespace theater.PageMain
 
 
 
-
+        // Сортировка, поиск, фильтрация функционал
         performance[] FindPerformance()
         {
             int sortIndex = sortPerform.SelectedIndex;
@@ -133,7 +133,7 @@ namespace theater.PageMain
 
 
 
-        // Конпка удаления выбранного спектакля
+        // Конопка удаления выбранного спектакля
         private void btnDeletePerformance_Click(object sender, RoutedEventArgs e)
         {
             // Проверка, выбран ли спектакль для удаления
@@ -155,7 +155,7 @@ namespace theater.PageMain
             {
                 try
                 {
-                    using (var context = new TheaterEntities7())
+                    using (var context = new TheaterEntities10())
                     {
                         var performanceToDelete = context.performance.FirstOrDefault(p => p.id_performance == selectedPerformance.id_performance);
                         if (performanceToDelete != null) 
@@ -205,14 +205,5 @@ namespace theater.PageMain
         {
             AppFrame.frameMain.Navigate(new ViewerNavigation(objUser));
         }
-
-        //private void LoadPerformances()
-        //{
-        //    using (var context = new TheaterEntities7())
-        //    {
-        //        var performances = context.performance.ToList();
-        //        listOfPerformances.ItemsSource = performances;
-        //    }
-        //}
     }
 }

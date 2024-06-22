@@ -1,46 +1,58 @@
 ﻿using Microsoft.Win32;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Documents;
+using System.Windows.Input;
+using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
+using System.Windows.Shapes;
 using theater.ApplicationData;
 using theater.PageMain;
 
 namespace theater.PageEdit
 {
     /// <summary>
-    /// Логика взаимодействия для PageEditPerformance.xaml
+    /// Логика взаимодействия для PageEditActor.xaml
     /// </summary>
-    public partial class PageEditPerformance : Page
+    public partial class PageEditActor : Page
     {
         // Переменная для хранения данных текущего объекта спектакль
-        private performance currentPerformance;
+        private actors currentActor;
 
         // Переменная для пути к изображению на компьютере
         private string photoFilePath;
 
         public users objUser { get; set; }
 
-        public PageEditPerformance(performance performance, users objUser)
+        public PageEditActor(actors actors, users objUser)
         {
             this.objUser = objUser;
             InitializeComponent();
-            currentPerformance = performance;
-            LoadPerformanceData();
+            currentActor = actors;
+            LoadActorData();
         }
 
 
-        // Подгружаем данные о выбранном спектакле
-        private void LoadPerformanceData()
+
+        // Подгружаем данные о выбранном актёре
+        private void LoadActorData()
         {
-            editPerformanceTitle.Text = currentPerformance.title;
-            cbGenre.SelectedItem = currentPerformance.genre;
-            editPerformanceYearCreated.Text = currentPerformance.year_created.ToString();
-            editPerformanceAuthor.Text = currentPerformance.author;
-            editPerformanceDuration.Text = currentPerformance.duration.ToString(@"hh\:mm");
+            editActorFIO.Text = currentActor.fio;
+            editActorAge.Text = currentActor.age.ToString();
+            cbSex.SelectedItem = currentActor.sex;
+            editActorHeight.Text = currentActor.height.ToString();
+            editActorWeight.Text = currentActor.weight.ToString();
+            editActorDetails.Text = currentActor.contact_details;
         }
+
 
 
         // Кнопка загрузки изображение для предпросмотра
@@ -52,12 +64,12 @@ namespace theater.PageEdit
             if (openFileDialog.ShowDialog() == true)
             {
                 photoFilePath = openFileDialog.FileName;
-                addPerformancePhoto.Text = photoFilePath;
+                addActorPhoto.Text = photoFilePath;
 
                 // Загрузка изображения для предварительного просмотра
                 BitmapImage bitmap = new BitmapImage();
                 bitmap.BeginInit();
-                bitmap.UriSource = new Uri(photoFilePath, UriKind.Absolute);
+                bitmap.UriSource = new Uri(photoFilePath);
                 bitmap.CacheOption = BitmapCacheOption.OnLoad;
                 bitmap.EndInit();
                 imgPhotoPreview.Source = bitmap;
@@ -65,32 +77,35 @@ namespace theater.PageEdit
                 // Отображение названия файла в поле description
                 string fileNameWithoutExtension = System.IO.Path.GetFileNameWithoutExtension(photoFilePath);
                 string fileDescription = string.Join(" ", fileNameWithoutExtension.Split('_')); // Пример разделения имени файла
-                addPerformanceDescription.Text = fileDescription;
+                addActorDescription.Text = fileDescription;
 
                 // Отображение названия файла в поле photo1
-                addPerformancePhoto1.Text = System.IO.Path.GetFileName(photoFilePath);
+                addActorPhoto1.Text = System.IO.Path.GetFileName(photoFilePath);
             }
         }
 
+
+
         // Кнопка сохранения изменений
-        private void btnEditPerformance_Click(object sender, RoutedEventArgs e)
+        private void btnSaveEditActor_Click(object sender, RoutedEventArgs e)
         {
             try
             {
                 // Сохраняем в базу изменённые данные
                 using (var context = new TheaterEntities10())
                 {
-                    var performanceToUpdate = context.performance.FirstOrDefault(p => p.id_performance == currentPerformance.id_performance);
-                    if (performanceToUpdate != null)
+                    var actorToUpdate = context.actors.FirstOrDefault(p => p.id_actor == currentActor.id_actor);
+                    if (actorToUpdate  != null)
                     {
-                        performanceToUpdate.title = editPerformanceTitle.Text;
-                        performanceToUpdate.genre = (cbGenre.SelectedItem as ComboBoxItem)?.Content.ToString();
-                        performanceToUpdate.year_created = int.Parse(editPerformanceYearCreated.Text);
-                        performanceToUpdate.author = editPerformanceAuthor.Text;
-                        performanceToUpdate.duration = TimeSpan.Parse(editPerformanceDuration.Text);
+                        actorToUpdate.fio = editActorFIO.Text;
+                        actorToUpdate.age = int.Parse(editActorAge.Text);
+                        actorToUpdate.sex = (cbSex.SelectedItem as ComboBoxItem)?.Content.ToString();
+                        actorToUpdate.height = int.Parse(editActorHeight.Text);
+                        actorToUpdate.weight = int.Parse(editActorWeight.Text);
+                        actorToUpdate.contact_details = editActorDetails.Text;
 
                         // Замена фотографии в том случае, если выбрана новая фотография
-                        if (!string.IsNullOrEmpty(addPerformancePhoto1.Text))
+                        if (!string.IsNullOrEmpty(addActorPhoto1.Text))
                         {
                             // Переменная хранящая путь до каталога приложения "theater"
                             string projectDirectory = Directory.GetParent(AppDomain.CurrentDomain.BaseDirectory).Parent.Parent.FullName;
@@ -137,7 +152,7 @@ namespace theater.PageEdit
                             }
 
                             // Обновление id_photo в таблице performance 
-                            performanceToUpdate.id_photo = newPhoto.id_photo;
+                            actorToUpdate.id_photo = newPhoto.id_photo;
                         }
                         // Сохранение изменений в базе данных
                         context.SaveChanges();
@@ -146,7 +161,7 @@ namespace theater.PageEdit
 
                 // Уведомляем о успешном сохранении изменений и переходим на страницу PageListOfPerformance
                 MessageBox.Show("Изменения успешно сохранены.", "Уведомление", MessageBoxButton.OK, MessageBoxImage.Information);
-                AppFrame.frameMain.Navigate(new PageListOfPerformances(objUser));
+                AppFrame.frameMain.Navigate(new PageActors(objUser));
             }
             catch (Exception ex)
             {
@@ -155,10 +170,11 @@ namespace theater.PageEdit
         }
 
 
+
         // Кнопка возвращения на предыдущую страницу
         private void btnBack_Click(object sender, RoutedEventArgs e)
         {
-            AppFrame.frameMain.Navigate(new PageListOfPerformances(objUser));
+            AppFrame.frameMain.Navigate(new PageActors(objUser));
         }
     }
 }

@@ -65,7 +65,7 @@ namespace theater.PageMain
         {
             try
             {
-                using (var context = new TheaterEntities7())
+                using (var context = new TheaterEntities10())
                 {
                     var basketItems = context.basket
                         .Include("showtime.performance")
@@ -101,7 +101,7 @@ namespace theater.PageMain
             {
                 try
                 {
-                    using ( var context = new TheaterEntities7())
+                    using ( var context = new TheaterEntities10())
                     {
                         var itemToUpdate = context.basket.FirstOrDefault(b => b.id_basket == basketItem.id);
                         if (itemToUpdate != null)
@@ -130,7 +130,7 @@ namespace theater.PageMain
             {
                 try
                 {
-                    using (var context = new TheaterEntities7())
+                    using (var context = new TheaterEntities10())
                     {
                         var itemToUpdate = context.basket.FirstOrDefault(b => b.id_basket == basketItem.id);
                         if (itemToUpdate != null)
@@ -168,7 +168,7 @@ namespace theater.PageMain
             {
                 try
                 {
-                    using (var context = new TheaterEntities7())
+                    using (var context = new TheaterEntities10())
                     {
                         var itemToRemove = context.basket.FirstOrDefault(b => b.id_basket == basketItem.id);
                         if (itemToRemove != null)
@@ -196,7 +196,7 @@ namespace theater.PageMain
         {
             try
             {
-                using (var context = new TheaterEntities7())
+                using (var context = new TheaterEntities10())
                 {
                     ClearBasket();
 
@@ -338,7 +338,7 @@ namespace theater.PageMain
         {
             try
             {
-                using (var context = new TheaterEntities7())
+                using (var context = new TheaterEntities10())
                 {
                     var basketItems = context.basket.ToList();
                     context.basket.RemoveRange(basketItems);

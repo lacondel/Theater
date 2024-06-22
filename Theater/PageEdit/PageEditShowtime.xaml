@@ -1,20 +1,20 @@
-﻿<Page x:Class="theater.PageAdmin.PageAddAdmin"
+﻿<Page x:Class="theater.PageEdit.PageEditShowtime"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-      xmlns:local="clr-namespace:theater.PageAdmin"
+      xmlns:local="clr-namespace:theater.PageEdit"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
-      Title="PageAddAdmin">
+      Title="PageEditShowtime">
 
     <Grid>
         <StackPanel x:Name="adminStackPanel" Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
-            <TextBox x:Name="addAdminLogin" VerticalAlignment="Center"/>
-            <TextBox x:Name="addAdminPassword" VerticalAlignment="Center"/>
+            <TextBox x:Name="editShowtimeDate"/>
+            <TextBox x:Name="editShowtimePrice"/>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                <Button Content="Добавить админа" Margin="5" Click="Button_Click"/>
-                <Button x:Name="btnBack" Content="Вернуться" Margin="5" Click="btnBack_Click"/>
+                <Button x:Name="btneditShortime"  Content="Сохранить изменения" Margin="5" Click="btnEditShowtime_Click"/>
+                <Button x:Name="btnBack" Grid.Column="1" Content="Вернуться" Margin="5" Click="btnBack_Click"/>
             </StackPanel>
         </StackPanel>
     </Grid>

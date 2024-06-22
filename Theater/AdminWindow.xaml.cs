@@ -10,26 +10,18 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
-using theater.ApplicationData;
-using theater.PageMain;
 
 namespace theater
 {
     /// <summary>
-    /// Логика взаимодействия для MainWindow.xaml
+    /// Логика взаимодействия для AdminWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class AdminWindow : Window
     {
-
-        public MainWindow()
+        public AdminWindow()
         {
             InitializeComponent();
-            AppConnect.model0db = new TheaterEntities10();
-            AppFrame.frameMain = FrmMain;
-
-            FrmMain.Navigate(new PageLogin());
         }
     }
 }

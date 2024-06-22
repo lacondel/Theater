@@ -14,14 +14,7 @@
             <TextBox x:Name="addShowtimeDate"/>
             <TextBox x:Name="addShowtimePrice"/>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                <TextBox x:Name="addPerformancePhoto"/>
-                <Button x:Name="btnAddPhoto" Content="..." Margin="5" Click="btnAddPhoto_Click"/>
-                <TextBox x:Name="addPerformanceDescription"/>
-                <TextBox x:Name="addPerformancePhoto1"/>
-                <Image x:Name="imgPhotoPreview" Width="200" Height="200"/>
-            </StackPanel>
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                <Button x:Name="btnAddPerformance"  Content="Добавить спектакль" Margin="5"/>
+                <Button x:Name="btnAddShortime"  Content="Добавить спектакль" Margin="5" Click="btnAddShowtime_Click"/>
                 <Button x:Name="btnBack" Grid.Column="1" Content="Вернуться" Margin="5" Click="btnBack_Click"/>
             </StackPanel>
         </StackPanel>

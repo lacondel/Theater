@@ -18,7 +18,7 @@ namespace theater.PageMain
         public PageLogin()
         {
             InitializeComponent();
-            AppConnect.model0db = new TheaterEntities7();
+            AppConnect.model0db = new TheaterEntities10();
         }
 
 

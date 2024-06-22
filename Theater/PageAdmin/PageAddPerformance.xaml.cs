@@ -1,6 +1,6 @@
 ﻿using Microsoft.Win32;
 using System;
-using System.Collections.Generic;
+using System.Data.Entity.Infrastructure;
 using System.Data.Entity.Validation;
 using System.IO;
 using System.Linq;
@@ -12,9 +12,6 @@ using theater.PageMain;
 
 namespace theater.PageAdmin
 {
-    /// <summary>
-    /// Логика взаимодействия для PageAddPerformance.xaml
-    /// </summary>
     public partial class PageAddPerformance : Page
     {
         public users objUser { get; set; }
@@ -27,7 +24,6 @@ namespace theater.PageAdmin
             this.objUser = objUser;
             InitializeComponent();
         }
-        
 
         // Установка первого элемента в качестве выбранного при загрузке
         private void ComboBox_Loaded(object sender, RoutedEventArgs e)
@@ -35,7 +31,6 @@ namespace theater.PageAdmin
             var comboBox = sender as ComboBox;
             MethodsForView.InitializeComboBox(comboBox);
         }
-
 
         // Кнопка загрузки изображение для предпросмотра
         private void btnAddPhoto_Click(object sender, RoutedEventArgs e)
@@ -66,12 +61,37 @@ namespace theater.PageAdmin
             }
         }
 
-
-        // Конопка добавления спектакля в базу данных
+        // Кнопка добавления спектакля в базу данных
         private void btnAddPerformance_Click(object sender, RoutedEventArgs e)
         {
             try
             {
+                // Проверка заполненности обязательных полей
+                if (string.IsNullOrEmpty(addPerformanceTitle.Text) ||
+                    cbGenre.SelectedItem == null ||
+                    string.IsNullOrEmpty(addPerformanceYearCreated.Text) ||
+                    string.IsNullOrEmpty(addPerformanceAuthor.Text) ||
+                    string.IsNullOrEmpty(addPerformanceDuration.Text) ||
+                    string.IsNullOrEmpty(photoFilePath))
+                {
+                    MessageBox.Show("Пожалуйста, заполните все поля и выберите фотографию.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
+                }
+
+                // Проверка корректности года
+                if (!int.TryParse(addPerformanceYearCreated.Text, out int yearCreated))
+                {
+                    MessageBox.Show("Пожалуйста, введите корректный год.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
+                }
+
+                // Проверка корректности продолжительности
+                if (!TimeSpan.TryParse(addPerformanceDuration.Text, out TimeSpan duration))
+                {
+                    MessageBox.Show("Пожалуйста, введите корректную продолжительность.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
+                }
+
                 // Определение пути к папке "Images" в корне проекта
                 string projectDirectory = Directory.GetParent(AppDomain.CurrentDomain.BaseDirectory).Parent.Parent.FullName;
                 string imagesDirectory = System.IO.Path.Combine(projectDirectory, "Images");
@@ -83,7 +103,8 @@ namespace theater.PageAdmin
                 }
 
                 // Определение полного пути для сохранения фотографии
-                string photoPath = System.IO.Path.Combine(imagesDirectory, System.IO.Path.GetFileName(photoFilePath));
+                string photoFileName = System.IO.Path.GetFileName(photoFilePath); // Сначала извлекаем имя файла
+                string photoPath = System.IO.Path.Combine(imagesDirectory, photoFileName);
 
                 // Проверка блокировки файла
                 if (MethodsForView.IsFileLocked(new FileInfo(photoFilePath)))
@@ -105,27 +126,29 @@ namespace theater.PageAdmin
                 // Копирование файла в папку "Images"
                 File.WriteAllBytes(photoPath, File.ReadAllBytes(photoFilePath));
 
-                // string destinationPath = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, photoPath);
-
-                // File.Copy(photoPath, destinationPath, true);
-
-                using (var context = new TheaterEntities7())
+                using (var context = new TheaterEntities10())
                 {
-                    var newPhoto = new photo
-                    { 
-                        photo1 = System.IO.Path.GetFileName(photoFilePath),
-                        description = System.IO.Path.GetFileNameWithoutExtension(photoFilePath)
-                    };
-                    context.photo.Add(newPhoto);
-                    context.SaveChanges();
+                    // Проверка, существует ли уже фотография в базе данных
+                    var newPhoto = context.photo.FirstOrDefault(p => p.photo1 == photoFileName);
+                    if (newPhoto == null)
+                    {
+                        newPhoto = new photo
+                        {
+                            photo1 = photoFileName,
+                            description = System.IO.Path.GetFileNameWithoutExtension(photoFilePath)
+                        };
+                        context.photo.Add(newPhoto);
+                        context.SaveChanges();
+                    }
 
+                    // Добавление нового спектакля с привязкой к новой фотографии
                     performance newPerformance = new performance
                     {
                         title = addPerformanceTitle.Text,
                         genre = (cbGenre.SelectedItem as ComboBoxItem)?.Content.ToString(),
-                        year_created = int.Parse(addPerformanceYearCreated.Text),
+                        year_created = yearCreated,
                         author = addPerformanceAuthor.Text,
-                        duration = TimeSpan.Parse(addPerformanceDuration.Text),
+                        duration = duration,
                         id_photo = newPhoto.id_photo
                     };
                     context.performance.Add(newPerformance);
@@ -134,12 +157,30 @@ namespace theater.PageAdmin
 
                 MessageBox.Show("Спектакль добавлен!");
             }
+            catch (DbUpdateException dbEx)
+            {
+                var errorMessages = dbEx.Entries.Select(en => en.Entity.GetType().Name + " - State: " + en.State.ToString());
+                var fullErrorMessage = string.Join("; ", errorMessages);
+                var exceptionMessage = $"DbUpdateException error messages: {fullErrorMessage}";
+
+                // Вспомогательный код для получения дополнительной информации
+                if (dbEx.InnerException != null)
+                {
+                    exceptionMessage += $"\nInner exception: {dbEx.InnerException.Message}";
+                    if (dbEx.InnerException.InnerException != null)
+                    {
+                        exceptionMessage += $"\nInner exception detail: {dbEx.InnerException.InnerException.Message}";
+                    }
+                }
+
+                MessageBox.Show($"Ошибка при добавлении спектакля: {exceptionMessage}");
+            }
             catch (Exception ex)
             {
                 MessageBox.Show($"Ошибка при добавлении спектакля: {ex.Message}");
             }
-        }
 
+        }
 
         // Кнопка возвращения на предыдущую страницу
         private void btnBack_Click(object sender, RoutedEventArgs e)
