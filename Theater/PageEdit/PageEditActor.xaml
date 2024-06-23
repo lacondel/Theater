@@ -12,7 +12,7 @@
         <StackPanel x:Name="adminStackPanel" Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
             <TextBox x:Name="editActorFIO" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="10" Background="White"/>
             <TextBox x:Name="editActorAge" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="10" Background="White"/>
-            <ComboBox x:Name="cbSex" HorizontalAlignment="Stretch" Margin="10" Loaded="ComboBox_Loaded">
+            <ComboBox x:Name="cbSex" HorizontalAlignment="Stretch" Margin="10">
                 <ComboBoxItem  IsHitTestVisible="False" Content="Выберите пол:"/>
                 <ComboBoxItem Content="м"/>
                 <ComboBoxItem Content="ж"/>

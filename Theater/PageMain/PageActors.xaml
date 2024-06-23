@@ -64,7 +64,7 @@
             <Button x:Name="btnBack" Content="Вернуться" Click="btnBack_Click"/>
             <Button x:Name="btnAddActor" Content="Добавить актёра" Visibility="Collapsed" Click="btnAddActor_Click"/>
             <Button x:Name="btnDeleteActor" Content="Удалить актёра" Visibility="Collapsed" Click="btnDeleteActor_Click"/>
-            <Button x:Name="btnEditActor" Content="Редактировать актёра" Visibility="Collapsed"/>
+            <Button x:Name="btnEditActor" Content="Редактировать актёра" Visibility="Collapsed" Click="btnEditActor_Click"/>
         </StackPanel>
     </Grid>
 </Page>

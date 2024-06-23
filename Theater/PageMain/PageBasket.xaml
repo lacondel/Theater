@@ -33,6 +33,10 @@
                                <Run Text="Дата: "/>
                                <Run Text="{Binding date}"/>
                             </TextBlock>
+                            <TextBlock Width="auto" TextWrapping="Wrap" Height="auto">
+                               <Run Text="Цена билета: "/>
+                               <Run Text="{Binding price}"/>
+                            </TextBlock>
                         </StackPanel>
                         <Button x:Name="btnIncreaseQuantity" Grid.Column="1" Click="btnIncreaseQuantity_Click" CommandParameter="{Binding}">+</Button>
                         <TextBlock Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center" Text="{Binding Quantity}"/>
