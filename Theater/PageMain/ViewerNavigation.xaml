@@ -10,7 +10,7 @@
     
     <Grid>
         <UniformGrid Columns="3">
-            <Button x:Name="btnShowtimes" Grid.Column="0" Style="{StaticResource navButton}" Click="btnShowtimes_Click" Content="Показы"/>
+            <Button x:Name="btnShowtimes" Grid.Column="0" Style="{StaticResource navButton}" Click="btnShowtimes_Click" Content="Представления"/>
             <Button x:Name="btnPerformances" Grid.Column="1" Style="{StaticResource navButton}" Click="btnPerformances_Click" Content="Спектакли"/>
             <Button x:Name="btnActors" Grid.Column="2" Style="{StaticResource navButton}" Click="btnActors_Click" Content="Актёры"/>
         </UniformGrid>

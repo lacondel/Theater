@@ -21,17 +21,30 @@
             
             <!-- StackPanel добавления фотографии -->
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                <TextBox x:Name="addPerformancePhoto"/>
-                <Button x:Name="btnAddPhoto" Content="..." Margin="5" Click="btnAddPhoto_Click"/>
-                <TextBox x:Name="addPerformanceDescription"/>
-                <TextBox x:Name="addPerformancePhoto1"/>
-                <Image x:Name="imgPhotoPreview" Width="200" Height="200"/>
+                <StackPanel Orientation="Vertical" Width="210" Height="147">
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Width="150">
+                        <TextBox x:Name="addPerformancePhoto" Width="115"/>
+                        <Button x:Name="btnAddPhoto" 
+                                Content="..." 
+                                HorizontalContentAlignment="Center" 
+                                VerticalContentAlignment="Center" 
+                                Background="#EEEEEE" Foreground="Black" 
+                                Click="btnAddPhoto_Click" 
+                                Width="20" Height="25" 
+                                Style="{StaticResource baseButtonStyle}"/>
+                    </StackPanel>
+                    <TextBox x:Name="addPerformanceDescription"/>
+                    <TextBox x:Name="addPerformancePhoto1"/>
+                </StackPanel>
+                <Border Background="#FAFAFA" CornerRadius="10" Width="210" Height="140">
+                    <Image x:Name="imgPhotoPreview" Width="200" Height="130" Margin="5"/>
+                </Border>
             </StackPanel>
             
             <!-- Конопки управления -->
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                <Button x:Name="btnEditPerformance" Content="Сохранить изменения" Margin="5" Click="btnEditPerformance_Click"/>
-                <Button x:Name="btnBack" Content="Вернуться" Margin="5" Click="btnBack_Click"/>
+                <Button x:Name="btnEditPerformance" Content="Сохранить изменения" Margin="5" Click="btnEditPerformance_Click" Style="{StaticResource baseButtonStyle}"/>
+                <Button x:Name="btnBack" Content="Вернуться" Margin="5" Click="btnBack_Click" Style="{StaticResource baseButtonStyle}"/>
             </StackPanel>
         </StackPanel>
     </Grid>

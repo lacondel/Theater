@@ -1,11 +1,14 @@
 ﻿using Microsoft.Win32;
 using System;
+using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using System.Data.Entity.Validation;
 using System.IO;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
+using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using theater.ApplicationData;
 using theater.PageMain;
@@ -23,13 +26,8 @@ namespace theater.PageAdmin
         {
             this.objUser = objUser;
             InitializeComponent();
-        }
-
-        // Установка первого элемента в качестве выбранного при загрузке
-        private void ComboBox_Loaded(object sender, RoutedEventArgs e)
-        {
-            var comboBox = sender as ComboBox;
-            MethodsForView.InitializeComboBox(comboBox);
+            // Добавляем обработчик события SelectionChanged для ComboBox cbGenre
+            cbGenre.AddSelectionChangedHandler("Выберите жанр");
         }
 
         // Кнопка загрузки изображение для предпросмотра

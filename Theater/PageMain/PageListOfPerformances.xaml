@@ -11,21 +11,20 @@
     <Grid>
         
         <!-- Разметка -->
-        <Grid.RowDefinitions>
-            <RowDefinition Height="25"/>
-            <RowDefinition Height="100*"/>
-            <RowDefinition Height="25"/>
-        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="4*"/>
+        </Grid.ColumnDefinitions>
         
         
         <!-- Строка управления -->
-        <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Center">
+        <StackPanel Grid.Column="0" Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Center">
             
             <!-- Поле поиска -->    
-            <TextBox x:Name="search" TextChanged="searchChanged" Height="25" Width="120"/>
+            <TextBox x:Name="search" TextChanged="searchChanged"/>
             
             <!-- Сортировка -->
-            <ComboBox x:Name="sortPerform" Width="120" SelectionChanged="sortChanged">
+            <ComboBox x:Name="sortPerform" SelectionChanged="sortChanged">
                 <ComboBoxItem>По алфавиту</ComboBoxItem>
                 <ComboBoxItem>Против алфавита</ComboBoxItem>
                 <ComboBoxItem>Год создания - возрастание</ComboBoxItem>
@@ -33,61 +32,60 @@
             </ComboBox>
             
             <!-- Фильтрация -->
-            <ComboBox x:Name="filterPerform" Width="120" SelectionChanged="filterChanged">
+            <ComboBox x:Name="filterPerform"  SelectionChanged="filterChanged">
                 <ComboBoxItem>Драма</ComboBoxItem>
             </ComboBox>
             
             <!-- Кнопка возвращения на предыдущую страницу -->
-            <Button x:Name="btnBack" Click="btnBack_Click">Вернуться</Button>
-            <Button x:Name="btnAddPerformance" Visibility="Collapsed" Click="btnAddPerformance_Click">Добавить спектакль</Button>
-            <Button x:Name="btnDeletePerformance" Visibility="Collapsed" Click="btnDeletePerformance_Click">Удалить спектакль</Button>
-            <Button x:Name="btnEditPerformance" Visibility="Collapsed" Click="btnEditPerformance_Click">Редактировать спектакль</Button>
-        </StackPanel>
-        
-        
-        <!-- ListView -->
-        <ListView x:Name="listOfPerformances" Grid.Row="1" ScrollViewer.CanContentScroll="False" Margin="25">
-            <ListView.ItemTemplate>
-                <DataTemplate>
-                    <Grid>
-                        <!-- Разметка ListView -->
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="300*"/>
-                            <ColumnDefinition Width="700*"/>
-                        </Grid.ColumnDefinitions>
+            <Button x:Name="btnBack" Click="btnBack_Click" Style="{StaticResource baseButtonStyle}">Вернуться</Button>
+            <Button x:Name="btnAddPerformance" Visibility="Collapsed" Click="btnAddPerformance_Click" Style="{StaticResource baseButtonStyle}">Добавить спектакль</Button>
+            <Button x:Name="btnDeletePerformance" Visibility="Collapsed" Click="btnDeletePerformance_Click" Style="{StaticResource baseButtonStyle}">Удалить спектакль</Button>
+            <Button x:Name="btnEditPerformance" Visibility="Collapsed" Click="btnEditPerformance_Click" Style="{StaticResource baseButtonStyle}">Редактировать спектакль</Button>
 
-                        <Image Source="{Binding PerformancePhotoPath}" Grid.Column="0" HorizontalAlignment="Right" Height="200"/>
-                        <StackPanel Grid.Column="1" Width="auto" Orientation="Vertical" HorizontalAlignment="Left">
-                            <TextBlock Width="auto" TextWrapping="Wrap" Height="auto">
+            <!-- Строка информирования -->
+            <TextBlock x:Name="tbCounter" Text="Не найдено" HorizontalAlignment="Center" Height="25" Foreground="White"/>
+        </StackPanel>
+
+        <Border  Grid.Column="1" Style="{StaticResource ListViewBorder}">
+            <!-- ListView -->
+            <ListView x:Name="listOfPerformances" ScrollViewer.CanContentScroll="False" Margin="25">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid>
+                            <!-- Разметка ListView -->
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="150"/>
+                                <ColumnDefinition Width="100*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <Image Source="{Binding PerformancePhotoPath}" Grid.Column="0" HorizontalAlignment="Right" Height="200"/>
+                            <StackPanel Grid.Column="1" Width="auto" Orientation="Vertical" HorizontalAlignment="Stretch" Margin="30" VerticalAlignment="Center">
+                                <TextBlock Width="auto" TextWrapping="Wrap" Height="auto">
                                 <Run Text="Название: "/>
                                 <Run Text="{Binding title}"/>
-                            </TextBlock>
-                            <TextBlock Width="auto" TextWrapping="Wrap" Height="auto">
+                                </TextBlock>
+                                <TextBlock Width="auto" TextWrapping="Wrap" Height="auto">
                                 <Run Text="Жанр: "/>
                                 <Run Text="{Binding genre}"/>
-                            </TextBlock>
-                            <TextBlock Width="auto" TextWrapping="Wrap" Height="auto">
+                                </TextBlock>
+                                <TextBlock Width="auto" TextWrapping="Wrap" Height="auto">
                                 <Run Text="Год создания: "/>
                                 <Run Text="{Binding year_created}"/>
-                            </TextBlock>
-                            <TextBlock Width="auto" TextWrapping="Wrap" Height="auto">
+                                </TextBlock>
+                                <TextBlock Width="auto" TextWrapping="Wrap" Height="auto">
                                 <Run Text="Сценарист: "/>
                                 <Run Text="{Binding author}"/>
-                            </TextBlock>
-                            <TextBlock Width="auto" TextWrapping="Wrap" Height="auto">
+                                </TextBlock>
+                                <TextBlock Width="auto" TextWrapping="Wrap" Height="auto">
                                 <Run Text="Описание: "/>
                                 <Run Text="{Binding duration}"/>
-                            </TextBlock>
-                        </StackPanel>
-                    </Grid>
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
-        
-        
-        <!-- Строка информирования -->
-        <TextBlock x:Name="tbCounter" Text="Не найдено" Grid.Row="2" Width="120" HorizontalAlignment="Center" Height="25" Background="#fff"/>
-    
+                                </TextBlock>
+                            </StackPanel>
+                        </Grid>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </Border>
     </Grid>
 </Page>
     

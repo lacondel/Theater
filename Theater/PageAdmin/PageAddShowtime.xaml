@@ -3,19 +3,19 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-      xmlns:local="clr-namespace:theater.PageAdmin"
+      xmlns:local="clr-namespace:theater"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="PageAddShowtime">
 
     <Grid>
         <StackPanel x:Name="adminStackPanel" Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
-            <TextBox x:Name="addPerformanceTitle"/>
-            <TextBox x:Name="addShowtimeDate"/>
-            <TextBox x:Name="addShowtimePrice"/>
+            <TextBox x:Name="addPerformanceTitle" local:TextBoxExtensions.Hint="Введите название спектакля"/>
+            <TextBox x:Name="addShowtimeDate" local:TextBoxExtensions.Hint="Введите дату и время проведения"/>
+            <TextBox x:Name="addShowtimePrice" local:TextBoxExtensions.Hint="Введите цену"/>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                <Button x:Name="btnAddShortime"  Content="Добавить спектакль" Margin="5" Click="btnAddShowtime_Click"/>
-                <Button x:Name="btnBack" Grid.Column="1" Content="Вернуться" Margin="5" Click="btnBack_Click"/>
+                <Button x:Name="btnAddShortime"  Content="Добавить спектакль" Margin="5" Click="btnAddShowtime_Click" Style="{StaticResource baseButtonStyle}"/>
+                <Button x:Name="btnBack" Grid.Column="1" Content="Вернуться" Margin="5" Click="btnBack_Click" Style="{StaticResource baseButtonStyle}"/>
             </StackPanel>
         </StackPanel>
     </Grid>

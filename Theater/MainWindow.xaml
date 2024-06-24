@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:theater"
         mc:Ignorable="d"
-        Title="" Height="450" Width="800">
+        Title="Theater" Height="600" Width="800"
+        Icon="/Resources/theater.png">
     <Window.Background>
         <ImageBrush ImageSource="Resources/curtain.jpg"/>
     </Window.Background>

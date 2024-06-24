@@ -1,5 +1,6 @@
 ﻿using Microsoft.Win32;
 using System;
+using System.Data.Entity;
 using System.IO;
 using System.Linq;
 using System.Windows;
@@ -29,6 +30,8 @@ namespace theater.PageEdit
             InitializeComponent();
             currentPerformance = performance;
             LoadPerformanceData();
+            // Добавляем обработчик события SelectionChanged для ComboBox cbGenre
+            cbGenre.AddSelectionChangedHandler("Выберите жанр");
         }
 
 

@@ -22,6 +22,10 @@ namespace theater.PageMain
             InitializeComponent();
             listOfPerformances.ItemsSource = FindPerformance();
             RenderBtn(this.objUser);
+            // Добавляем обработчик события SelectionChanged для ComboBox sortPerform
+            sortPerform.AddSelectionChangedHandler("Сортировка");
+            // Добавляем обработчик события SelectionChanged для ComboBox filterPerform
+            filterPerform.AddSelectionChangedHandler("Фильтрация");
         }
 
 

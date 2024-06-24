@@ -3,33 +3,46 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-      xmlns:local="clr-namespace:theater.PageAdmin"
+      xmlns:local="clr-namespace:theater"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="PageAddActor">
 
     <Grid>
-        <StackPanel x:Name="adminStackPanel" Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
-            <TextBox x:Name="addActorFIO" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="10" Background="White"/>
-            <TextBox x:Name="addActorAge" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="10" Background="White"/>
-            <ComboBox x:Name="cbSex" HorizontalAlignment="Stretch" Margin="10" Loaded="ComboBox_Loaded" >
-                <ComboBoxItem  IsHitTestVisible="False" Content="Выберите пол:"/>
+        <StackPanel x:Name="adminStackPanel" Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center" Width="420">
+            <TextBox x:Name="addActorFIO" HorizontalAlignment="Stretch" VerticalAlignment="Center" Background="White" local:TextBoxExtensions.Hint="Введите: Фамилия И.О."/>
+            <TextBox x:Name="addActorAge" HorizontalAlignment="Stretch" VerticalAlignment="Center" Background="White" local:TextBoxExtensions.Hint="Введите возраст"/>
+            <ComboBox x:Name="cbSex" HorizontalAlignment="Stretch" >
+                <ComboBoxItem Content="Выберите пол:"/>
                 <ComboBoxItem Content="м"/>
                 <ComboBoxItem Content="ж"/>
             </ComboBox>
-            <TextBox x:Name="addActorHeight" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="10" Background="White"/>
-            <TextBox x:Name="addActorWeight" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="10" Background="White"/>
-            <TextBox x:Name="addActorDetails" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="10" Background="White"/>
+            <TextBox x:Name="addActorHeight" HorizontalAlignment="Stretch" VerticalAlignment="Center" Background="White" local:TextBoxExtensions.Hint="Введите рост"/>
+            <TextBox x:Name="addActorWeight" HorizontalAlignment="Stretch" VerticalAlignment="Center" Background="White" local:TextBoxExtensions.Hint="Введите вес"/>
+            <TextBox x:Name="addActorDetails" HorizontalAlignment="Stretch" VerticalAlignment="Center" Background="White" local:TextBoxExtensions.Hint="Введите доп. инф."/>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                <TextBox x:Name="addActorPhoto"/>
-                <Button x:Name="btnAddPhoto" Content="..." Margin="5" Click="btnAddPhoto_Click"/>
-                <TextBox x:Name="addActorDescription"/>
-                <TextBox x:Name="addActorPhoto1"/>
-                <Image x:Name="imgPhotoPreview" Width="200" Height="200"/>
+                <StackPanel Orientation="Vertical" Width="210" Height="147">
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Width="150">
+                        <TextBox x:Name="addActorPhoto" Width="115"/>
+                        <Button x:Name="btnAddPhoto" 
+                                Content="..." 
+                                HorizontalContentAlignment="Center" 
+                                VerticalContentAlignment="Center" 
+                                Background="#EEEEEE" Foreground="Black" 
+                                Click="btnAddPhoto_Click" 
+                                Width="20" Height="25" 
+                                Style="{StaticResource baseButtonStyle}"/>
+                    </StackPanel>
+                    <TextBox x:Name="addActorDescription"/>
+                    <TextBox x:Name="addActorPhoto1"/>
+                </StackPanel>
+                <Border Background="#FAFAFA" CornerRadius="10" Width="210" Height="140">
+                    <Image x:Name="imgPhotoPreview" Width="200" Height="130" Margin="5"/>
+                </Border>
             </StackPanel>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                <Button Content="Добавить актёра" Margin="5" Click="btnAddActor_Click"/>
-                <Button x:Name="btnBack" Grid.Column="1" Content="Вернуться" Margin="5" Click="btnBack_Click"/>
+                <Button Content="Добавить актёра" Click="btnAddActor_Click" Style="{StaticResource baseButtonStyle}"/>
+                <Button x:Name="btnBack" Grid.Column="1" Content="Вернуться" Click="btnBack_Click" Style="{StaticResource baseButtonStyle}"/>
             </StackPanel>
         </StackPanel>
     </Grid>

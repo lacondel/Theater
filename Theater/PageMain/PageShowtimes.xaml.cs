@@ -23,6 +23,10 @@ namespace theater.PageMain
             InitializeComponent();
             listOfShowtimes.ItemsSource = FindShowtime();
             RenderBtn(this.objUser);
+            // Добавляем обработчик события SelectionChanged для ComboBox sortPerform
+            sortPerform.AddSelectionChangedHandler("Сортировка");
+            // Добавляем обработчик события SelectionChanged для ComboBox filterPerform
+            filterPerform.AddSelectionChangedHandler("Фильтрация");
         }
 
 

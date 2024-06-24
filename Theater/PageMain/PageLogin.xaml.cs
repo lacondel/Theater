@@ -21,9 +21,6 @@ namespace theater.PageMain
             AppConnect.model0db = new TheaterEntities10();
         }
 
-
-        
-
         // Нажатие на кнопку авторизации пользователя
         private void Button_Click(object sender, RoutedEventArgs e)
         {

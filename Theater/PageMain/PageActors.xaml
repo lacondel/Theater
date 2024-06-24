@@ -13,58 +13,61 @@
         
         <!-- Разметка -->
         <Grid.RowDefinitions>
-            <RowDefinition Height="300*"/>
+            <RowDefinition Height="*"/>
             <RowDefinition Height="50"/>
         </Grid.RowDefinitions>
 
-        
-        <!-- ListView -->
-        <ListView x:Name="listOfActors" Grid.Row="0" ScrollViewer.CanContentScroll="False">
-            <ListView.ItemTemplate>
-                <DataTemplate>
-                    <Grid>
-                        
-                        <!-- Разметка ListView -->
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="100"/>
-                            <ColumnDefinition Width="3*"/>
-                        </Grid.ColumnDefinitions>
-                        
-                        <!-- Подгружаем фото -->
-                        <Image Source="{Binding ActorPhotoPath}" Grid.Column="0" HorizontalAlignment="Right" Height="200"/>
-                        
-                        <!-- Подгружаем остальную информацию о актёре -->
-                        <StackPanel Grid.Column="1" Orientation="Vertical" HorizontalAlignment="Left">
-                            <TextBlock Width="auto" TextWrapping="Wrap" Height="auto">
+
+        <StackPanel Grid.Row="1" Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Center">
+            <Button x:Name="btnBack" Content="Вернуться" Click="btnBack_Click" Style="{StaticResource baseButtonStyle}"/>
+            <Button x:Name="btnAddActor" Content="Добавить актёра" Visibility="Collapsed" Click="btnAddActor_Click" Style="{StaticResource baseButtonStyle}"/>
+            <Button x:Name="btnDeleteActor" Content="Удалить актёра" Visibility="Collapsed" Click="btnDeleteActor_Click" Style="{StaticResource baseButtonStyle}"/>
+            <Button x:Name="btnEditActor" Content="Редактировать актёра" Visibility="Collapsed" Click="btnEditActor_Click" Style="{StaticResource baseButtonStyle}"/>
+        </StackPanel>
+
+        <Border  Grid.Row="0" Style="{StaticResource ListViewBorder}">
+            <!-- ListView -->
+            <ListView x:Name="listOfActors" Grid.Column="1" ScrollViewer.CanContentScroll="False" Margin="25">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid>
+
+                            <!-- Разметка ListView -->
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="100"/>
+                                <ColumnDefinition Width="3*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <!-- Подгружаем фото -->
+                            <Image Source="{Binding ActorPhotoPath}" Grid.Column="0" HorizontalAlignment="Right" Height="200"/>
+
+                            <!-- Подгружаем остальную информацию о актёре -->
+                            <StackPanel Grid.Column="1" Orientation="Vertical" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="30"> 
+                                <TextBlock Width="auto" TextWrapping="Wrap" Height="auto">
                                 <Run Text="ФИО: "/>
                                 <Run Text="{Binding fio}"/>
-                            </TextBlock>
-                            <TextBlock Width="auto" TextWrapping="Wrap" Height="auto">
+                                </TextBlock>
+                                <TextBlock Width="auto" TextWrapping="Wrap" Height="auto">
                                 <Run Text="Возраст: "/>
                                 <Run Text="{Binding age}"/>
-                            </TextBlock>
-                            <TextBlock Width="auto" TextWrapping="Wrap" Height="auto">
+                                </TextBlock>
+                                <TextBlock Width="auto" TextWrapping="Wrap" Height="auto">
                                 <Run Text="Пол: "/>
                                 <Run Text="{Binding sex}"/>
-                            </TextBlock>
-                            <TextBlock Width="auto" TextWrapping="Wrap" Height="auto">
+                                </TextBlock>
+                                <TextBlock Width="auto" TextWrapping="Wrap" Height="auto">
                                 <Run Text="Рост: "/>
                                 <Run Text="{Binding height}"/>
-                            </TextBlock>
-                            <TextBlock Width="auto" TextWrapping="Wrap" Height="auto">
+                                </TextBlock>
+                                <TextBlock Width="auto" TextWrapping="Wrap" Height="auto">
                                 <Run Text="Вес: "/>
                                 <Run Text="{Binding weight}"/>
-                            </TextBlock>
-                        </StackPanel>
-                    </Grid>
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
-        <StackPanel Orientation="Horizontal" Grid.Row="1" HorizontalAlignment="Center">
-            <Button x:Name="btnBack" Content="Вернуться" Click="btnBack_Click"/>
-            <Button x:Name="btnAddActor" Content="Добавить актёра" Visibility="Collapsed" Click="btnAddActor_Click"/>
-            <Button x:Name="btnDeleteActor" Content="Удалить актёра" Visibility="Collapsed" Click="btnDeleteActor_Click"/>
-            <Button x:Name="btnEditActor" Content="Редактировать актёра" Visibility="Collapsed" Click="btnEditActor_Click"/>
-        </StackPanel>
+                                </TextBlock>
+                            </StackPanel>
+                        </Grid>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </Border>
     </Grid>
 </Page>

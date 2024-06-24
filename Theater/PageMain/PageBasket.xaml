@@ -9,47 +9,63 @@
       Title="PageBasket">
 
     <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="200*"/>
-            <RowDefinition Height="50"/>
-        </Grid.RowDefinitions>
-        <ListView x:Name="listBasket" Grid.Row="0">
-            <ListView.ItemTemplate>
-                <DataTemplate>
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="*"/>
-                        </Grid.ColumnDefinitions>
-                        <StackPanel Grid.Column="0" Width="auto" Orientation="Vertical" HorizontalAlignment="Left">
-                            <TextBlock Width="auto" TextWrapping="Wrap" Height="auto">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="4*"/>
+        </Grid.ColumnDefinitions>
+        <Border  Grid.Column="1" Style="{StaticResource ListViewBorder}">
+            <ListView x:Name="listBasket" Margin="25">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="300"/>
+                                <ColumnDefinition Width="30"/>
+                                <ColumnDefinition Width="30"/>
+                                <ColumnDefinition Width="30"/>
+                                <ColumnDefinition Width="150"/>
+                            </Grid.ColumnDefinitions>
+                            <StackPanel Grid.Column="0" Width="auto" Orientation="Vertical" HorizontalAlignment="Left">
+                                <TextBlock Width="auto" TextWrapping="Wrap" Height="auto">
                                <Run Text="Название: "/>
                                <Run Text="{Binding title}"/>
-                            </TextBlock>
-                            <TextBlock Width="auto" TextWrapping="Wrap" Height="auto">
+                                </TextBlock>
+                                <TextBlock Width="auto" TextWrapping="Wrap" Height="auto">
                                <Run Text="Дата: "/>
                                <Run Text="{Binding date}"/>
-                            </TextBlock>
-                            <TextBlock Width="auto" TextWrapping="Wrap" Height="auto">
+                                </TextBlock>
+                                <TextBlock Width="auto" TextWrapping="Wrap" Height="auto">
                                <Run Text="Цена билета: "/>
                                <Run Text="{Binding price}"/>
-                            </TextBlock>
-                        </StackPanel>
-                        <Button x:Name="btnIncreaseQuantity" Grid.Column="1" Click="btnIncreaseQuantity_Click" CommandParameter="{Binding}">+</Button>
-                        <TextBlock Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center" Text="{Binding Quantity}"/>
-                        <Button x:Name="btnDecreaseQuantity" Grid.Column="3" Click="btnDecreaseQuantity_Click" CommandParameter="{Binding}">-</Button>
-                        <Button x:Name="btnDeleteFromBasket" Grid.Column="4" Click="btnDeleteFromBasket_Click" CommandParameter="{Binding}">Удалить</Button>
-                    </Grid>
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
-        <StackPanel Orientation="Horizontal" Grid.Row="1" HorizontalAlignment="Center">
-            <Button x:Name="btnBack" Click="btnBack_Click">Вернуться</Button>
-            <Button x:Name="btnPay" Click="btnPay_Click">Оплатить заказ</Button>
-            <Button x:Name="btnClearBasket" Click="btnClearBasket_Click">Очистить корзину</Button>
+                                </TextBlock>
+                            </StackPanel>
+                            <Button x:Name="btnIncreaseQuantity" 
+                                Grid.Column="1" Click="btnIncreaseQuantity_Click" 
+                                CommandParameter="{Binding}" 
+                                Foreground="Black" 
+                                Width="30" Height="30" 
+                                HorizontalContentAlignment="Center"
+                                VerticalContentAlignment="Center"
+                                Style="{StaticResource baseButtonStyle}">+</Button>
+                            <TextBlock Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center" Text="{Binding Quantity}"/>
+                            <Button x:Name="btnDecreaseQuantity" 
+                                Grid.Column="3" Click="btnDecreaseQuantity_Click" 
+                                CommandParameter="{Binding}" 
+                                Foreground="Black" 
+                                Width="30" Height="30" 
+                                HorizontalContentAlignment="Center"
+                                VerticalContentAlignment="Center"
+                                Style="{StaticResource baseButtonStyle}">-</Button>
+                            <Button x:Name="btnDeleteFromBasket" Grid.Column="4" Click="btnDeleteFromBasket_Click" CommandParameter="{Binding}" Height="30" Style="{StaticResource baseButtonStyle}">Удалить</Button>
+                        </Grid>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </Border>
+        <StackPanel Orientation="Vertical" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <Button x:Name="btnBack" Click="btnBack_Click" Style="{StaticResource baseButtonStyle}">Вернуться</Button>
+            <Button x:Name="btnPay" Click="btnPay_Click" Style="{StaticResource baseButtonStyle}">Сформировать заказ</Button>
+            <Button x:Name="btnClearBasket" Click="btnClearBasket_Click" Style="{StaticResource baseButtonStyle}">Очистить корзину</Button>
         </StackPanel>
         <TextBlock x:Name="tbCounter" Text="Не найдено" Grid.Row="3" Width="95" HorizontalAlignment="Left" Height="22" Margin="695,0,0,0"/>
     </Grid>

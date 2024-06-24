@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
@@ -34,17 +35,9 @@ namespace theater.PageAdmin
         {
             this.objUser = objUser;
             InitializeComponent();
+            // Добавляем обработчик события SelectionChanged для ComboBox cbSex
+            cbSex.AddSelectionChangedHandler("Выберите пол");
         }
-
-
-
-        // Установка первого элемента в качестве выбранного при загрузке
-        private void ComboBox_Loaded(object sender, RoutedEventArgs e)
-        {
-            var comboBox = sender as ComboBox;
-            MethodsForView.InitializeComboBox(comboBox);
-        }
-
 
 
         // Кнопка загрузки изображение для предпросмотра

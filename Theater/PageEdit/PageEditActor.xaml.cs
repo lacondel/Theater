@@ -38,6 +38,8 @@ namespace theater.PageEdit
             InitializeComponent();
             currentActor = actors;
             LoadActorData();
+            // Добавляем обработчик события SelectionChanged для ComboBox cbSex
+            cbSex.AddSelectionChangedHandler("Выберите пол");
         }
 
 
