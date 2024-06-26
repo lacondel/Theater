@@ -61,8 +61,16 @@ namespace theater.PageMain
                     switch (filterPerform.SelectedIndex)
                     {
                         case 1:
-
-                            showtimes = showtimes.Where(x => x.performance.genre == "драма").ToList();
+                            showtimes = showtimes.Where(x => x.PerformanceGenre == "Драма").ToList();
+                            break;
+                        case 2:
+                            showtimes = showtimes.Where(x => x.PerformanceGenre == "Водевиль").ToList();
+                            break;
+                        case 3:
+                            showtimes = showtimes.Where(x => x.PerformanceGenre == "Мюзикл").ToList();
+                            break;
+                        case 4:
+                            showtimes = showtimes.Where(x => x.PerformanceGenre == "Комедия").ToList();
                             break;
                     }
                 }
@@ -86,13 +94,24 @@ namespace theater.PageMain
                     }
                 }
 
-                if (showtimes.Count > 0)
+                int lastDigit = showtimes.Count % 10;
+                int lastTwoDigits = showtimes.Count % 100;
+
+                if (showtimes.Count == 0)
                 {
-                    tbCounter.Text = "Найдено " + showtimes.Count + " показов.";
+                    tbCounter.Text = "Представления не найдены";
+                }
+                else if (lastDigit == 1 && lastTwoDigits != 11)
+                {
+                    tbCounter.Text = "Найдено " + showtimes.Count + " представление";
+                }
+                else if ((lastDigit == 2 || lastDigit == 3 || lastDigit == 4) && (lastTwoDigits != 12 && lastTwoDigits != 13 && lastTwoDigits != 14))
+                {
+                    tbCounter.Text = "Найдено " + showtimes.Count + " представления";
                 }
                 else
                 {
-                    tbCounter.Text = "Показы не найдены.";
+                    tbCounter.Text = "Найдено " + showtimes.Count + " представлений";
                 }
 
                 return showtimes.ToArray();
@@ -202,20 +221,18 @@ namespace theater.PageMain
             AppFrame.frameMain.Navigate(new PageEditShowtime(selectedShowtime, objUser));
         }
 
-
-
         // Кнопка добавления представления в корзину
         private void btnAddToBasket_Click(object sender, RoutedEventArgs e)
         {
             if (listOfShowtimes.SelectedItem != null)
             {
-                showtime selectedShowtime = (showtime)listOfShowtimes.SelectedItem;
+                showtime addbleShowtime = (showtime)listOfShowtimes.SelectedItem;
 
                 try
                 {
                     using (var context = new TheaterEntities10())
                     {
-                        var existingItem = context.basket.FirstOrDefault(b => b.id_showtime == selectedShowtime.id_showtime);
+                        var existingItem = context.basket.FirstOrDefault(b => b.id_showtime == addbleShowtime.id_showtime);
 
                         if (existingItem != null)
                         {
@@ -226,21 +243,21 @@ namespace theater.PageMain
                             basket basketItem = new basket
                             {
                                 id_viewer = AppConnect.model0db.viewer.FirstOrDefault(x => x.id_user == objUser.id_user).id_viewer,
-                                id_showtime = selectedShowtime.id_showtime,
+                                id_showtime = addbleShowtime.id_showtime,
                                 quantity = 1
                             };
 
                             context.basket.Add(basketItem);
                         }
-                        
+
                         context.SaveChanges();
                     }
 
-                    MessageBox.Show("Показ успешно добавлен в корзину!");
+                    MessageBox.Show("Представление успешно добавлено в корзину!");
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show($"Ошибка при добавлении показа в корзину: {ex.Message}");
+                    MessageBox.Show($"Ошибка при добавлении показа в корзину:\n {ex.Message}");
                 }
             }
             else

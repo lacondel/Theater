@@ -31,7 +31,7 @@ namespace theater.PageMain
                 
                 if (userObj == null)
                 {
-                    MessageBox.Show("Такого пользователя нет!", "Ошибка при авторизации!", MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show("Допущена ошибка в логине или пароле!", "Ошибка при авторизации!", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
                 else
                 {
@@ -40,7 +40,7 @@ namespace theater.PageMain
                     switch (userObj.id_user_role)
                     {
                         case 1:
-                            MessageBox.Show("Здравствуйте, Администратор " + userObj.login + "!", "Уведомление", MessageBoxButton.OK, MessageBoxImage.Information);
+                            MessageBox.Show("Здравствуйте, администратор " + userObj.login + "!", "Уведомление", MessageBoxButton.OK, MessageBoxImage.Information);
                             AppFrame.frameMain.Navigate(new ViewerNavigation(userObj));
                             break;
                         case 2:
@@ -48,7 +48,7 @@ namespace theater.PageMain
                             AppFrame.frameMain.Navigate(new ViewerNavigation(userObj));
                             break;
                         default:
-                            MessageBox.Show("Мы вас не нашли!", "Уведомление", MessageBoxButton.OK, MessageBoxImage.Warning);
+                            MessageBox.Show("Допущеная ошибка в логине или пароле!", "Уведомление", MessageBoxButton.OK, MessageBoxImage.Warning);
                             break;
                     }
                 }

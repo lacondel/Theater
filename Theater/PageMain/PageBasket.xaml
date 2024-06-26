@@ -63,9 +63,9 @@
             </ListView>
         </Border>
         <StackPanel Orientation="Vertical" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center">
-            <Button x:Name="btnBack" Click="btnBack_Click" Style="{StaticResource baseButtonStyle}">Вернуться</Button>
             <Button x:Name="btnPay" Click="btnPay_Click" Style="{StaticResource baseButtonStyle}">Сформировать заказ</Button>
             <Button x:Name="btnClearBasket" Click="btnClearBasket_Click" Style="{StaticResource baseButtonStyle}">Очистить корзину</Button>
+            <Button x:Name="btnBack" Click="btnBack_Click" Style="{StaticResource baseButtonStyle}">Вернуться</Button>
         </StackPanel>
         <TextBlock x:Name="tbCounter" Text="Не найдено" Grid.Row="3" Width="95" HorizontalAlignment="Left" Height="22" Margin="695,0,0,0"/>
     </Grid>

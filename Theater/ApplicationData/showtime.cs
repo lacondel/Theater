@@ -51,5 +51,13 @@ namespace theater.ApplicationData
                 return MethodsForDB.Title(performance.id_performance);
             }
         }
+
+        public string PerformanceGenre
+        {
+            get
+            {
+                return MethodsForDB.Genre(performance.id_performance);
+            }
+        }
     }
 }

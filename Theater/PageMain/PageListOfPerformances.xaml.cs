@@ -61,7 +61,16 @@ namespace theater.PageMain
                     switch (filterIndex)
                     {
                         case 1:
-                            performances = performances.Where(x => x.genre == "драма").ToList();
+                            performances = performances.Where(x => x.genre == "Драма").ToList();
+                            break;
+                        case 2:
+                            performances = performances.Where(x => x.genre == "Водевиль").ToList();
+                            break;
+                        case 3:
+                            performances = performances.Where(x => x.genre == "Мюзикл").ToList();
+                            break;
+                        case 4:
+                            performances = performances.Where(x => x.genre == "Комедия").ToList();
                             break;
                     }
                 }
@@ -85,13 +94,24 @@ namespace theater.PageMain
                     }
                 }
 
-                if (performances.Count > 0)
+                int lastDigit = performances.Count % 10;
+                int lastTwoDigits = performances.Count % 100;
+
+                if (performances.Count == 0)
                 {
-                    tbCounter.Text = "Найдено " + performances.Count + " спектаклей.";
+                    tbCounter.Text = "Спектакли не найдены";
+                }
+                else if (lastDigit == 1 && lastTwoDigits != 11)
+                {
+                    tbCounter.Text = "Найден " + performances.Count + " спектакль";
+                }
+                else if ((lastDigit == 2 || lastDigit == 3 || lastDigit == 4) && (lastTwoDigits != 12 && lastTwoDigits != 13 && lastTwoDigits != 14))
+                {
+                    tbCounter.Text = "Найдено " + performances.Count + " спектакля";
                 }
                 else
                 {
-                    tbCounter.Text = "Спектакли не найдены.";
+                    tbCounter.Text = "Найдено " + performances.Count + " спектаклей";
                 }
 
                 return performances.ToArray();

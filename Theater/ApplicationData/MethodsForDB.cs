@@ -36,5 +36,19 @@ namespace theater.ApplicationData
                 return "Спектакль не найден";
             }
         }
+
+        public static string Genre(int id)
+        {
+            var performance = AppConnect.model0db.performance.FirstOrDefault(p => p.id_performance == id);
+
+            if (performance != null)
+            {
+                return performance.genre;
+            }
+            else
+            {
+                return "Спектакль не найден";
+            }
+        }
     }
 }

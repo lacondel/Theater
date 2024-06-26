@@ -30,7 +30,7 @@ namespace theater.PageMain
         {
             if (AppConnect.model0db.users.Count(x => x.login==regLogin.Text)>0)
             {
-                MessageBox.Show("Пользователь с таким логином есть!", "Уведомление", MessageBoxButton.OK, MessageBoxImage.Information);
+                MessageBox.Show("Пользователь с таким логином существует!", "Уведомление", MessageBoxButton.OK, MessageBoxImage.Information);
                 return;
             }
             try
@@ -50,7 +50,7 @@ namespace theater.PageMain
                 AppConnect.model0db.users.Add(usersObj);
                 AppConnect.model0db.viewer.Add(viewerObj);
                 AppConnect.model0db.SaveChanges();
-                MessageBox.Show("Данные успешно добавлены!", "Уведомление", MessageBoxButton.OK, MessageBoxImage.Information);
+                MessageBox.Show("Регистрация прошла успешно!", "Уведомление", MessageBoxButton.OK, MessageBoxImage.Information);
             }
             catch (Exception ex)
             {

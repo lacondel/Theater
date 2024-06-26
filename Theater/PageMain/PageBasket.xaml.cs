@@ -148,6 +148,8 @@ namespace theater.PageMain
                                 context.SaveChanges();
 
                                 listBasket.ItemsSource = GetBasketItems();
+                                
+                                MessageBox.Show("Представление успешно удалено из корзины!");
                             }
                         }
                     }
@@ -176,16 +178,16 @@ namespace theater.PageMain
                             context.basket.Remove(itemToRemove);
                             context.SaveChanges();
 
-                            MessageBox.Show("Элемент успешно удален из корзины!");
-
                             // Обновляем отображение списка корзины
                             listBasket.ItemsSource = GetBasketItems();
+
+                            MessageBox.Show("Представление успешно удалено из корзины!");
                         }
                     }
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show($"Ошибка при удалении элемента: {ex.Message}");
+                    MessageBox.Show($"Ошибка при удалении элемента:\n {ex.Message}");
                 }
             }
         }
@@ -202,11 +204,13 @@ namespace theater.PageMain
 
                     // Обновляем отображение списка корзины
                     listBasket.ItemsSource = GetBasketItems();
+                    
+                    MessageBox.Show("Корзина успешно очищена!");
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Ошибка при очисте корзины: {ex.Message}");
+                MessageBox.Show($"Ошибка при очистке корзины: {ex.Message}");
             }
         }
 

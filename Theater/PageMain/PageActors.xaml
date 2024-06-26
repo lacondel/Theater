@@ -17,14 +17,6 @@
             <RowDefinition Height="50"/>
         </Grid.RowDefinitions>
 
-
-        <StackPanel Grid.Row="1" Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Center">
-            <Button x:Name="btnBack" Content="Вернуться" Click="btnBack_Click" Style="{StaticResource baseButtonStyle}"/>
-            <Button x:Name="btnAddActor" Content="Добавить актёра" Visibility="Collapsed" Click="btnAddActor_Click" Style="{StaticResource baseButtonStyle}"/>
-            <Button x:Name="btnDeleteActor" Content="Удалить актёра" Visibility="Collapsed" Click="btnDeleteActor_Click" Style="{StaticResource baseButtonStyle}"/>
-            <Button x:Name="btnEditActor" Content="Редактировать актёра" Visibility="Collapsed" Click="btnEditActor_Click" Style="{StaticResource baseButtonStyle}"/>
-        </StackPanel>
-
         <Border  Grid.Row="0" Style="{StaticResource ListViewBorder}">
             <!-- ListView -->
             <ListView x:Name="listOfActors" Grid.Column="1" ScrollViewer.CanContentScroll="False" Margin="25">
@@ -42,7 +34,7 @@
                             <Image Source="{Binding ActorPhotoPath}" Grid.Column="0" HorizontalAlignment="Right" Height="200"/>
 
                             <!-- Подгружаем остальную информацию о актёре -->
-                            <StackPanel Grid.Column="1" Orientation="Vertical" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="30"> 
+                            <StackPanel Grid.Column="1" Orientation="Vertical" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="30">
                                 <TextBlock Width="auto" TextWrapping="Wrap" Height="auto">
                                 <Run Text="ФИО: "/>
                                 <Run Text="{Binding fio}"/>
@@ -69,5 +61,12 @@
                 </ListView.ItemTemplate>
             </ListView>
         </Border>
+
+        <StackPanel Grid.Row="1" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
+            <Button x:Name="btnBack" Content="Вернуться" Click="btnBack_Click" Style="{StaticResource baseButtonStyle}"/>
+            <Button x:Name="btnAddActor" Content="Добавить актёра" Visibility="Collapsed" Click="btnAddActor_Click" Style="{StaticResource baseButtonStyle}"/>
+            <Button x:Name="btnDeleteActor" Content="Удалить актёра" Visibility="Collapsed" Click="btnDeleteActor_Click" Style="{StaticResource baseButtonStyle}"/>
+            <Button x:Name="btnEditActor" Content="Редактировать актёра" Visibility="Collapsed" Click="btnEditActor_Click" Style="{StaticResource baseButtonStyle}"/>
+        </StackPanel>
     </Grid>
 </Page>

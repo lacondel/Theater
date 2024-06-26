@@ -22,7 +22,10 @@
                 <TextBlock>Год создания - убывание</TextBlock>
             </ComboBox>
             <ComboBox x:Name="filterPerform" SelectionChanged="filterChanged">
-                <TextBlock>Драма</TextBlock>
+                <ComboBoxItem>Драма</ComboBoxItem>
+                <ComboBoxItem>Водевиль</ComboBoxItem>
+                <ComboBoxItem>Мюзикл</ComboBoxItem>
+                <ComboBoxItem>Комедия</ComboBoxItem>
             </ComboBox>
             <Button x:Name="btnBack" Click="btnBack_Click" Style="{StaticResource baseButtonStyle}">Вернуться</Button>
             <Button x:Name="btnGoToBasket" Click="btnGoToBasket_Click" Style="{StaticResource baseButtonStyle}">Корзина</Button>
@@ -50,6 +53,10 @@
                                 <TextBlock Width="auto" TextWrapping="Wrap" Height="auto">
                         <Run Text="Название: "/>
                         <Run Text="{Binding PerformanceTitle, Mode=OneWay}"/>
+                                </TextBlock>
+                                <TextBlock Width="auto" TextWrapping="Wrap" Height="auto">
+                        <Run Text="Жанр: "/>
+                        <Run Text="{Binding PerformanceGenre, Mode=OneWay}"/>
                                 </TextBlock>
                                 <TextBlock Width="auto" TextWrapping="Wrap" Height="auto">
                         <Run Text="Дата: "/>

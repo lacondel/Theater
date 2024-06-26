@@ -34,6 +34,9 @@
             <!-- Фильтрация -->
             <ComboBox x:Name="filterPerform"  SelectionChanged="filterChanged">
                 <ComboBoxItem>Драма</ComboBoxItem>
+                <ComboBoxItem>Водевиль</ComboBoxItem>
+                <ComboBoxItem>Мюзикл</ComboBoxItem>
+                <ComboBoxItem>Комедия</ComboBoxItem>
             </ComboBox>
             
             <!-- Кнопка возвращения на предыдущую страницу -->
